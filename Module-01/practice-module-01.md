@@ -1,4 +1,4 @@
-##### \* LAB 01: 
+##### \* LAB 01:
 
 1\. Tạo tài khoản AWS
 
@@ -10,15 +10,15 @@
 
 
 
-\- Tạo tài khoản AWS theo hướng dẫn trong bài lab: 
+\- Tạo tài khoản AWS theo hướng dẫn trong bài lab:
 
-&nbsp;	+ Cài đặt MFA để bảo mật tài khoản
+ 	+ Cài đặt MFA để bảo mật tài khoản
 
-&nbsp;	+ Vào IAM -> Tạo user group (admin-group) -> add thêm policy Admin access
+ 	+ Vào IAM -> Tạo user group (admin-group) -> add thêm policy Admin access
 
-&nbsp;	+ Tạo Users -> thêm các thông tin cơ bản (username-password) -> thêm vào group vừa tạo -> Cài đặt MFA cho user vừa tạo
+ 	+ Tạo Users -> thêm các thông tin cơ bản (username-password) -> thêm vào group vừa tạo -> Cài đặt MFA cho user vừa tạo
 
-&nbsp;	+ Tạo asscess key cho User vừa tạo -> sử dụng cho AWS CLI 
+ 	+ Tạo asscess key cho User vừa tạo -> sử dụng cho AWS CLI
 
 (nếu muốn xóa access key -> deactive key đó rồi mới bắt đầu xóa)
 
@@ -26,13 +26,13 @@
 
 
 
-=> BEST PRACTICES: 
+=> BEST PRACTICES:
 
-&nbsp;	+ Không nên đăng nhập bằng tài khoản root mà hãy đăng nhập bằng tài khoản IAM User
+ 	+ Không nên đăng nhập bằng tài khoản root mà hãy đăng nhập bằng tài khoản IAM User
 
-&nbsp;	+ Luôn bảo mật các thông tin liên quan đến các key và xóa hoặc vô hiệu hóa các key nếu ta không sử dụng
+ 	+ Luôn bảo mật các thông tin liên quan đến các key và xóa hoặc vô hiệu hóa các key nếu ta không sử dụng
 
-&nbsp;	
+ 
 
 
 
@@ -42,9 +42,9 @@
 
 * AWS Management Console:
 
-&nbsp;	- Cung cấp giao diện web an toàn để truy cập và quản lý các AWS Service
+ 	- Cung cấp giao diện web an toàn để truy cập và quản lý các AWS Service
 
-&nbsp;	- Hỗ trợ xác thực qua root user hoặc IAM User
+ 	- Hỗ trợ xác thực qua root user hoặc IAM User
 
 => Tất cả các tương tác trên giao diện đều được chuyển đổi thành các lệnh gọi AWS API ở phía sau
 
@@ -54,15 +54,15 @@
 
 
 
-&nbsp;	- 1: Set up default region
+ 	- 1: Set up default region
 
-&nbsp;	- 2: 
+ 	- 2:
 
---------------------------------------------------------------
+---
 
 
 
-##### \* LAB 07: 
+##### \* LAB 07:
 
 1\. Tạo cost budget
 
@@ -74,17 +74,23 @@
 
 
 
---------------------------------------------------------------
+---
 
 
 
-##### \* LAB 09: 
+##### \* LAB 09:
 
 1\. Các gói hỗ trợ AWS
 
 2\. Truy cập AWS support
 
 3\. Quản lý yêu cầu hỗ trợ
+
+
+
+\- AWS Support cung cấp các gói hỗ trợ khác nhau bao gồm các gói hỗ trợ tài khoản và công nghệ kỹ thuật
+
+&nbsp;	- Tùy thuộc vào nhu cầu cần muốn hỗ trợ thì ta cần phải chọn gói hỗ trợ phù hợp
 
 
 
