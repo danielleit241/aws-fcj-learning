@@ -90,19 +90,5 @@
 
 \- AWS Support cung cấp các gói hỗ trợ khác nhau bao gồm các gói hỗ trợ tài khoản và công nghệ kỹ thuật
 
-&nbsp;	- Tùy thuộc vào nhu cầu cần muốn hỗ trợ thì ta cần phải chọn gói hỗ trợ phù hợp
-
-
-
-==============================================================
-
-NGHIÊN CỨU BỔ SUNG: AWS WELL ARCHITECTED FRAMEWORK
-
-
-
-\- Các khái niệm, nguyên tắc thiết kế và biện pháp thực hành tốt nhất về kiến trúc để thiết kế và vận hành hệ thống của ta trong môi trường cloud
-
-\- Trả lời các câu hỏi qua đó ta sẽ biết được mức độ phù hợp giữa các kiến trúc
-
-\- Sử dụng AWS WAF tích hợp trên AWS Management Console -> cải thiện kiến trúc của mình
+ 	- Tùy thuộc vào nhu cầu cần muốn hỗ trợ thì ta cần phải chọn gói hỗ trợ phù hợp
 
