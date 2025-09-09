@@ -186,3 +186,125 @@
 
 &nbsp;		- TUY NHIÊN NGƯỜI DÙNG BÊN NGOÀI INTERNET KHÔNG THỂ KẾT NỐI VÀO ĐƯỢC MÁY CHỦ ẢO NÀY
 
+
+
+##### 02\. VPC SECURITY \& MULTI-VPC FEATURES
+
+* Các máy chủ trong cùng 1 VPC có thể kết nối với nhau
+
+&nbsp;	- Ví dụ: ta có máy chủ ở public subnet và muốn kết nối tới máy chủ ở private subnet
+
+
+
+* SECURITY GROUP:
+
+&nbsp;	- Là một tường lửa ảo có lưu giữ trạng thái (stateful) giúp ta dễ dàng kiểm soát lưu lượng truy cập đến và đi trong các tài nguyên AWS
+
+&nbsp;	- SG có thể hạn chế theo giao thức, địa chỉ nguồn, cổng kết nối, hoặc một SG khác
+
+&nbsp;	- SG rule chỉ cho phép rule allow
+
+&nbsp;	- SG sẽ được áp dụng lên các Elastic Network Interface -> Không áp dụng lên các Subnet
+
+
+
+&nbsp;	- MẶC ĐỊNH SG SẼ CHẶN MỌI TRUY CẬP ĐẾN VÀ CHO PHÉP MỌI TRUY CẬP ĐI
+
+
+
+* NETWORK ACCESS CONTROL LIST (NACL)
+
+&nbsp;	- Là một tường lửa không lưu giữ trạng thái (stateless) giúp kiểm soát lưu lượng truy cập đến và đi trong tài nguyên AWS
+
+&nbsp;		+ Cần phải cấu hình firewall rule cả chiều đến lẫn chiều đi 
+
+&nbsp;		+ Cần phải nghiên cứu kĩ cấu hình đi vào port nào và đi ra port nào
+
+&nbsp;	- NACL được hạn chế theo giao thức, địa chỉ nguồn, cổng kết nối
+
+&nbsp;	- NACL được áp dụng lên các Amazon VPC Subnet
+
+&nbsp;		+ Mức áp dụng của NACL khác với SG -> tác dụng lên các Subnets -> có thể gây ảnh hưởng tới nhiều máy chủ cùng 1 lúc 
+
+&nbsp;	- Mặc định NACL cho phép mọi truy cập đến và đi
+
+&nbsp;	- Nguyên tắc đọc rule từ trên xuống dưới -> thỏa rule nào thì lấy rule đó
+
+
+
+==> Ta sẽ có 2 tường lửa
+
+&nbsp;	1: Apply vào các card mạng ảo (Elastic Network Interface) 
+
+&nbsp;	2: Apply ở mức subnet
+
+
+
+* VPC Flow Logs:
+
+&nbsp;	- Là một tính năng cho phép ta nắm bắt thông tin về lưu lượng IP đến và đi từ các giao diện mạng trong VPC -> Từ card mạng này đến card mạng khác
+
+&nbsp;	- Tập tin logs này có thể xuất bản lên Amazon CloudWatch Logs hoặc S3
+
+&nbsp;	- VPC Flow Logs không capture được nội dung của gói tin
+
+&nbsp;	- Chỉ có 1 số thông tin sau:
+
+&nbsp;		+ Account ID
+
+&nbsp;		+ ENI ID
+
+&nbsp;		+ Source IP
+
+&nbsp;		...
+
+&nbsp;	=> Thông qua VPC Flow Logs này kiểm tra xem các access này có bị từ chối hay không, detect ra được những bất thường...
+
+
+
+* VPC Peering 
+
+&nbsp;	- Là tính năng giúp kết nối hai hay nhiều VPC để các tài nguyên bên trong hai hay nhiều VPC có thể liên lạc trực tiếp với nhau không cần thông qua Internet -> tăng cường bảo mật cho các VPC
+
+&nbsp;	- VPC Peering là kết nối 1 : 1 giữa 2 VPC thành viên
+
+&nbsp;	  không hỗ trợ transitive routing
+
+&nbsp;	- VPC Peering không hỗ trợ 2 VPC bị overlap IP address space
+
+&nbsp;	- VPC kết nối với nhau thông qua IP Private, thông qua Peering connection và phải cấu hình route table thủ công 
+
+&nbsp;		+ Nếu chỉ muốn 1 subnet trong VPC thì chỉ kết nối địa chỉ IP của subnet đó
+
+&nbsp;		+ Nếu muốn kết nối luôn cả VPC thì kết nối IP của VPC đó
+
+
+
+\- TUY NHIÊN TRONG THỰC TẾ CÓ RẤT NHIỀU VPC VÀ PEERING => TỐN RẤT NHIỀU CÔNG SỨC ĐỂ CẤU HÌNH CÁC PEERING CONNECTIONS
+
+&nbsp;	+ VÍ DỤ: 30 VPC = 435 PC
+
+
+
+* TRANSIT GATEWAY
+
+&nbsp;	- Được dùng để kết nối các VPC vào mạng on-premises thông qua một hub trung tâm
+
+&nbsp;	- Điều này đơn giản hóa mạng và kết thúc các mối quuan hệ định tuyến phức tạp
+
+&nbsp;	-> ĐƠN GIẢN HÓA MÔ HÌNH MẠNG, GIẢM BỚT PHỨC TẠP TRONG CẤU HÌNH ROUTE TABLE
+
+&nbsp;	
+
+&nbsp;	- TRANSIT GATEWAY ATTACHMENT là một công cụ để gán các subnet của từng VPC cần kết nối với nhau vào Transit Gateway đã được khỏi tạo
+
+&nbsp;		-> Transit Gateway Attachment hoạt động ở quy mô AZ 
+
+&nbsp;	- Trong VPC khi một subnet ở một AZ có TGA với một TGW -> các subnet khác trong cùng AZ đều có thể kết nối tới TGW đó
+
+
+
+&nbsp;	=> CŨNG TƯƠNG TỰ NHƯ PEERING CONNECTION CŨNG CẦN PHẢI CẤU HÌNH BẢNG ĐỊNH TUYẾN (ROUTE TABLE) ĐẾN IP CỦA TGW
+
+&nbsp;	   VÀ CŨNG PHẢI CẤU HÌNH BẢNG ĐỊNH TUYẾN CỦA TGW ĐẾN TỪNG CÁC TWA TƯƠNG ỨNG
+
