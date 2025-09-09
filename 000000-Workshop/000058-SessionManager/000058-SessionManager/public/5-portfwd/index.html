@@ -9,24 +9,24 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title> :: AWS System Manager</title>
+    <title>Port Forwarding :: AWS System Manager</title>
 
     
-    <link href="/css/nucleus.css?1757389987" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1757389987" rel="stylesheet">
-    <link href="/css/hybrid.css?1757389987" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1757389987" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1757389987" rel="stylesheet">
-    <link href="/css/auto-complete.css?1757389987" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1757389987" rel="stylesheet">
-    <link href="/css/theme.css?1757389987" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1757389987" rel="stylesheet">
+    <link href="/css/nucleus.css?1757390405" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1757390405" rel="stylesheet">
+    <link href="/css/hybrid.css?1757390405" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1757390405" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1757390405" rel="stylesheet">
+    <link href="/css/auto-complete.css?1757390405" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1757390405" rel="stylesheet">
+    <link href="/css/theme.css?1757390405" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1757390405" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1757389987" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1757390405" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1757389987"></script>
+    <script src="/js/jquery-3.3.1.min.js?1757390405"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -55,14 +55,16 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1757389987"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1757389987"></script>
-<script type="text/javascript">
 
-    var baseurl = "\/\/localhost:1313\/";
 
+<script src="/js/lunr.min.js?1757390405116"></script>
+<script src="/js/auto-complete.js?1757390405116"></script>
+
+<script>
+  var baseurl = "\/\/localhost:1313\/";
 </script>
-<script type="text/javascript" src="/js/search.js?1757389987"></script>
+
+<script src="/js/search.js?1757390405116"></script>
  
   </div>
 
@@ -522,6 +524,23 @@
 </li>
            
 <li
+  data-nav-id="/5-portfwd/"
+  title="Port Forwarding"
+  class="dd-item 
+        
+        active
+        
+        "
+>
+  <a href="/5-portfwd/">
+    <b>5.</b>Port Forwarding 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+           
+<li
   data-nav-id="/6-cleanup/"
   title="Clean up resources"
   class="dd-item 
@@ -532,23 +551,6 @@
 >
   <a href="/6-cleanup/">
     <b>6. </b>Clean up resources 
-    <i class="fas fa-check read-icon"></i>
-    
-  </a>
-   
-</li>
-           
-<li
-  data-nav-id="/5-portfwd/"
-  title=""
-  class="dd-item 
-        
-        active
-        
-        "
->
-  <a href="/5-portfwd/">
-     
     <i class="fas fa-check read-icon"></i>
     
   </a>
@@ -692,7 +694,7 @@
             
           
           
-            <a href='/'>Session Management</a> > 
+            <a href='/'>Session Management</a> > Port Forwarding
           
         
           
@@ -727,7 +729,7 @@
           
             <h1>
               
-              
+              Port Forwarding
             </h1>
           
 
@@ -735,13 +737,7 @@
 
 
 
-	<p>title : &ldquo;Port Forwarding&rdquo;
-date: 2025-09-09
-weight : 5
-chapter : false
-pre : &quot; <!-- raw HTML omitted --> 5. <!-- raw HTML omitted --> &quot;</p>
-<hr>
-
+	
 <div class="notices info" ><p><strong>Port Forwarding</strong> is a useful way to redirect network traffic from one IP address - Port to another IP address - Port. With <strong>Port Forwarding</strong> we can access an EC2 instance located in the private subnet from our workstation.</p>
 </div>
 
@@ -781,7 +777,7 @@ pre : &quot; <!-- raw HTML omitted --> 5. <!-- raw HTML omitted --> &quot;</p>
 </li>
 </ol>
 <h4 id="install-and-configure-aws-cli-and-session-manager-plugin">Install and Configure AWS CLI and Session Manager Plugin</h4>
-<p>To perform this hands-on, make sure your workstation has <a href="">AWS CLI</a> and <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/session">Session Manager Plugin</a> installed -manager-working-with-install-plugin.html)</p>
+<p>To perform this hands-on, make sure your workstation has <a href="">AWS CLI</a> and <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html">Session Manager Plugin</a> installed.</p>
 <p>More hands-on tutorials on installing and configuring the AWS CLI can be found <a href="https://000011.awsstudygroup.com/">here</a>.</p>
 
 <div class="notices tip" ><p>With Windows, when extracting the <strong>Session Manager Plugin</strong> installation folder, run the <strong>install.bat</strong> file with Administrator permission to perform the installation.</p>
@@ -791,40 +787,8 @@ pre : &quot; <!-- raw HTML omitted --> 5. <!-- raw HTML omitted --> &quot;</p>
 <ol>
 <li>Run the command below in <strong>Command Prompt</strong> on your machine to configure <strong>Port Forwarding</strong>.</li>
 </ol>
-<pre tabindex="0"><code>   aws ssm start-session --target (your ID windows instance) --document-name AWS-StartPortForwardingSession --parameters portNumber=&#34;3389&#34;,localPortNumber=&#34;9999&#34; --region (your region)
-</code></pre>
-<div class="notices tip" ><p><strong>Windows Private Instance</strong> <strong>Instance ID</strong> information can be found when you view the EC2 Windows Private Instance server details.</p>
-</div>
-
-<ul>
-<li>Example command:</li>
-</ul>
-<pre tabindex="0"><code>C:\Windows\system32&gt;aws ssm start-session --target i-06343d7377486760c --document-name AWS-StartPortForwardingSession --parameters portNumber=&#34;3389&#34;,localPortNumber=&#34;9999&#34; --region ap-southeast-1
-</code></pre>
-<div class="notices warning" ><p>If your command gives an error like below: <br>
-SessionManagerPlugin is not found. Please refer to SessionManager Documentation here: <a href="http://docs.aws.amazon.com/console/systems-manager/session-manager-plugin-not-found">http://docs.aws.amazon.com/console/systems-manager/session-manager-plugin-not-found</a><br>
-Prove that you have not successfully installed the Session Manager Plugin. You may need to relaunch <strong>Command Prompt</strong> after installing <strong>Session Manager Plugin</strong>.</p>
-</div>
-
-<ol start="2">
-<li>Connect to the <strong>Private Windows Instance</strong> you created using the <strong>Remote Desktop</strong> tool on your workstation.
-<ul>
-<li>In the Computer section: enter <strong>localhost:9999</strong>.</li>
-</ul>
-</li>
-</ol>
-<p><img src="/images/5.fwd/003-fwd.png" alt="FWD"></p>
-<ol start="3">
-<li>Return to the administration interface of the System Manager - Session Manager service.
-<ul>
-<li>Click tab <strong>Session history</strong>.</li>
-<li>We will see session logs with Document name <strong>AWS-StartPortForwardingSession</strong>.</li>
-</ul>
-</li>
-</ol>
-<p><img src="/images/5.fwd/004-fwd.png" alt="FWD"></p>
-<p>Congratulations on completing the lab on how to use Session Manager to connect and store session logs in S3 bucket. Remember to perform resource cleanup to avoid unintended costs.</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>aws ssm start-session --target <span style="color:#f92672">(</span>your ID windows instance<span style="color:#f92672">)</span> --document-name AWS-StartPortForwardingSession --parameters portNumber<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;3389&#34;</span>,localPortNumber<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;9999&#34;</span> --region <span style="color:#f92672">(</span>your region<span style="color:#f92672">)</span>
+</span></span></code></pre></div>
 
 
 
@@ -1263,6 +1227,7 @@ Prove that you have not successfully installed the Session Manager Plugin. You m
             
                 
                     
+                    
                 
                 
 
@@ -1279,6 +1244,8 @@ Prove that you have not successfully installed the Session Manager Plugin. You m
             
                 
                     
+                        
+                        
                     
                 
                 
@@ -1300,10 +1267,10 @@ Prove that you have not successfully installed the Session Manager Plugin. You m
 	 
 	 
 		
-			<a class="nav nav-prev" href="/6-cleanup/" title="Clean up resources"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/4-s3log/4.4-configsessionlogs/" title="Monitor session logs"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/1-introduce/" title="Introduction" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/6-cleanup/" title="Clean up resources" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1313,19 +1280,19 @@ Prove that you have not successfully installed the Session Manager Plugin. You m
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1757389987"></script>
-    <script src="/js/perfect-scrollbar.min.js?1757389987"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1757389987"></script>
-    <script src="/js/jquery.sticky.js?1757389987"></script>
-    <script src="/js/featherlight.min.js?1757389987"></script>
-    <script src="/js/highlight.pack.js?1757389987"></script>
+    <script src="/js/clipboard.min.js?1757390405"></script>
+    <script src="/js/perfect-scrollbar.min.js?1757390405"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1757390405"></script>
+    <script src="/js/jquery.sticky.js?1757390405"></script>
+    <script src="/js/featherlight.min.js?1757390405"></script>
+    <script src="/js/highlight.pack.js?1757390405"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1757389987"></script>
-    <script src="/js/learn.js?1757389987"></script>
-    <script src="/js/hugo-learn.js?1757389987"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1757390405"></script>
+    <script src="/js/learn.js?1757390405"></script>
+    <script src="/js/hugo-learn.js?1757390405"></script>
 
-    <link href="/mermaid/mermaid.css?1757389987" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1757389987"></script>
+    <link href="/mermaid/mermaid.css?1757390405" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1757390405"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
