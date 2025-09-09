@@ -27,7 +27,7 @@ pre: " <b> 1.1. </b> "
 
 ### Week 1 Achievements:
 
-- Understood what AWS is and mastered the basic service groups:
+- Understood what AWS is and mastered the basic service groups:hugo
 
   - Compute
   - Storage
