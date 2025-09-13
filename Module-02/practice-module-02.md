@@ -1,13 +1,32 @@
 * LAB 02-01: CREATE VPC
 
 1. GIỚI THIỆU AMAZON VPC
-2. TƯỜNG LỬA TRONG VPC
-3. THỰC HÀNH TẠO 1 VPC
-4. CẤU HÌNH VPN SITE TO SITE
+	- Dịch vụ mạng ảo tùy chỉnh nằm trong AWS Cloud -> cho phép tạo môi trường riêng biệt 
+	- Tính năng:
+		+ Kiểm soát 
+		+ Khởi tạo và quản lý tài nguyên AWS
+		+ Tùy chỉ IP và phân đoạn mạng
+		+ Cấu hình định tuyến
+		+ Hỗ trợ IPv4 và IPv6
+
+	- VPC có thể tạo nhiều trong 1 Region
+		-> Mỗi VPC được định danh bằng dải địa chỉ IP riêng
+	
+		+ Cấu hình: 
+			- Sử dụng Classless Inter-Domain Routing (CIDR) 
+			- Phạm vi từ /16 (65k đchi) đến /28 (16 đchi)
+			- CIDR ko thể thay đổi khi tạo
+			
+	
+2. TƯỜNG LỬA TRONG VPC - DONE
+3. THỰC HÀNH TẠO 1 VPC - DONE
+4. CẤU HÌNH VPN SITE TO SITE - NOT YET
 
 * LAB 02-02: SESSION MANAGER
 
 1. CHUẨN BỊ
+	- Session manager là một chức năng nằm trong dịch vụ Sytem Manager của AWS -> quản lý các máy chủ một cách an toàn không cần mở port SSH, không cần bastion host hoặc quản lý SSH key.
+	
 2. TẠO KẾT NỐI ĐẾN MÁY CHỦ EC2
 3. QUẢN LÝ SESSION LOGS
 4. PORT FORWARDING
