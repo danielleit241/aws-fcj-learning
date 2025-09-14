@@ -251,5 +251,121 @@
 
 
 
+* Kiến trúc hoạt động của EC2 autoscaling 
 
+&nbsp;	- Khi 1 client kết nối vào từ internet -> IG -> Application LB -> EC2
+
+&nbsp;		+ Giả sử khi có lượng kết nối cao: thì tham số 'ActiveConnectionCount' là HIGH (được set)
+
+&nbsp;		-> Khi đạt hiệu ứng cao thì hiệu năng hệ thống bị ảnh hưởng, máy chủ xử lý không kịp
+
+&nbsp;		-> Autoscaling group có thể nằm nhiều AZ
+
+&nbsp;		
+
+&nbsp;	=> Auto scaling group sẽ hỗ trợ tăng số lượng máy chủ -> đăng kí với application load balancer -> chia lượng tải ra 2 máy chủ
+
+&nbsp;	==> ActiveConnectionCount giảm xuống NORMAL
+
+
+
+&nbsp;		-> Khi đạt hiệu năng thấp -> thì auto scaling sẽ vào trạng thái scale-in -> terminate các EC2 đi -> TIẾT KIỆM CHI PHÍ
+
+
+
+&nbsp;	=> THUẬT NGỮ NHẰM ÁM CHỈ VIỆC SCALE-OUT SCALE-IN ĐƯỢC GỌI LÀ ALASTICITY
+
+
+
+* PRICING OPTIONS:
+
+&nbsp;	- EC2 bao gồm 4 tùy chọn loại giá:
+
+&nbsp;		+ On-demand: trả theo nhu cầu sử dụng (giờ/phút/giây)
+
+&nbsp;			-> Giá mắc nhất
+
+&nbsp;			-> Phù hợp cho các workload chạy lên tới 6 tiếng 1 ngày
+
+&nbsp;		+ Reserved Instance: Cam kết sử dụng lâu dài (1-3 năm) sẽ áp dụng discount
+
+&nbsp;			-> Tuy nhiên bị giới hạn EC2 Instance Type
+
+&nbsp;		+ Saving plans: Cam kết sử dụng theo kì hạn (1-3 năm) để lấy discount
+
+&nbsp;			-> Có thể ko giới hạn bởi EC2 Instance Type
+
+&nbsp;		+ Spot Instance: Tận dụng tài nguyên dư, giá rẻ
+
+&nbsp;			-> Khi nào cần thì AWS sẽ terminate instance trong 2 phút
+
+&nbsp;		
+
+&nbsp;	- TRONG MỘT EC2 AUTO SCALING GROUP CÓ THỂ KẾT HỢP NHIỀU PRICING OPTIONS -> TẬN DỤNG LỢI THẾ CỦA PRICING OPTIONS ĐỂ TA TIẾT KIỆM CHI PHÍ NHƯNG VẪN CÓ ĐỦ EC2 ĐỂ HỆ THỐNG HOẠT ĐỘNG ỔN ĐỊNH
+
+&nbsp;	
+
+* AMAZON LIGHTSAIL:
+
+&nbsp;	+ Là một dịch vụ tính toán có chi phí thấp và tính theo tháng (>= 3.5$/Month)
+
+&nbsp;	+ Mỗi một instance lightsail tạo ra cũng sẽ có 1 mức data transfer đi kèm (giá rẻ hơn EC2 khá nhiều)
+
+&nbsp;	+ Amazon lightsail phù hợp cho các workload nhẹ, môi trường test dev -> không yêu cầu lượng tải CPU cao liên tục (> 2h mỗi ngày)
+
+
+
+&nbsp;	+ Amazon Lightsail có khả năng sao lưu backup bằng snapshot tương tự EC2
+
+&nbsp;		+ Snapshot này có thể convert qua được EC2 Instance
+
+&nbsp;		
+
+&nbsp;	+ Amazon Lightsail chạy trong 1 VPC đặc biệt (được quản lý bởi dịch vụ lightsail) -> có thể kết nối tới VPC thông thường qua 1 click VPC Peering
+
+
+
+* AMAZON ELASTIC FILE SYSTEM (AMAZON EFS)
+
+&nbsp;	- Cho phép tạo ra các NFSv4 Network Volume (ổ cứng mạng) gán vào nhiều EC2 Instances cùng lúc
+
+&nbsp;	- Quy mô lưu trữ lên đến hàng petrabyte
+
+&nbsp;	=> CHỈ SUPPORT LINUX
+
+
+
+&nbsp;	- Sử dung EFS chỉ tính theo dung lượng sử dụng (trong khi EBS tính phí theo dung lượng cấp phát)
+
+&nbsp;	- EFS có thể được cấu hình để mount vào môi trường on-premise qua DX hoặc VPN
+
+
+
+* AMAZON FSX:
+
+&nbsp;	- Cho phép tạo ra các NTFS volume và gán vào nhiều EC2 Instance cùng lúc sử dụng giao thức SMB (Server Message Block) 
+
+&nbsp;	=> Support cho cả Windows và Linux
+
+
+
+&nbsp;	- FSX chỉ tính theo chi phí dung lượng sử dụng
+
+&nbsp;	- Hỗ trợ tính năng DEDUPLICATION (CHỐNG TRÙNG LẶP DỮ LIỆU) -> giảm chi phí 30-50% cho các trường hợp sử dụng thông thường 
+
+
+
+* AWS APPLICATION MIGRATION SERVICE (MGN)
+
+&nbsp;	- Dùng để migrate và replicate phục vụ mục đích xây dựng Disaster Recovery Site cho các máy chủ thực - ảo lên môi trường AWS
+
+&nbsp;	- Application Migration Service liên tục sao chép các máy chủ nguồn sang EC2 Instance trên tài khoản AWS (async/sync)
+
+
+
+&nbsp;	- MGN trong quá trình sao chép sẽ sử dụng các staging có số lượng và quy mô cấu nhìn nhỏ hơn máy chủ gốc rất nhiều
+
+&nbsp;	- Khi thực hiệt cut-over MGN sẽ tự động tạo và chạy các máy chủ EC2 trên AWS
+
+&nbsp;	
 
