@@ -1,0 +1,51 @@
+* LAB 04: THAO TÁC EC2 CƠ BẢN
+
+&nbsp;	- TẠO CÁC MÁY CHỦ EC2
+
+&nbsp;	- THỰC HIỆN SNAPSHOT EC2 INSTANCE
+
+&nbsp;	- CÀI ĐẶT ỨNG DỤNG TRÊN EC2
+
+
+
+* LAB 08: QUẢN LÝ TÀI NGUYÊN VỚI AMAZON CLOUD WATCH
+
+&nbsp;	- CLOUDWATCH AGENT
+
+&nbsp;	- TẠO CLOUDWATCH DASHBOARD
+
+
+
+* LAB06: TRIỂN KHAI AUTOSCALING GROUP
+
+&nbsp;	- KHỞI TẠO LAUNCH TEMPLATE
+
+&nbsp;	- KHỞI TẠO TARGET GROUP
+
+&nbsp;	- KHỞI TẠO LOAD BALANCER
+
+&nbsp;	- KHỞI TẠO AUTO SCALING GROUP
+
+&nbsp;	- KIỂM TRA KẾT QUẢ
+
+
+
+* LAB45: BẮT ĐẦU VỚI AMAZON LIGHTSAIL
+
+&nbsp;	- CHUẨN BỊ
+
+&nbsp;	- KIỂM TRA ỨNG DỤNG TRÊN LIGHTSAIL
+
+&nbsp;	- SỬ DỤNG LIGHTSAIL LOADBALANCER
+
+&nbsp;	- SỬ DỤNG RDS
+
+&nbsp;	- DỊCH CHUYỂN SANG EC2
+
+
+
+-----------------------------------------------------------------
+
+NGHIÊN CỨU BỔ SUNG: MICROSOFT WORKLOADS ON AWS
+
+* SERIES CÁC BÀI THỰC HÀNH BỔ SUNG DÀNH CHO VIỆC CHẠY CÁC MÁY CHỦ VÀ ỨNG DỤNG MICROSOFT TRÊN AWS
