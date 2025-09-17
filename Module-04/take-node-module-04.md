@@ -138,5 +138,103 @@ S3 Standard ---> S3 Standard IA ---> S3 One Zone IA ---> Glacier/Deep Archive
 
 
 
+##### II. S3 Static Website \& CORS - Control Access - Object Key \& Performance - Glacier
 
+
+
+&nbsp;	- S3 Static Website \& CORS:
+
+&nbsp;		- S3 ngoài việc host các file hình ảnh thì còn hỗ trợ host các static website (html, media, ...)
+
+&nbsp;		- Phù hợp single page application (SPA) -> đóng vai trò là một static website server 
+
+&nbsp;		- Và để share cho các web server có thể truy cập tới thì S3 hỗ trợ CORS (Cross-origin resource sharing) -> cho phép nhiều tài nguyên khác nhau của một trang web có thể truy vấn từ domain khác với domain của trang đó
+
+
+
+&nbsp;	- CONTROL ACCESS: AMAZON S3 CÓ 2 CƠ CHẾ KIỂM SOÁT TRUYỀN TRUY CẬP TỚI BUCKET
+
+&nbsp;		+ S3 ACCESS CONTROL LIST (ACL)
+
+&nbsp;			+ Là một cơ chế kiểm soát truy cập có trước IAM
+
+&nbsp;			+ ACL S3 được gán bucket và object của S3 -> việc gán policy gán vào các object rất phức tạp
+
+
+
+&nbsp;		+ S3 BUCKET POLICY
+
+&nbsp;			+ S3 Bucket Policy và IAM policy xác định quyền cấp đối tượng bằng cách cung cấp các đối tượng đó trong Resource trong policy
+
+&nbsp;			+ Tạo ra policy và gắn trực tiếp vào trong bucket -> quản lý tập trung qua resource
+
+&nbsp;	
+
+&nbsp;	- ENDPOINT \& VERSIONING
+
+&nbsp;		- S3 ENDPOINT CHO PHÉP TA TRUY CẬP DỮ LIỆU QUA MẠNG NỘI BỘ CỦA AWS MÀ KHÔNG THÔNG QUA INTERNET 
+
+&nbsp;			+ VÍ DỤ: UPLOAD DỮ LIỆU EC2 -> S3
+
+&nbsp;				-> DÙNG TÍNH NĂNG S3 ENDPOINT VÌ EC2 VÀ S3 ĐỀU LÀ DỊCH VỤ CỦA AWS 
+
+&nbsp;			- UPLOAD DỮ LIỆU THÔNG QUA GIAO THỨC HTTP -> API -> ĐI QUA ĐỊA CHỈ IP PRIVATE TRONG VPC (KO QUA INTERNET)
+
+
+
+&nbsp;		- S3 VERSIONING CHO PHÉP TA KHÔI PHỤC ĐỐI TƯỢNG SAU KHI VÔ TÌNH XÓA HAY GHI ĐÈ -> ĐỒNG THỜI HỖ TRỢ TRC CÁC TẤN CÔNG RANSOMWARE/ENCRYTION ATTACK
+
+&nbsp;			+ Nếu xóa -> Amazon S3 Versioning sẽ đánh dấu (MARKER) tập tin đã xóa
+
+&nbsp;			+ Nếu ghi đè -> thì một phiên bản đổi tượng mới sẽ xuất hiện trong bucket
+
+&nbsp;			=> TRONG CẢ 2 TRƯỜNG HỢP ĐỀU CÓ THỂ KHÔI PHỤC PHIÊN BẢN TRƯỚC ĐÓ !!!		
+
+&nbsp;			==> NẾU ĐÃ BẬT VERSIONING THÌ TA SẼ KHÔNG THỂ XÓA TÍNH NĂNG ĐÓ - CHỈ TẠM DỪNG (BẬT = TÍNH TIỀN DỰA TRÊN TỔNG DUNG LƯỢNG ĐÃ VERSIONING)
+
+
+
+
+
+&nbsp;	- OBJECT KEY \& PERFORMANCE:
+
+&nbsp;		- Mỗi object trong S3 đều NGANG HÀNG -> không phân cấp -> được gán 1 object key
+
+&nbsp;		- Sâu bên dưới S3 chia ra các Partitions -> sẽ được chia tự động khi lượng request tăng cao hoặc số lượng object keys lớn (giảm tốc độ tìm kiếm object trong partition)
+
+&nbsp;		- S3 lưu trữ KEY MAP (key map cũng được chia ra thành nhiều partition và được hash bởi prefix của object key)
+
+&nbsp;			=> Để tối ưu hiệu năng của S3 ta có thể dùng random prefix -> mục tiêu của việc này là làm S3 lưu trữ các object trên nhiều partitions nhất có thể 
+
+&nbsp;			==> VÌ PERFORMANCE CỦA S3 DỰA TRÊN SỐ LƯỢNG PARTITIONS
+
+&nbsp;		
+
+
+
+&nbsp;	- STORAGE CLASS GLACIER
+
+&nbsp;		- Là lựa chọn lưu trữ có chi phí thấp -> phù hợp với dữ liệu ko yêu cầu truy xuất trực tiếp, dài hạn 
+
+&nbsp;			+ VÍ DỤ: Có những chứng từ lưu trữ 5-7 năm (lưu để tuân thủ các chính sách) -> cần thời gian để lưu trữ dữ liệu
+
+&nbsp;		- Vì không thể truy xuất trực tiếp -> ta sẽ thực hiện thao tác RETRIEVE dữ liệu về một S3 Bucket # với GLACIER
+
+
+
+&nbsp;		- CÓ 3 TÙY CHỌN ĐỂ TRUY XUẤT DỮ LIỆU VỚI CHI PHÍ KHÁC NHAU:
+
+&nbsp;			+ TRUY XUẤT NHANH -> 1-5 PHÚT
+
+&nbsp;			+ TRUY XUẤT TIÊU CHUẨN -> 3-5 GIỜ
+
+&nbsp;			+ TRUY XUẤT HÀNG LOẠT -> 5-12 GIỜ
+
+&nbsp;			==> THỜI GIAN TRUY XUẤT CÀNG CHẬM - CHI PHÍ CÀNG THẤP
+
+&nbsp;		
+
+&nbsp;		
+
+&nbsp;	 
 
