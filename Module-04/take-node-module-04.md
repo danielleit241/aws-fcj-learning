@@ -232,6 +232,12 @@ S3 Standard ---> S3 Standard IA ---> S3 One Zone IA ---> Glacier/Deep Archive
 
 &nbsp;			==> THỜI GIAN TRUY XUẤT CÀNG CHẬM - CHI PHÍ CÀNG THẤP
 
+&nbsp;		- KHÔNG CHO PHÉP UPLOAD CÁC FILE TỪ GIAO DIỆN (AWS MANAGEMENT CONSOLE) -> MÀ CHỈ CHO PHÉP UPLOAD DỮ LIỆU QUA CLI/SDK ĐỂ UPLOAD CÁC OBJECT VÀO GLACIER
+
+&nbsp;		- GLACIER CÓ CHI PHÍ RẺ HƠN ĐẾN 20 LẦN SO VỚI S3 STANDARD 
+
+&nbsp;		- CÒN CÓ MỘT TÍNH NĂNG LÀ OBJECT BLOCK (KO CHO PHÉP XÓA VÀ CHỈNH SỬA DỮ LIỆU) -> SẼ CÓ 24 GIỜ THAY ĐỔI -> SAU 24 GIỜ THÌ SẼ BỊ ÁP CHÍNH SÁCH KHÓA VĨNH VIỄN 
+
 &nbsp;		
 
 &nbsp;		
