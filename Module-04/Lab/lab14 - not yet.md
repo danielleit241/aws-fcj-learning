@@ -1,0 +1,17 @@
+### VM IMPORT/EXPORT
+
+
+
+* LÀ MỘT DỊCH VỤ CHO PHÉP IMPORT CÁC MÁY ẢO (VM) TỪ MÔI TRƯỜNG ẢO HÓA CỦA BẠN VÀO AMAZON EC2 VÀ NGƯỢC LẠI
+* TÍNH NĂNG NÀY CHO PHÉP:
+
+&nbsp;	+ CHUYỂN DỊCH CÁC ỨNG DỤNG VÀ TÀI NGUYÊN HẠ TẦNG TỪ MÔI TRƯỜNG ẢO HÓA ON-PREMISE SANG EC2
+
+&nbsp;	+ SAO LƯU MÁY ẢO CỦA TA VÀO EC2
+
+&nbsp;	+ TẠO MỘT KHO LƯU TRỮ VÀO CÁC MÁY ẢO ĐỂ DỰ PHÒNG VÀ PHỤC HỒI SAU SỰ CỐ
+
+
+
+=> TA CÓ THỂ SỬ DỤNG VM IMPORT VÀ EXPORT MÀ KHÔNG BỊ THU PHÍ DỊCH VỤ 
+
