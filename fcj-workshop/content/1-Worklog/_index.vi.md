@@ -12,7 +12,7 @@ Thông thường và cũng là tiêu chuẩn, một worklog được thực hi�
 
 **Tuần 1:** [Làm quen với các nền tảng AWS, Mạng VPC, Bảo mật và Thực hành Labs](1.1-week1/)
 
-**Tuần 2:** [Làm công việc A...](1.2-week2/)
+**Tuần 2:** [Thực hành AWS EC2, Auto Scaling, CloudWatch, Backup, S3, FSx, Storage Gateway](1.2-week2/)
 
 **Tuần 3:** [Làm công việc B...](1.3-week3/)
 
