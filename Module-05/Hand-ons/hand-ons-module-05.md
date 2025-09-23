@@ -18,15 +18,15 @@
 4. TẠO GROUP QUẢN TRỊ
 5. CẤU HÌNH IAM ROLE CONDITION
 
-&nbsp;	5.1 TẠO IAM ROLE CÓ QUYỀN ADMIN
+ 	5.1 TẠO IAM ROLE CÓ QUYỀN ADMIN
 
-&nbsp;	5.2 TẠO IAM USER
+ 	5.2 TẠO IAM USER
 
-&nbsp;	5.3 CẤU HÌNH SWITCH ROLE
+ 	5.3 CẤU HÌNH SWITCH ROLE
 
-&nbsp;	5.4 GIỚI HẠN THEO IP
+ 	5.4 GIỚI HẠN THEO IP
 
-&nbsp;	5.5 GIỚI HẠN THEO THỜI GIAN
+ 	5.5 GIỚI HẠN THEO THỜI GIAN
 
 
 
@@ -104,7 +104,7 @@
 
 
 
------------------------------------------------------
+---
 
 NGUYÊN CỨU BỔ SUNG: AWS CERTIFIED SERCURITY SPECIALTY ALL-IN-ONE EXAM GUIDE
 
