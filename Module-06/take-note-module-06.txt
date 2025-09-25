@@ -1,0 +1,191 @@
+DỊCH VỤ CƠ SỞ DỮ LIỆU TRÊN AWS
+
+- DATABASE CONCEPTS
+
+- AMAZON RDS
+
+- AMAZON AURORA
+
+- AMAZON ELASTICACHE
+
+- AMAZON REDSHIFT
+
+01. DATABASE CONCEPTS REVIEW
+
+- Database/cơ sở dữ liệu là một hệ thống các thông tin có cấu trúc/bán cấu trúc 
+	+ Được lưu trữ trên những thiết bị lưu trữ nhằm thõa mãn yêu cầu khai thác thông tin đồng thời của nhiều người sử dụng, hay nhiều chương trình ứng dụng chạy cùng một lúc với những mục đích khác nhau
+
+	+ Session/Phiên là khoảng thời gian tính từ bắt đầu kết nối vào CDSL (time start) và thời gian kết thúc (time end) là khoảng thời gian bạn ngắt kế nối
+
+- PRIMARY KEY/Khóa chính là một cột trong bảng dữ csdl quan hệ đặc biệt (1 hoặc nhiều cột) -> để xác định duy nhất mỗi bản ghi trong bảng
+
+- FOREIGN KEY/Khóa ngoại là một cột hoặc nhóm cột trong bảng csdl quan hệ -> cung cấp mối liên kết giữa dữ liệu trong hai bảng
+	-> Hoạt động như 1 tham chiếu chéo gữa các bảng vì nó tham chiếu đến khóa chính của 1 bảng khác
+
+		CUSTOMER_TABLE	
+-----------------------------------------------------------------
+ID | FIRST NAME | LAST NAME | EMAIL		| PHONE		|
+----------------------------------------------------------------|
+1    JOHN	  SMITH       john@email.com	  090...	|
+2    ...	  ...	      ...                 ...		|
+...								|
+-----------------------------------------------------------------
+PK
+|------------------------------>
+				|
+				|
+	   ORDER_TABLE  	|
+PK			 	FK
+-----------------------------------------
+ID	|      DATE   	|CUSTOMERID	|
+----------------------------------------|
+1	  2019-01-01		2	|
+2	  ...			1	|	
+...					|
+------------------------------------------
+
+
+===> VIỆC SỬ DỤNG PK VÀ FK GIÚP TA KHÔNG BỊ TRÙNG LẶP DỮ LIỆU, TỐI ƯU HÓA DUNG LƯỢNG LƯU TRỮ
+	===> VÀ BƯỚC NÀY TA SẼ GỌI LÀ CHUẨN HÓA DỮ LIỆU
+
+- INDEX/CHỈ MỤC CƠ SỞ DỮ LIỆU: Là một cấu trúc dữ liệu cải thiện tốc độ của các hoạt động truy xuất dữ liệu (READ) trên bảng csdl
+	+ Tuy nhiên sẽ làm tăng thêm chi phí ghi thêm (WRITE) và không gian lưu trữ (STORAGE) để duy trì cấu trúc dữ liệu chỉ mục
+		-> CẢI THIỆN TỐC ĐỘ READ - TĂNG THÊM CHI PHÍ WRITE
+
+	+ Các chỉ mục được sử dụng để định vị dữ liệu một cách nhanh chóng mà không phải tìm kiếm mọi hàng trong bảng csdl mỗi khi truy cập bảng csdl
+	+ Chỉ mục có thể được tạo ra bằng cách sử dụng một hoặc nhiều cột của bảng csdl
+
+- PARTITIONS/PHÂN VÙNG
+	- Là quá trình csdl trong đó có các bảng rất lớn được chia ra và lưu trữ dưới dạng nhiều phần nhỏ hơn
+	- Bằng cách tách một bảng lớn thành các bảng nhỏ hơn riêng lẻ
+	
+	==> CÁC TRUY VẤN CHỈ TRUY CẬP MỘT PHẦN DỮ LIỆU CÓ THỂ CHẠY NHANH HƠN VÌ CÓ ÍT DỮ LIỆU HƠN ĐỂ QUÉT
+
+- EXCUTION PLAN - QUERY PLAN/KẾ HOẠCH THỰC THI TRUY VẤN - KẾ HOẠCH TRUY VẤN
+ 	- Là một chuỗi các bước được sử dụng để truy cập dữ liệu trong csdl quan hệ SQL
+	- Khi một truy vấn được gửi đến csdl -> trình tối ưu hóa truy vấn sẽ đánh giá một số phương án có thể khác nhau, chính xác để thực hiện truy vấn và trả về những gì nó cho là lựa chọn tốt nhất
+
+
+- DATABASE LOGS
+	- Là một phần quan trọng trong thiết kế giải pháp csdl sẵn có của ta -> vì nhật ký csdl giúp ta có thể khôi phục sau khi bị lỗi và đồng bộ dữ liệu chính và phụ
+		=> Tất cả các csdl đều có hệ thống log được liên kết với chúng
+
+
+- BUFFERS/ BỘ ĐỆM
+	- Là một vùng lưu trữ tạm thời trong bộ nhớ chính, nó cho phép lưu trữ dữ liệu tạm thời khi di chuyển từ nơi này sang nơi khác
+	- Bộ đêm csdl lưu trữ một bản sao các khối đĩa -> Thường được dùng để tăng tốc độ truy xuất (đọc dữ liệu từ buffer) cũng như tốc độ ghi (ghi vào buffer sau đó buffer sync vào csdl)
+
+
+- RDBMS (SQL) RELATIONAL DATABASE MANAGEMENT SYSTEM:
+	- Kết hợp mô hình dữ liệu-quan hệ, thường bao gồm giao diện lập trình ứng dụng ngôn ngữ truy vấn có cấu trúc (SQL - Structured Query Language)
+	
+	- Cơ sở dữ liệu được tổ chức và truy cập theo mối quan hệ giữa các mục dữ liệu
+	- Trong cơ sở dữ liệu quan hệ, mối quan hệ giữa các mục dữ liệu được thể hiện bằng các bảng
+	- Sự phụ thuộc lẫn nhau giữa các bảng này được thể hiện bằng các giá trị dữ liệu
+
+
+- NO-SQL:
+	- Thường không phải dạng bảng và lưu trữ dữ liệu khác với bảng quan hệ
+	- Csdl No-Sql có nhiều loại dựa trên mô hình dữ liệu của chúng
+	- CÁC LOẠI CHÍNH LÀ TÀI LIỆU (DOCUMENT), KHÓA GIÁ TRỊ (KEY-VALUE), WIDE-COLUMN VÀ GRAPH -> CHÚNG CUNG CẤP CÁC LƯỢC ĐỒ LINH HOẠT VÀ MỞ RỘNG QUY MÔ DỄ DÀNG VỚI LƯỢNG LỚN DỮ LIỆU VÀ TẢI LƯỢNG NGƯỜI DÙNG CAO
+
+- OLTP - ONLINE TRANSACTION PROCESSING 
+	- Hệ thống OLTP nắm bắt và duy trì dữ liệu giao dịch trong cơ sở dữ liệu. Mỗi giao dịch liên quan đến các bản ghi cơ sở dữ liệu riêng lẻ được tạo thành từ nhiều trường hoặc cột
+	
+	- VÍ DỤ: hoạt động ngân hàng và thẻ tín dụng hoặc quét mã thanh toán
+		+ Trong OLTP trọng tâm là xử lý nhanh vì csdl OLTP được đọc, ghi và cập nhật thường xuyên
+		+ Nếu một giao dịch không thành công, logic hệ thống tích hợp đảm bảo tính toàn vẹn của dữ liệu
+
+
+- OLAP - ONLINE ANALYTICAL PROCESSING
+	- Áp dụng các truy vấn phức tạp cho một lượng lớn dữ liệu lịch sử, được tổng hợp từ csdl OLTP và các nguồn khác cho các dự án khai thác dữ liệu, phân tích và kinh doanh thông minh
+	- Trong OLAP trọng tâm là thời gian phản hồi cho các truy vấn phức tạp này. Mỗi truy vấn liên quan đến một hoặc nhiều cột dữ liệu được tổng hợp từ nhiều hàng
+	
+	- VÍ DỤ bao gồm hiệu suất tài chính hằng năm, hoặc xu hướng tạo khách hàng tiềm năng tiếp thị. Cơ sở dữ liệu và kho dữ liệu (data warehouse) OLAP cung cấp cho các nhà phân tích khả năng sử dụng các công cụ báo cáo tùy chỉnh để BIẾN DỮ LIỆU THÀNH THÔNG TIN
+
+02. AMAZON RDS (RELATIONAL DATABASE SERVICES) - AURORA
+
+- RDS là một dịch vụ csdl quan hệ được AWS quản lý, dịch vụ này sẽ hỗ trợ nhiều hệ csdl quản trị phổ biến
+	-> Mục tiêu: đơn giản hóa việc thiết lập, vận hành, mở rộng csdl trên môi trường cload
+	=> TẬP TRUNG VÀO VIỆC TỐI ƯU HÓA PHÁT TRIỂN ỨNG DỤNG THAY VÌ TẬP TRUNG VÀO CSDL
+
+- AURORA là một hệ quản trị csdl tương thích với mySQL và postgresql, được phát triển đặc biệt cho môi trường AWS
+	-> Cung cấp hiệu suất và tính năng sẵn sàng cao (interpise database chạy trên AWS)
+
+
+2.1 AMAZON RDS
+
+- Là cơ sở dữ liệu được quản lý trên AWS, chúng ta chỉ truy cập và quản lý ở mức RDBMS, không thể truy cập và quản lý ở mức hệ điều hành
+- Bao gồm: Aurora, MySQL, Postgres SQL, MSSQL, Oracle, Maria
+
+- Amazon RDS cung cấp các tính năng:
+	+ 1. Tự động sao lưu (log-database tối đa 35 ngày)
+	+ 2. Tạo bản ghi chỉ đọc (read replica) phục vụ cho các read workload (reporting)
+	+ 3. Read replica có thể tách ra và chuyển thành một PRIMARY NODE
+	+ 4. Chạy với cơ chế tự động fail over, Primary/Standby hay còn gọi là cơ chế Multi-AZ
+	+ 5. RDS thường được sử dụng cho các ứng dụng OLTP
+	+ 6. RDS cung cấp tính năng mã hóa at rest và in transit
+	+ 7. RDS cũng được bảo vệ bởi tính năng tường lửa giống với EC2 (SG và NACL) -> nằm trong một VPC
+	+ 8. Thay đổi quy mô (thay đổi instance size)
+	+ 9. Tự động tăng dung lượng lưu trữ (Storage Auto scaling)
+
+=> BẢN CHẤT CỦA RDS INSTANCE LÀ MỘT EC2 INSTANCE SẼ KẾ THỪA CÁC TÍNH NĂNG CỦA EC2
+
+==> TẤT CẢ CÁC TÍNH NĂNG ĐỀU ĐƯỢC QUẢN LÝ BỞI AWS KHI TA ẤN TÙY CHỌN CÁC TÍNH NĂNG CẦN SỬ DỤNG
+
+
+2.2 AURORA
+
+- Amazon Aurora là một công cụ cơ sở dữ liệu quan hệ được AWS TỐI ƯU LẠI HẠ TẦNG LƯU TRỮ BÊN DƯỚI cho HIỆU NĂNG ĐỌC GHI SONG SONG CAO
+- Nền tảng RDBMS có 2 lựa chọn là MySQL và PostgreSQL
+
+- Aurora cũng là một RDBMS thuộc Amazon RDS nên thừa hưởng các tính năng tương tự so với RDS. Ngoài ra Aurora còn cung cấp các tính năng:
+	+ Back Track - Phục hồi lại DB về thời điểm trước đó
+	+ Clone - Tạo bản sao 
+	+ Global Database - 1 Master và Multi Read nằm ở các Region khác nhau
+	+ Multi Master - Multi Master database
+
+-> Ở MỘT THỜI ĐIỂM THÌ CHỈ CÓ DUY NHẤT 1 WRITER, VÀ CÓ THỂ CÓ NHIỀU READERS -> Không có replication lack vì chỉ có duy nhất 1 volume
+
+
+03. AMAZON REDSHIFT - ELASTICACHE
+
+3.1 AMAZON REDSHIFT
+
+- Là giải pháp data warehouse có quy mô cực kì lớn, lưu trữ hàng một lượng dữ liệu lên đến Betabye
+- Amazon Redshift được tối ưu cho việc phân tích một lượng dữ liệu cực kì lớn (big-data) -> Redshift là một phần của big-data
+
+- Ở môi trường on-premise khi xây dựng một kho dữ liệu (data-warehouse) thì cực kì tốn kém chi phí, đặc biệt cho máy chủ tính toán và lưu trữ 
+	-> AMAZON REDSHIFT
+
+- Amazon Redshift là một dịch vụ data warehouse được quản lý bởi AWS
+	+ Lõi là Postgre SQL nhưng được tối ưu cho OLAP
+
+- Redshift sử dụng kiến trúc Massive-Parallel Processing (MPP) Database 
+	-> Dữ liệu được chia (partition) và lưu trữ tại các COMPUTE NODE (compute/storage)
+		+ Hiện tại có thể tách compute và storage ra
+
+	-> Leader node nhân jvai trò điều phối và tổng hợp truy vấn 
+
+	+ Dữ liệu được redshift lưu trữ dưới dạng columnar storage -> phù hợp và tối ưu cho ứng dụng OLAP
+	+ Redshift sử dụng SQL và các driver JDBC, ODBC thông dụng
+	+ Hỗ trợ những tính năng để tối ưu hóa chi phí (transient cluster, redshift spectrum)
+		+ Transient cluster -> clone ra một phiên bản copu -> hiệu năng xử lý x2 -> nếu như nhu cầu thấp thì có thể xóa đi transient cluster đi
+		
+		+ Redshift spectrum -> dữ liệu không lưu trong compute node và storage node mà ta sẽ lưu lại vào trong S3 bucket (vì phí trên S3 sẽ rẻ hơn Redshift) và có thể thao tác đọc và ghi thông qua LOAD QUERY
+
+3.2 AMAZON ELASTICACHE
+
+- Là một dịch vụ được quản lý bởi AWS giúp ta tạo ra các cluster caching engines. Hiện elasticache hỗ trợ 2 engine là Redis và Memcached
+
+- Amazon ElastiCache sẽ chịu trách nhiệm phát hiện và thay thế các node bị failed -> đảm bảo tính sẵn sàng cao
+
+- Và khi sử dụng cache sẽ thường đặt trước lớp CSDL để cache những dữ liệu thường xuyên sử dụng -> giảm tải lượng truy cập đến database ở bên dưới
+	+ Ví dụ: Report cuối tháng -> cuối tháng mọi người đều vào coi -> thay vì lưu ở cơ sở dữ liệu -> ta sẽ lưu ở cache engine 
+	-> thường lưu trong bộ nhớ RAM và có tốc độ đọc-ghi nhanh hơn CSDL
+- Với các workload và ứng dụng mới, ưu tiên sử dụng Redis (tính năng đa dạng, hiệu năng tối)
+
+- SỬ DỤNG ELASTICACHE YÊU CẦU PHẢI VIẾT VÀ QUẢN LÝ CACHING LOGIC TRÊN ỨNG DỤNG (CHÚNG TA LÀ NGƯỜI QUẢN LÝ THAY VÌ AWS)
+	+ TA PHẢI QUYẾT ĐỊNH ĐƯỢC CACHE CÁI GÌ
+	+ CÁI GÌ KHÔNG CẦN CACHE VÀ KHI NÀO XÓA PHẦN CACHE ĐÓ ĐI
+	=> CÔNG VIỆC TỐN NHIỀU CHẤT XÁM
