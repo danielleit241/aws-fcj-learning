@@ -1,0 +1,82 @@
+AMAZON RELATIONAL DATABASE SERVICE (AMAZON RDS)
+
+01. GIỚI THIỆU
+
+- AMAZON RDS là một dịch vụ quản lý cho phép ta triển khai và quản lý cơ sở dữ liệu quan hệ trên AWS
+	-> Amazon RDS được thiết kế cho xử lý giao dịch trực tuyến (OLTP) và phù hợp nhất với các yêu cầu lưu trữ dữ liệu có cấu trúc và quan hệ
+
+- Các lợi ích mà Amazon RDS cung cấp:
+	+ Thay thế dễ dàng cho các instance cơ sở dữ liệu truyền thống
+	+ Sao lưu tự động và vá lỗi trong khung giờ bảo trì do khách hàng xác định
+	+ Mở rộng, sao chép và tính sẵn có chỉ với một nút nhấn
+	
+	
+		VPC-----------------------------------------------
+		 |						  |
+		 |      public subnet	  |	private subnet    |
+		 |	SG		  |	SG		  |
+internet <--- Internet <-----> EC2	<-----> RDS
+	      gateway
+
+- CÁC HỆ CSDL ĐƯỢC HỖ TRỢ: 
+	+ Aurora, MySQL, MariaDB, Oracle, SQL Server, PostgreSQL
+	-> Vì RDS là dịch vụ được AWS quản lý do đó ta ko có quyền truy cập vào máy chủ EC2 cơ bản (ko có quyền truy cập vào root)
+	-> NGOẠI LỆ: Amazon RDS Custom, cho phép truy cập vào hệ điều hành cơ bản nhưng chỉ có sẵn một số DB Engine giới hạn
+
+02. CÁC BƯỚC CHUẨN BỊ CƠ BẢN
+
+- Trước khi triển khai Amazon RDS, ta cần thiết lập môi trường mạng và bảo mật phù hợp, các bước sau đây sẽ giúp ta chuẩn bị cơ sở hạ tầng cần thiết
+
+	+ Tạo VPC: môi trường mạng ảo riêng biệt cho tài nguyên AWS
+	+ Tạo subnet: phân đoạn mạng trong VPC cho việc triển khai đa vùng sẵn sàng (multi-AZ)
+	+ Tạo Security Group cho Amazon EC2: kiểm soát lưu lượng truy cập mạng đến và đi từ máy chủ ứng dụng
+	+ Tạo Security Group cho DB Instance: kiểm soát quyền truy cập mạng đến csdl RDS
+	+ Tạo DB Subnet group: xác định các subnet mà Amazon RDS có thể sử dụng trong VPC
+
+-> ĐỂ ĐẢM BẢO TÍNH SẴN SÀNG CAO, HÃY TẠO SUBNET ÍT NHẤT HAI AZs KHÁC NHAU KHI THIẾT LẬP DB SUBNET GROUP CHO TRIỂN KHAI MULTI-AZ
+
+2.1. TẠO VPC
+
+- Amazon Virtual Private Cloud (VPC) cho phép bạn khởi chạy tài nguyên AWS trong một mạng ảo được định nghĩa.
+- Môi trường này cung cấp kiểm soát đầy đủ về cấu hình mạng, bao gồm dải địa chỉ IP, subnet, bảng định tuyến và gateway.
+
+- LƯU Ý: Mặc định, subnet không mặc định có thuộc tính tự động gán địa chỉ IPv4 công khai được đặt thành “false”, trong khi subnet mặc định có thuộc tính này được đặt thành “true”. Subnet không mặc định được tạo qua trình tạo EC2 instance sẽ có thuộc tính này được đặt thành “true”.
+
+2.2 TẠO EC2 SECURITY GROUP
+
+- Security Group hoạt động như tường lửa ảo để kiểm soát lưu lượng truy cập vào và ra khỏi các tài nguyên AWS của bạn. 
+- Mỗi Security Group chứa một tập hợp các quy tắc cho phép lưu lượng mạng đến các tài nguyên được liên kết.
+
+2.3 TẠO RDS SECURITY GROUP
+
+- Security Group cho Amazon RDS hoạt động như tường lửa ảo để kiểm soát lưu lượng mạng đến và đi từ cơ sở dữ liệu của bạn. Việc cấu hình đúng Security Group là bước quan trọng để bảo vệ dữ liệu của bạn trong AWS.
+
+- LƯU Ý: Không nên sử dụng cùng một Security Group cho cả EC2 và RDS. 	-> Việc tách biệt Security Group giúp quản lý quyền truy cập chính xác hơn và tuân thủ các nguyên tắc bảo mật tốt nhất.
+
+2.4 TẠO DB SUBNET GROUP
+
+- DB Subnet Group là tập hợp các subnet trong VPC được chỉ định cho cơ sở dữ liệu RDS của bạn.
+- DB Subnet Group cho phép Amazon RDS triển khai instance cơ sở dữ liệu trong nhiều Availability Zone để đảm bảo tính sẵn sàng cao và khả năng chịu lỗi.
+
+-> Khi chọn subnet cho DB Subnet Group, hãy đảm bảo rằng các subnet này là subnet riêng tư (private subnet) để tăng cường bảo mật cho cơ sở dữ liệu của bạn.
+	-> Các subnet riêng tư không có kết nối trực tiếp đến Internet, giúp bảo vệ cơ sở dữ liệu khỏi các mối đe dọa bên ngoài.
+
+==> DB Subnet Group là một thành phần quan trọng trong chiến lược bảo mật nhiều lớp cho cơ sở dữ liệu RDS. Kết hợp với Security Group phù hợp, DB Subnet Group giúp kiểm soát chặt chẽ quyền truy cập mạng đến cơ sở dữ liệu của bạn.
+
+03. TẠO EC2 INSTANCE
+
+- Amazon Elastic Compute Cloud (EC2) cung cấp khả năng tính toán có thể điều chỉnh quy mô trong đám mây AWS. 
+- Sử dụng EC2 cho phép bạn triển khai các máy chủ ảo mà không cần đầu tư vào phần cứng vật lý, giúp bạn phát triển và triển khai ứng dụng nhanh hơn.
+
+04. TẠO RDS DATABASE INSTANCE
+
+- Bạn có thể tạo một DB Instance bằng cách sử dụng AWS Management Console với tùy chọn Easy create được bật hoặc không được bật. 
+ 	+ Khi Easy create được bật, bạn chỉ cần chỉ định loại DB engine, kích thước DB Instance và định danh DB Instance. Easy create sử dụng các thiết lập mặc định cho các tùy chọn cấu hình khác. 
+	+ Khi Easy create không được bật, bạn phải chỉ định nhiều tùy chọn cấu hình hơn khi bạn tạo một cơ sở dữ liệu, bao gồm các tùy chọn về khả dụng, bảo mật, sao lưu và bảo trì.
+
+05. TRIỂN KHAI ỨNG DỤNG
+06. BACKUP VÀ RESTORE
+	
+- Amazon RDS cung cấp các tính năng backup tự động và thủ công, cho phép bạn khôi phục cơ sở dữ liệu về một thời điểm cụ thể hoặc từ một snapshot. 
+	-> Việc này giúp bảo vệ dữ liệu của bạn khỏi mất mát và đảm bảo tính liên tục của ứng dụng.
+
