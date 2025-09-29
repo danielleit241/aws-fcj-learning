@@ -14,7 +14,7 @@ Typically, and as a standard, a worklog is carried out over about 3 months (thro
 
 **Week 2:** [Hands-on with AWS Compute (EC2, Auto Scaling, Load Balancing), Monitoring (CloudWatch), Backup, and Storage Services (S3, FSx, Storage Gateway)](1.2-week2/)
 
-**Week 3:** [Doing task B...](1.3-week3/)
+**Week 3:** [AWS Security & Database Services (IAM, Cognito, KMS, RDS, Aurora, Redshift, ElastiCache)](1.3-week3/)
 
 **Week 4:** [Doing task C...](1.4-week4/)
 
