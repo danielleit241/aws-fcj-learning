@@ -1,0 +1,128 @@
+AMAZON DYNAMODB
+
+1. GIỚI THIỆU
+- Amazon DynamoDB là dịch vụ cơ sở dữ liệu NoSQL được quản lý hoàn toàn bởi AWS, cung cấp hiệu suất nhanh và có thể dự đoạn được khả năng mở rộng liền mạch
+- DynamoDB cho phép giảm bớt gánh nặng quản trị của việc vận hành và mở rộng csdl phân tán, cung cấp phần cứng, thiết lập và cấu hình sao chép, vá lỗi phần mềm hoặc mở rộng cụm.
+- DynamoDB cũng cung cấp mã hóa ở trạng thái nghỉ
+
+	+ DynamoDb tạo các table csdl có thể lưu trữ, truy xuất bất kì đối tượng dữ liệu nào và phục vụ bất kì mức lưu lượng yêu cầu nào. Có thể tăng hoặc giảm quy mô công suất thông qua table của mình mà ko có thời gian chết hoặc giảm hiệu suất
+	+ Cung cấp khả năng sao lưu theo yêu cầu, cho phép tạo các bản sao lưu đầy đủ các table để lưu trữ 
+		-> Tạo các bản sao lưu theo yêu cầu và bật khôi phục tại thười điểm khác cho các table trong Amazon DynamoDb
+		-> Khôi phục theo thời gian giúp bảo vệ table khỏi các thao tác ghi hoặc xóa ngẫu nhiên
+
+	+ DynamoDb cho phép tjw động xóa các item đã hết hạn khỏi table giúp giảm mức độ sử dụng bộ nhớ và chi phí lưu trữ dữ liệu ko phù hợp
+
+1.1 CÁC THÀNH PHẦN CỐT LÕI CỦA AMAZON DYNAMODB
+
+- TABLE: tương tự như các hệ thống csdl khác, DynamoDB lưu trữ dữ liệu trong table. -> Table là một tập hợp dữ liệu
+
+- ITEM: mỗi table chứa ko hoặc nhiều item, các item trong DynamoDB khá tương đồng với khái niệm hàng trong csdl quan hệ, bản ghi -> Trong dynamoDb ko có giới hạn về số lượng item lưu trữ tong một table
+
+- ATTRIBUTE: mỗi item bao gồm một hoặc nhiều attribute -> tương tự với các cột trong csdl khác
+
+1.2 PRIMARY KEY
+
+- Khi ta tạo một table, ngoài tên của table ta phải chỉ định PK của table
+- PK xác định duy nhất từng item trong table, do đó ko có 2 item nào có thể có cùng 1 key
+- DynamoDb hỗ trợ 2 loại primary key khác nhau:
+	+ Partition key:
+		- Một primary key cơ bản, bao gồm một attribute gọi là partition key
+		- DynamoDB sử dụng giá trị của partition key làm đầu vào cho hàm băm bên trong
+		- Trong table chỉ có partition key, ko có hai item nào có thể có cùng giá trị partition key
+
+	+ Composite primary key:
+		- Attribute đầu tiên là partition key, và attribute thứ hai là sort key
+		- DynamoDb sử dụng partition key làm đầu vào cho hàm băm bên trong, đầu ra từ hàm băm xác định phân vùng mà các item sẽ được lưu trữ
+		- Tất cả các item có cùng giá trị partition key được lưu trữ cùng nhau, theo thứ tự được sắp xếp theo giá trị sortkey
+		- Trong table có partition key và sort key, nhiều item có thể có cùng giá trị partition key. Tuy nhiên, các item đó phải có các giá trị sort key khác nhau.
+		- Composite primary key giúp bạn linh hoạt hơn khi truy vấn dữ liệu.
+
+1.3 SECONDARY INDEX
+- TA CÓ THỂ TẠO MỘT HOẶC NHIỀU SECONDARY INDEX TRÊN MỘT TABLE
+- SECONDARY INDEX CHO PHÉP TRUY VẤN DỮ LIỆU TRONG TABLE BẰNG CÁC KEY KHÁC VỚI PARTITION KEY VÀ SORT BAN ĐẦU CỦA TABLE
+	-> VỚI DYNAMO DB THAO TÁC QUERY DỮ LIỆU CÓ TỐC ĐỘ NHANH VÀ TIẾT KIỆM CHI PHÍ HƠN RẤT NHIỀU SO VỚI THAO TÁC SCAN
+
+==> DYNAMO DB không bắt buộc ta phải sử dụng INDEX nhưng chúng giúp các ứng dụng của ta linh hoạt hơn khi query dữ liệu. Sau khi tạo SecondaryIndex trên table, ta có thể đọc dữ liệu từ index theo các đọc dữ liệu từ table
+
+- DYNAMO DB hỗ trợ hai loại INDEX:
+	+ GLOBAL SECONDARY INDEX: index có partition key và sort key có thể khác với các index trên table
+	
+	+ LOCAL SECONDARY INDEX: index có cùng partition key với table nhưng có sort key khác
+	
+==> MỖI TABLE TRONG DYNAMO DB CÓ TỐI ĐA 20 GLOBAL SECONDARY INDEX VÀ 5 LOCAL SECONDARY INDEX
+
+1.4 QUY TẮC ĐẶT TÊN VÀ KIỂU DỮ LIỆU
+
+* QUY TẮC ĐẶT TÊN:
+- Các table, attribute và các đối tượng khác trong DynamoDb phải có tên
+- Quy tắc:
+	+ Tất cả các tên phải được mã hóa bằng UTF-8 và có phân biệt hoa - thường
+	+ Tên table và tên index phải dài từ 3-255 ký tự và chỉ chứa các kí tự sau:
+		+ a-z
+		+ A-Z
+		+ 0-9
+		+ _ - .
+	+ Tên attribute phải dài ít nhật một kí tự, ko dài hơn 64kb
+	
+	+ CÁC TRƯỜNG HỢP NGOẠI LỆ:
+		+ Tên khóa phân vùng Secondary Index
+		+ Secondary Index sắp xếp các tên key
+		+ Tên của attribute dự kiến nào do người dùng chỉ định (local secondary index)
+
+* KIỂU DỮ LIỆU:
+- DynamoDB hỗ trợ nhiều kiểu dữ liệu khác nhau cho các attribute trong table, chúng có thể được phân loại như sau:
+	+ Các kiểu vô hướng: số, chuỗi, nhị phân, boolean, null
+	+ Loại tài liệu: list, map
+	+ Loại tập hợp: tập hợp chuỗi, số, nhị phân
+
+1.5 READ CONSITENTCY  
+
+- Eventually Consistent Reads
+	- Khi đọc dữ liệu từ DynamoDB, phản hồi có thể không phản ánh kết quả của một thao các ghi đã hoàn thành đầy đủ
+	- Phản hồi có thể bao gồm một số dữ liệu cũ
+	- Nếu lặp lại các yêu cầu đọc của mình sau một thời gian ngắn, phản hồi sẽ trả về dữ liệu mới nhất
+
+- Strongly Consitent Reads
+	- Khi ta yêu cầu strongly consitent reads, DynamoDB trả về phản hồi với dữ liệu cập nhật nhất, phản ánh các cập nhật từ tất cả các hoạt động ghi trước đó đã thành công. Tuy nhiên, tính nhất quán này đi kèm với một số nhược điểm 
+
+		+ Strongly Consistent Reads có thể không khả dụng nếu có sự cố mạng hoặc ngừng hoạt động. Trong trường hợp này, DynamoDB có thể trả về lỗi máy chủ (HTTP 500).
+		+ Strongly Consistent Reads có thể có độ trễ cao hơn eventually consistent reads.
+		+ Global secondary indexes không được hỗ trợ Strongly Consistent Reads.
+		+ Strongly Consistent Reads sử dụng gấp đôi dung lượng thông lượng hơn so với eventually consistent reads.
+
+1.6 READ/WRITE CAPACITY MODE
+
+- ON-DEMAND MODE:
+	- Khi bạn chọn On-Demand Mode, DynamoDB ngay lập tức đáp ứng các khối lượng công việc của bạn khi chúng tăng hoặc giảm đến bất kỳ mức lưu lượng truy cập nào đã đạt được trước đó.
+		-> Nếu mức lưu lượng của khối lượng công việc đạt đến đỉnh mới, DynamoDB sẽ thích ứng nhanh chóng để đáp ứng khối lượng công việc.
+	
+	- On-Demand Mode là một lựa chọn tốt nếu bất kỳ điều nào sau đây là đúng:
+		+ Bạn tạo table mới với khối lượng công việc không xác định.
+		+ Bạn có lưu lượng ứng dụng không thể đoán trước.
+		+ Bạn chỉ thích dễ dàng thanh toán cho những gì bạn sử dụng
+
+- PROVISIONED MODE:
+	- Nếu bạn chọn Provisioned Mode, bạn chỉ định số lần đọc và ghi mỗi giây mà bạn yêu cầu cho ứng dụng của mình. Bạn có thể sử dụng tính năng tự động chia tỷ lệ để tự động điều chỉnh dung lượng được cung cấp của table để đáp ứng với những thay đổi về lưu lượng truy cập.
+	- Provisioned Mode là một tùy chọn tốt nếu bất kỳ điều nào sau đây là đúng:
+	 	+ Bạn có lưu lượng ứng dụng có thể dự đoán được.
+		+ Bạn chạy các ứng dụng có lưu lượng truy cập nhất quán hoặc tăng dần.
+		+ Bạn có thể dự báo các yêu cầu về năng lực để kiểm soát chi phí.
+
+2. CÁC BƯỚC CHUẨN BỊ
+
+2.1 SỬ DỤNG AWS MANAGEMENT CONSOLE
+2.2 SỬ DỤNG AWS CLOUDSHELL
+- AWS CloudShell là một trình dòng lệnh dựa trên trình duyệt giúp bạn dễ dàng quản lý, khám phá và tương tác với các tài nguyên AWS của mình một cách an toàn. CloudShell được xác thực trước bằng thông tin đăng nhập bảng điều khiển của bạn.
+
+- Các công cụ phát triển và hoạt động phổ biến được cài đặt sẵn, vì vậy không cần cài đặt hoặc cấu hình cục bộ. Với CloudShell, bạn có thể nhanh chóng chạy các tập lệnh với Giao diện dòng lệnh AWS (AWS CLI), thử nghiệm với các API dịch vụ AWS bằng AWS SDK hoặc sử dụng một loạt các công cụ khác để hoạt động hiệu quả.
+
+3. BẮT ĐẦU VỚI AWS SDK
+- SDK BAO GỒM HAI GÓI PYTHON CHÍNH: BOTOCORE VÀ BOTO3
+-> TRONG BÀI LAB NÀY CHÚNG TA SỬ DỤNG BOTO 3
+
+- Clients cung cấp giao diện cấp thấp cho dịch vụ AWS, định nghĩa của chúng được tảo mởi mô tả dịch vụ Json có trong thư viện botocore. Gói botocore được chia sẻ giữa boto3 cũng như AWS CLI
+
+- Định nghĩa dịch vụ cho AWS S3 được lưu trữ dưới dạng Json trong gói botocore. Các lợi ích chính của việc sử dụng ứng dụng boto3 client là:
+	+ Ánh xạ 1:1 với API dịch vụ AWS thực tế
+	+ Tất cả các hđ dịch vụ AWS đều đc hỗ trợ bởi Clients
+
