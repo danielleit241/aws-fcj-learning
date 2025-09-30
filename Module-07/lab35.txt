@@ -1,0 +1,69 @@
+DATALAKE ON AWS
+
+- Datalake là một thuật ngữ chuyên môn liên quan đến BigData. DataLake đơn giản là nơi chứa dữ liệu thô (chưa xử lý) chờ được xử lý, phân tích và đưa ra các đánh giá nhận xét (insignt)
+
+- DataLake có các tính chất sau:
+	+ Thu thập mọi thứ - chứ tất cả dữ liệu dạng thô hoặc đã xử lý trong khoảng thời gian dài
+	+ Đa người dùng - cho phép nhiều người dùng tinh chỉnh, khám phá và làm phong phú dữ liệu
+	+ Truy cập linh hoạt - hỗ trợ nhiều các thức truy cập (access pattern) trên cơ sở dữ liệu hạ tầng chung:
+		+ Lô (batch)
+		+ Tương tác
+		+ Trực tuyến
+		+ Tìm kiếm
+		+ ...
+
+-> CHÚNG TA SẼ TẬN DÙNG AWS GLUE ĐỂ LÀM DATA CATALOGUE. AMAZON ATHENA ĐƯỢC SỬ DỤNG ĐỂ TRUY VẤN DATA TRONG DATALAKE VÀ AMAZON QUICKSIGHT ĐỂ BIỄU DIỄN DATA
+
+1. GIỚI THIỆU:
+
+1.1 AMAZON GLUE:
+	- Là một dịch vụ ETL (extract-load-transform) hoàn chỉnh. Ta có thể sử dụng Glue Crawler để nhận diện dữ liệu của ta và lưu trữ thông tin dữ liệu liên quan trong Glue Data Catalog
+	-> Sau khi được phân loại, dữ liệu của ta có thể được tìm kiếm ngay, truy vấn và sẵn sàng cho các công việc ETL
+
+	- Amazon Glue ETL có thể tạo mã để thực hiện công việc chuyển đổi dữ liệu và đưa dữ liệu vào vùng lưu trữ -> có khả năng tạo mã Python có thể tùy chỉnh, và tái sử dụng
+
+1.2 AMAZON ATHENA
+	- Là một dịch vụ truy vấn tương tác được sử dụng để phân tích dữ liệu trong Amazon S3 với SQL tiêu chuẩn
+	- Ta chỉ cần trỏ đến dữ liệu trong Amazon S3, xác định schema và bắt đầu truy vấn bằng trình chỉnh sửa truy vấn tích hợp
+	- Athena cho phép chúng ta khai tác tất cả dữ liệu của mình trong S3 mà không cần phải thiết lập các quy trình ETL phức tạp
+	-> TÍNH TIỀN DƯA TRÊN TRUY VẤN ĐƯỢC CHẠY
+
+	- ATHENA sử dụng Presto với hỗ trợ SQL ANSI và hoạt động nhiều với định dạng dữ liệu tiêu chuẩn bao gồm CSV, JSON, ORC, Avro, Parquet
+	- Athena được khuyến nghị cho nhu cầu truy vấn nhanh, nhưng nó cũng có thể xử lý các phân tích phức tạp bao gồm các phép join với lượng dữ liệu lớn, các windows functions và mảng
+
+
+1.3 AMAZON QUICKSIGHT
+	- Là một dịch vụ biểu diễn dữ liệu được quản lý hoàn toàn bởi AWS
+	- Datasource là một kho lưu trữ dữ liệu bên ngoài và ta cần cấu hình việc truy cập dữ liệu bên ngoài này
+	- Dataset xác định dữ liệu cụ thể trong Data source mà bạn muốn sử dụng. 
+	- Analysis là nơi chứa một tập hợp các Visual và câu chuyện có liên quan, ví dụ như tất cả các câu chuyện áp dụng cho một mục tiêu kinh doanh nhất định hoặc KPI.
+	- Visual là một biểu diễn đồ họa cho dữ liệu của bạn. Bạn có thể tạo nhiều loại Visual khác nhau trong một analysis, sử dụng các bộ dữ liệu và loại Visual khác nhau.
+	- Dashboard là một trang bao gồm một hoặc nhiều Analysis chỉ cho phép xem mà bạn có thể chia sẻ với những người dùng Amazon QuickSight khác cho mục đích báo cáo. Dashboard lưu giữ cấu hình của bản Analysis tại thời điểm bạn xuất bản nó, bao gồm những thứ như lọc, tham số, điều khiển và thứ tự sắp xếp.
+
+
+2. CÁC BƯỚC CHUẨN BỊ
+	- TẠO IAM ROLE GLUE VỚI 2 QUYỀN FULL ACCESS S3 VÀ AWS GLUE SERVICE
+	- TẠO POLICY -> sau đó gán policy này vào role vừa khởi tạo ở trên
+
+3. THU THẬP VÀ LƯU TRỮ DỮ LIỆU
+	- TẠO S3 BUCKET -> TẠO FOLDER DATA -> TẠO FOLDER REF_DATA -> THÊM FILE VÀO TRONG REF_DATA
+	
+	- TẠO DELIVERY STREAM -> TRUY CẬP VÀO KINESIS -> TẠO STREAM KẾT NỐI TỚI S3 
+	
+	- VÀO CLOUDFORMATION-STACK ĐỂ KHỞI TẠO STACK VỚI FILE ĐÃ CÓ SẴN
+
+	-> SAU KHI KHỞI TẠO THÀNH CÔNG 
+
+4. TẠO DATA CATALOG
+	- TẠO AWS GLUE
+		-> VÀO AWS GLUE -> CRAWLER -> CREATE -> CHỌN S3 -> CHỌN IAM ROLE -> CHỌN/TẠO TARGET DATABASE -> RUN CRAWLER
+		-> Khi tạo crawler sẽ mất khoảng một phút trong quá trình khởi tạo -> hiển thị trên trạng thái của crawler ta vừa tạo
+	- Data check:
+		Ta sẽ vào S3 ban đầu của bài làm -> dùng Amazon Athena để kiểm tra dữ liệu trong S3 một cách dễ dàng
+		
+
+5. CHUYỂN ĐỔI DỮ LIỆU
+	- TẠO SAGEMAKER NOTEBOOK: ta sẽ có 2 cách để khởi tạo
+
+	- 1. AWS Console -> Glue -> NoteBooks -> Chờ khoảng 2-3 phút khởi tạo -> Run
+	- 2. AWS Console -> Glue studio -> Jobs

@@ -1,0 +1,123 @@
+PHÂN TÍCH CHI PHÍ VÀ HIỆU NĂNG SỬ DỤNG VỚI AWS GLUE VÀ AMAZON ATHENA
+
+1. GIỚI THIỆU
+
+- Amazon Glue là dịch vụ chuẩn bị dữ liệu hỗ trợ các nhà phân tích dữ liệu trong việc TRÍCH XUẤT - BIẾN ĐỔI - ĐẤY DỮ LIỆU ETL (Extract - Transform - Load) 
+	-> Tạo điều kiện để trau chuốt, làm phong phú và chuẩn hóa dữ liệu
+	-> Đồng thời nhờ có AWS Glue thời gian cần thiết để bắt đầu phân tích dữ lieeujc ó thể giảm từ hàng tháng xuống vài phút
+
+- Để dữ liệu sẵn sàng cho hoạt động phân tích, trước tiên ta cần trích xuất dữ liệu từ nhiều nguồn (vd: S3) 
+	-> sau đó phải trau chuốt, biến đổi dữ liệu thành định dạng yêu cầu (vd: Parquet) 
+	-> đẩy dữ liệu vào cơ sở dữ liệu, cho quá trình phân tích sau này
+
+- AWS Glue cho phép thao tác cả ở dạng mã lệnh và dạng giao diện
+	-> Có thể dễ dàng khởi tạo, chạy và theo dõi quy trình ETL với AWS Glue Studio
+	-> Ngoài ra còn có AWS Glue DataBrew giúp trau chuốt và chuẩn hóa dữ liệu một cách trực quan mà ko cần viết mã
+
+- SƠ ĐỒ HOẠT ĐỘNG CƠ BẢN CỦA AWS GLUE VÀ ATHENA:
+	- 1. Dữ liệu được đẩy lên AWS S3
+	- 2. AWS Glue sử dụng Glue Crawler biến đổi data trong S3 thành table (Glue cần được cấp quyền S3)
+	- 3. AWS Glue biến đổi dữ liệu bảng thành Parguet
+	- 4. Kết quả được lưu vào S3 khác
+	- 5-6. Tiếp tục sd Glue Crawler -> file dạng Parquet trong S3 thành file Parguet Catalog
+	- 7. Amazon Athena để query data từ AWS Glue
+
+2. CÁC BƯỚC CHUẨN BỊ
+- Ta bỏ qua các bước biến đổi dữ liệu ban đầu mà chỉ làm việc trực tiếp trên file Parquet có sẵn
+	-> Cụ thể ta sẽ đi xây dựng một nền tảng để phân tích chi phí và hiệu năng sử dụng
+	=> Ta có thể cân bằng giữa chi phí với hiệu quả của các thành phần trong hệ thống
+
+2.1 CHUẨN BỊ CƠ SỞ DỮ LIỆU
+	- Tạo S3 Bucket -> đẩy các file dữ liệu báo cáo lên S3
+
+2.2 XÂY DỰNG CƠ SỞ DỮ LIỆU
+	- Ta sẽ cấu hình AWS Glue và Crawler để nó chạy theo lịch 1 lần/ngày
+	-> Crawler sẽ quét đường dẫn chứa file Parquet đầu vào, lưu trên S3 rồi thực hiện tạo một database cùng các bảng đi kèm => khi có một phiên bản mưới của report, bảng dữ liệu sẽ được tự động cập nhất
+
+	- Amazon Athena giúp chúng ta truy cập và xem nội dung file Parquet thông qua câu lệnh SQL
+
+2.3 KIỂM TRA CƠ SỞ DỮ LIỆU
+	- Chúng ta thực hiện tạo S3 Bucket để lưu kết quả truy vấn dữ liệu thông qua AWS Athena
+
+
+3. PHÂN TÍCH CHI PHÍ VÀ HIỆU NĂNG SỬ DỤNG
+- Ta sẽ phân tích hiệu năng sử dụng của hệ thống bằng các câu lệnh SQL
+	-> Việc sử dụng Athena sẽ bị tính phí khi ta truy vấn dựa theo lượng dữ liệu được quét (scan) là dữ liệu được ghi nhận theo thàng và file ở định dạng parquet
+	-> Dữ liệu này đã được nén và phân mảnh để giảm thiểu chi phí khi sử dụng Amazon Athena
+	=> TUY NHIÊN: khi truy vấn vẫn nên giới hạn theo số lượng bản ghi trả về với từ khóa LIMITS ở cuối câu lệnh
+
+3.1 NGHIÊN CỨU DỮ LIỆU TRONG BẢNG
+- Để thuận tiện cho việc thử nghiệm, ta có thể sao chép các câu lệnh truy vấn, với mỗi câu lệnh ta chỉ cần sao chép và RUN
+
+- Truy vấn 10 dữ liệu ko trùng lặp nhau trong: 
+	SELECT distinct "line_item_line_item_description"
+	FROM "costmaster"."monthly_report"
+	LIMIT 10;
+
+- Truy vấn 10 bản ghi có mà có giả trị cột là Usage:
+	SELECT * FROM "costmaster"."monthly_report"
+	WHERE "line_item_line_item_type" like '%Usage%'
+	LIMIT 10;
+
+- Hiển thị thời gian thanh toán ko trùng lặp:
+	SELECT distinct bill_billing_period_start_date 
+	FROM "costmaster"."monthly_report"
+	LIMIT 10;
+
+3.2 NGHIÊN CỨU VỀ CHI PHÍ
+- Để việc tối ưu hóa được hiệu quả, sẽ rất tốt nếu ta có thể xem xét những chi phí hàng đầu theo nhiều danh mục khác nhau như dịch vụ, mô tả, tag
+
+- HIỂN THỊ TOP10 ACCOUNT ID TỐN CHI PHÍ NHẤT:
+	SELECT "line_item_usage_account_id",
+	round(sum("line_item_unblended_cost"), 2) as cost
+	FROM "costmaster"."monthly_report"
+	GROUP BY "line_item_usage_account_id"
+	ORDER BY cost desc
+	LIMIT 10;
+
+- HIỂN THỊ TOP 10 DỊCH VỤ TỐN CHI PHÍ NHẤT:
+	SELECT "line_item_product_code",
+	round(sum("line_item_unblended_cost"), 2) as cost
+	FROM "costmaster"."monthly_report"
+	GROUP BY "line_item_product_code"
+	ORDER BY cost desc
+	LIMIT 10;
+
+- HIỂN THỊ TOP10 DỊCH VỤ VÀ MÔ TẢ CHI TIẾT CÓ CHI PHÍ TỐN KÉM NHẤT:
+	SELECT "line_item_product_code",
+	"line_item_line_item_description",
+	round(sum("line_item_unblended_cost"), 2) as cost
+	FROM "costmaster"."monthly_report"
+	WHERE "line_item_product_code" like '%AmazonEC2%'
+	GROUP BY "line_item_product_code",
+	"line_item_line_item_description"
+	ORDER BY cost desc
+	LIMIT 10;
+
+3.3 TAGGING VÀ SỰ PHÂN BỔ CHI PHÍ
+- Việc đánh giá tag khá phổ biến trong các tổ chức lớn, nó đáp ứng yêu cầu phân bổ chi phí trở lại các đơn vị doanh nghiệp cụ thể
+- Nó cũng rất quan trọng đối với việc tối ưu hóa trong việc phân bổ chi phí theo khối lượng công việc, đồng thời giúp đo lường hiệu quả công việc
+
+- HIỂN THỊ TOP 20 HẠNG MỤC CÓ CHI PHÍ CAO NAHATS ĐƯỢC NHÓM THEO MÔ TẢ CHI TIẾT VÀ DẤU TAG CẢU COSTCENTER:
+	SELECT "bill_payer_account_id",
+	"product_product_name",
+	"line_item_usage_type",
+	"line_item_line_item_description",
+	resource_tags_user_cost_center,
+	round(sum(line_item_unblended_cost), 2) as cost
+	FROM "costmaster"."monthly_report"
+	WHERE length("resource_tags_user_cost_center") > 0
+	GROUP BY "resource_tags_user_cost_center",
+	"bill_payer_account_id",
+	"product_product_name",
+	"line_item_usage_type",
+	"line_item_line_item_description"
+	ORDER BY cost desc
+	LIMIT 20
+
+3.4 USAGE
+- ĐỂ CẢI THIỆN VIỆC SỬ DỤNG CÁC MÔ HÌNH TÍNH TOÁN CHI PHÍ CHO DOANH NGHIỆP, CHÚNG TÔI CÓ ĐƯA RA Ở ĐÂY MỘT VÀI VÍ DỤ GIÚP LÀM NỔI BẬT CÁC TRƯỜNG HỢP SỬ DỤNG EC2 THEO KIỂU SAVINGS PLANS HOẶC RESERVED INSTANCE MỘT CÁC HIỆU QUẢ KHI SO SÁNH VỚI KIỂU CHI PHÍ ONDEMAND
+
+	
+
+
