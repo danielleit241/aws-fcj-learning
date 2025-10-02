@@ -1,0 +1,103 @@
+BẮT ĐẦU VỚI AMAZON VIRTUAL PRIVATE CLOUD (VPC)
+	VÀ AWS SITE-TO-SITE VPN
+
+1. GIỚI THIỆU
+- AMAZON VPC là dịch vụ mạng ảo tùy chỉnh nằm trong AWS Cloud, cho phép tạo một môi trường mạng riêng biệt và hoàn toàn tách biệt với thế giới bên ngoài. Khái niệm này tương tự như việc thiết kế và triển khai một mạng độc lập trong datacenter on-premise truyền thống
+
+- TÍNH NĂNG CHÍNH CỦA AMAZON VPC:
+	+ Kiểm soát hoàn toàn môi trường mạng ảo
+	+ Khởi tạo và quản và quản lý tài nguyên AWS
+	+ Tùy chỉnh phạm vi địa chỉ IP và phân đoạn mạng
+	+ ...
+
+* KIẾN TRÚC VÀ PHẠM VI:
+
+- AWS REGION VÀ VPC: 
+	+ MỖI REGION AWS BAO GỒM NHIỀU AZS
+	+ CÓ THỂ TẠO NHIỀU VPC TRONG 1 REGION
+	+ MỖI VPC ĐƯỢC ĐỊNH DANH BẰNG ĐỊA CHỈ IP RIÊNG BIỆT
+
+- CẤU HÌNH ĐC IP:
+	+ Sử dụng CIDR để định nghĩa phạm vi địa chỉ
+	+ Phạm vi từ /16 - /28
+	+ CIDR block ko thể thay đổi sau khi tạo	
+	+ Ko được trùng lặp với các mạng kết nối
+
+1.1 SUBNETS:
+
+- LÀ CÁC PHÂN ĐOẠN CỦA DẢI ĐỊA CHỈ IP TRONG VPC, CUNG CẤP KO GIAN MẠNG CHO CÁC TÀI NGUYÊN AWS NHƯ EC2, RDS
+- ĐƯỢC XÁC ĐỊNH BẰNG CIDR BLOCK, CIDR CỦA SUBNET PHẢI NẰM TRONG CIDR CỦA VPC
+
+- GIỚI HẠN:
+	+ Subnet nhỏ nhất có thể tạo là /28
+	+ AWS dành riêng 5 địa chỉ IP trong mỗi subnet:
+		+ 0-4
+		+ 255
+- PHÂN LOẠI:
+	+ public subnet -> routetable có kết nối với IGW -> internet
+	+ private subnet -> ko kết nối IGW 
+	+ VPC-only Subnet -> routetable điều hướng tới Virtual Private Gateway (VPG) -> dành cho kết nối VPN
+
+1.2 ROUTE TABLE
+
+- LÀ THÀNH PHẦN QUAN TRỌNG TRONG AMAZON VPC, CHỨA TẬP HỢP CÁC QUY TẮC ĐỂ ĐIỀU HƯỚNG LƯU LƯỢNG MẠNG. MỖI SUBNET PHẢI ĐƯỢC LIÊN KẾT VỚI 1 ROUTE TABLE
+
+- CẤU TRÚC:
+	+ XÁC ĐỊNH ĐƯỢC 'ĐÍCH ĐẾN' VÀ 'MỤC TIÊU'
+	+ CHO PHÉP GIAO TIẾP NỘI BỘ TRONG VPC
+	+ CÓ THỂ THÊM CÁC ROUTE TÙY CHỈNH CHO KẾT NỐI BÊN NGOÀI
+
+- GIỚI HẠN:
+	+ MỖI SUBNET CHỈ LIÊN KẾT VỚI 1 ROUTE TABLE TẠI 1 THỜI ĐIỂM
+
+1.3 INTERNET GATEWAY
+
+- ĐỊNH NGHĨA: IGW LÀ THÀNH PHẦN THIẾT YẾU TRONG VPC, CHO PHÉP TÀI NGUYÊN TRONG VPC GIAO TIẾP VỚI INTERNET
+	CÓ KHẢ NĂNG MỞ RỘNG TỰ ĐỘNG VÀ TÍNH SẴN SÀNG CAO, HOẠT ĐỘNG NHƯ 1 TARGET TRONG ROUTE TABLE CỦA VPC
+
+- CÁCH THỨC HOẠT ĐỘNG: THỰC HIỆN DỊCH ĐỊA CHỈ MẠNG (NAT) GIỮA PRIVATE VÀ PUBLIC IP, TỰ ĐỘNG MỞ RỘNG ĐỂ DÁP ỨNG LƯU LƯỢNG TRUY CẬP, DUY TRÌ ÁNH XẠ 1:1 GIỮA PRIVATE IP VÀ PUBLIC IP
+
+- LƯU Ý:
+	+ EC2 INSTANCE CHỈ NHẬN BIẾT PRIVATE IP CỦA CHÍNH NÓ
+	+ CẦN PUBLIC IP HOẶC ELASTIC IP ĐỂ KẾT NỐI INTERNET
+	+ IGW TJW ĐỘNG XỬ LÝ VIỆC CHUYỂN ĐỔI ĐC IP
+
+1.4 NAT GATEWAY
+
+- ĐỊNH NGHĨA: NAT GATEWAY LÀ DỊCH VỤ ĐƯỢC QUẢN LÝ BỞI AWS ĐỂ CHO PHÉP CÁC TÀI NGUYÊN TRONG PRIVATE SUBNET KẾT NỐI VỚI INTERNET. THAY THẾ CHO GIẢI PHÁP NAT INSTANCE TRUYỀN THỐNG VỚI KHẢ NĂNG MỞ RỘNG VÀ ĐỘ TIN CẬY CAO HƠN
+	TỰ ĐỘNG TUY TRÌ TÍNH SẴN SÀNG VÀ BĂNG THÔNG THEO NHU CẦU SỬ DỤNG
+
+- GIỚI HẠN: 
+	+ PHẢI ĐC TRIỂN KHAI TRONG PUBLIC SUBNET
+	+ YÊU CẦU MỘT ELASTIC IP ADDRESS RIÊNG BIỆT
+	+ KO HỖ TRỢ KẾT NỐI TRỰC TIẾP TỪ INTERNET VÀO PRIVATE SUBNET
+	+ ELASTIC IP KO ĐC LIÊN KẾT VỚI BẤT KÌ INSTANCE HOẶC NETWORK INTERFACE NÀO KHÁC
+
+2. TƯỜNG LỬA TRONG VPC
+- AMAZON VPC CUNG CẤP HAI LỚP BẢO MẬT CHÍNH:
+	+ SECURITY GROUP (SG) -> TƯỜNG LỬA Ở CẤP ĐỘ INSTANCE
+	+ NETWORK ACCESS CONTROL LISTS (NACLS): TƯỜNG LỬA Ở CẤP ĐỘ SUBNET
+
+=> NETWORK ACLS HOẠT ĐỘNG NHƯ TƯỜNG LỬA PERIMETER TRONG KHI ĐÓ SECURITY GROUPS CUNG CẤP BẢO MẬT CHI TIẾT CHO TỪNG TÀI NGUYÊN -> KẾT HỢP CẢ HAI TẠO NÊN MÔ HÌNH BẢO MẬT TOÀN DIỆN
+
+2.1 SECURITY GROUP
+
+- ĐỊNH NGHĨA: SG HOẠT ĐỘNG NHƯ TƯỜNG LỬA ẢO Ở CẤP ĐỘ INSTANCE, HỖ TRỢ CÁC QUY TẮC CHO PHÉP VÀ CÓ THỂ CẤU HÌNH QUY TẮC RIÊNG BIỆT CHO LƯU LƯỢNG VÀO/RA 
+	-> LÀ DỊCH VỤ CÓ TRẠNG THÁI STATEFUL - NẾU LƯU LƯỢNG VÀO ĐC CHO PHÉP THÌ LƯU LƯỢNG RA TƯƠNG ỨNG CŨNG ĐƯỢC CHO PHÉP
+
+- CẤU TRÚC QUY TẮC:
+	+ INBOUND RULES
+
+	+ OUTBOUND RULES
+
+-> SỬ DỤNG CÁC GIAO THỨC CHUẨN (SSH: 22, HTTP: 80: HTTPS: 443) 
+
+2.2 NETWORK ACLS
+
+- ĐỊNH NGHĨA: LÀ LỚP BẢO MẬT BỔ SUNG CHO VPC Ở CẤP ĐỘ SUBNET, HOẠT ĐỘNG NHƯ 1 TƯỜNG LỬA STATELESS ĐỂ KIỂM SOÁT LƯU LƯỢNG VÀO/RA SUBNET, MỖI VPC CÓ MỘT NACLS MẶC ĐỊNH CHO PHÉP MỌI LƯU LƯỢNG IPV4/IPV6
+	-> CÓ THỂ TẠO NACLS TÙY CHỈNH VỚI CÁC QUY TẮC RIÊNG
+
+- GIỚI HẠN:
+	+ MỖI SUBNET PHẢI LIÊN KẾT VỚI MỘT NETWORK ACL
+	+ MỘT NACLS CÓ THỂ ÁP DỤNG LÊN NHIỀU SUBNET
+	
