@@ -1,0 +1,32 @@
+AWS CLOUDWATCH WORKSHOP
+
+1. GIỚI THIỆU
+- Amazon Cloudwatch là dịch vụ theo dõi và quản lý cung cấp dữ liệu và thông tin định hướng hành động cho tài nguyên csht và ứng dụng AWS, ứng dụng hybird cũng như ứng dụng on-premise
+- Ta có thể thu tập và truy cập tất cả dữ liệu về hiệu năng và hoạt động dưới hình thức LOGS và METRICS trong cùng một nền tảng thay vì theo dõi riêng lẻ (máy chủ, mạng, csdl)
+
+==> CLOUDWATCH cho phép ta theo dõi end-to-end và tận dụng cảnh báo, logs và dữ liệu sk để tự động hóa hành động và giảm Mean Time To Resolution
+
+- TÍNH NĂNG CHÍNH
+	+ Cung cấp thông tin định hướng hành động -> hỗ trợ tối ưu hóa hiệu năng -> quản lý sử dụng tài nguyên và hiểu rõ tính trạng hoạt động của toàn hệ thống
+	--> Cloudwatch hiển thị dữ liệu metrics và logs chỉ tiết đến từng giây, lưu trữ dữ liệu trong 15 tháng (metrics) và cho phép thực hiện các phép tính trên metrics
+
+- CONTAINER INSIGHT:
+	+ Cho phép theo dõi, khắc phục sự cố và thiết lập cảnh báo cho các ứng dụng và microservices chạy trong containers
+	-> Cloudwatch thu tập tổng hợp và tóm tắt thông tin sử dụng tài nguyên tính toán (CPU bộ nhớ, ...) cũng như thông tin chuẩn đoán (lỗi) nhằm giúp kỹ sư DevOps cô lập và giải quyết sự cố một cách nhanh chóng
+
+==> CONTAINER INSIGHT cung cấp thông tin chi tiết từ các dịch vụ quản lý container như Amazon EKS, Amazon ECS, Amazon Faragate và Kubernetest độc lập
+
+3. CLOUDWATCH METRICS
+- Khi làm việc với Amazon CloudWatch, chúng ta chủ yếu tập trung vào việc “quan sát”. CloudWatch cung cấp các biểu đồ trực quan và bảng dữ liệu chi tiết để theo dõi các Metric. Việc này đóng vai trò quan trọng trong việc đánh giá tình trạng của ứng dụng và hệ thống, từ đó giúp đưa ra quyết định chính xác về việc tối ưu hóa và nâng cấp.
+
+- METRICS TRONG CLOUDWATCH LÀ NỀN TẢNG CHO VIỆC XÂY DỰNG HỆ THỐNG TOÀN DIỆN GIÚP BẠN SỚM PHÁT HIỆN CÁC VẤN ĐỀ TIỀM ẢNH TRƯỚC KHI CHÚNG ẢNH HƯỞNG ĐẾN END-USER
+
+4. CLOUDWATCH LOGS
+- Amazon CloudWatch Logs là dịch vụ giám sát và lưu trữ logs tập trung, cho phép bạn thu thập, phân tích và lưu trữ logs từ các ứng dụng, hệ thống và dịch vụ AWS. Logs là thành phần không thể thiếu trong mỗi hệ thống, cung cấp nhiều thông tin quan trọng như:
+	+ Các hoạt động và sự kiện trong ứng dụng
+	+ Hành động của người dùng và thông tin xác thực
+	+ Lỗi hệ thống và ngoại lệ ứng dụng
+	+ Cảnh báo và thông báo hệ thống
+
+5. CloudWatch Alarms
+- Amazon CloudWatch Alarms giúp bạn tự động giám sát các metrics và logs, kích hoạt hành động khi các ngưỡng được vượt qua.

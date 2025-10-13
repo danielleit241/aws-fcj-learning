@@ -1,0 +1,27 @@
+GIỚI THIỆU VỀ AMAZON EC2
+
+1. GIỚI THIỆU
+- Amazon EC2 là dịch vụ cung cấp khả năng điện toán đám mây có thể thay đổi kích thước được trên AWS. Một số đặc điểm chính:
+	+ Amazon EC2: hoạt động tương tự như máy chủ ảo hoặc máy chủ vật lí truyền thống
+		-> với khả năng khởi tạo nhanh chóng, co giãn tài nguyên linh hoạt và quản lý đơn giản.
+	
+	+ Máy chủ ảo: chi nhỏ máy chủ vật lý thành nhiều máy chủ ảo -> giúp tối ưu hóa việc sử dụng tài nguyên phần cứng
+	
+	+ Amazon EC2 hỗ trợ đa dạng các workload như web, ứng dụng, csdl, dịch vụ xác thực và bất kì tác vụ nào mà máy chủ thông thường có thể thực hiện
+
+- Amazon EC2 - Loại Instance (Instance Types):
+	- Cấu hình của Amazon EC2 không được tùy chỉnh tùy ý, mà được lựa chọn thông qua các loại instance (Instance Types) được AWS định nghĩa sẵn.
+
+	- Instance Type quyết định các yếu tố quan trọng:
+		+ CPU: Intel / AMD / ARM (Graviton 1/2/3) / GPU
+		+ Memory: Dung lượng RAM
+		+ Network: Băng thông mạng và hiệu suất
+		+ Storage: Loại và hiệu suất lưu trữ
+
+==> Việc lựa chọn Instance Type phù hợp với workload của bạn sẽ giúp tối ưu hóa chi phí và hiệu suất. Ví dụ: sử dụng instance dòng T cho workload có nhu cầu CPU thấp, dòng M cho workload cân bằng, dòng R cho ứng dụng cần nhiều bộ nhớ.
+
+- Amazon EC2 AMI 
+	+ AMI (Amazon Machine Image) là template chứa cấu hình phần mềm (hệ điều hành, ứng dụng) để khởi tạo một hoặc nhiều EC2 Instance cùng lúc.
+
+==> EC2 Instance có thể được sao lưu (backup) bằng cách tạo snapshot. Tuy nhiên, snapshot chỉ lưu trữ dữ liệu tại thời điểm tạo, nên cần lên kế hoạch sao lưu thường xuyên cho dữ liệu quan trọng.
+

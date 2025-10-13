@@ -1,0 +1,18 @@
+CLOUDFRONT VỚI S3
+
+1. GIỚI THIỆU
+- Trong bài lab này sẽ hướng dẫn việc lưu trữ web tĩnh trong Amazon S3 bucker, được bảo vệ và tăng tốc bởi Amazon Cloudfront
+- Tài liệu tham khảo: https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html
+
+2. TẠO S3 BUCKET
+- TẠO MỘT S3 BUCKET
+- TẠO FILE INDEX.HTML VỚI NỘI DUNG HTML
+-> UPLOAD FILE INDEX.HTML LÊN S3 -> OPEN -> F12 ĐỂ KIỂM TRA THỜI GIAN REQUEST SAU ĐÓ SO SÁNH VỚI CLOUDFRONT (218MS)
+
+3. CẤU HÌNH CLOUDFRONT 
+- CẤU HÌNH CLOUDFRONT KẾT NỐI VỚI S3
+-> SAU KHI CẤU HÌNH CLOUDFRONT THỜI GIAN REQUEST ĐÃ GIẢM XUỐNG CÒN 30-40MS
+
+==> Web tĩnh của bạn được host tại các Region US & có end user tại khu vực Asian, thì thời gian trả về kết quả sau 1 cú lích chuột có thể lên tới vài giây hoặc chục giây, điều đó - sẽ làm ảnh hưởng đến trãi nghiệm người dùng! Nhưng với CloudFront tốc độ sẽ luôn được tối ưu.
+
+==> Giờ đây, bạn có nội dung trong S3 bucket private mà chỉ CloudFront mới có quyền truy cập an toàn. Sau đó, CloudFront phục vụ các yêu cầu, trở thành một dịch vụ lưu trữ tĩnh an toàn, đáng tin cậy một cách hiệu quả với các tính năng như custom certificates và alternate domain names .

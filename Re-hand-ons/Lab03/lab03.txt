@@ -1,0 +1,242 @@
+BẮT ĐẦU VỚI AMAZON VIRTUAL PRIVATE CLOUD (VPC)
+	VÀ AWS SITE-TO-SITE VPN
+
+1. GIỚI THIỆU
+- AMAZON VPC là dịch vụ mạng ảo tùy chỉnh nằm trong AWS Cloud, cho phép tạo một môi trường mạng riêng biệt và hoàn toàn tách biệt với thế giới bên ngoài. Khái niệm này tương tự như việc thiết kế và triển khai một mạng độc lập trong datacenter on-premise truyền thống
+
+- TÍNH NĂNG CHÍNH CỦA AMAZON VPC:
+	+ Kiểm soát hoàn toàn môi trường mạng ảo
+	+ Khởi tạo và quản và quản lý tài nguyên AWS
+	+ Tùy chỉnh phạm vi địa chỉ IP và phân đoạn mạng
+	+ ...
+
+* KIẾN TRÚC VÀ PHẠM VI:
+
+- AWS REGION VÀ VPC: 
+	+ MỖI REGION AWS BAO GỒM NHIỀU AZS
+	+ CÓ THỂ TẠO NHIỀU VPC TRONG 1 REGION
+	+ MỖI VPC ĐƯỢC ĐỊNH DANH BẰNG ĐỊA CHỈ IP RIÊNG BIỆT
+
+- CẤU HÌNH ĐC IP:
+	+ Sử dụng CIDR để định nghĩa phạm vi địa chỉ
+	+ Phạm vi từ /16 - /28
+	+ CIDR block ko thể thay đổi sau khi tạo	
+	+ Ko được trùng lặp với các mạng kết nối
+
+1.1 SUBNETS:
+
+- LÀ CÁC PHÂN ĐOẠN CỦA DẢI ĐỊA CHỈ IP TRONG VPC, CUNG CẤP KO GIAN MẠNG CHO CÁC TÀI NGUYÊN AWS NHƯ EC2, RDS
+- ĐƯỢC XÁC ĐỊNH BẰNG CIDR BLOCK, CIDR CỦA SUBNET PHẢI NẰM TRONG CIDR CỦA VPC
+
+- GIỚI HẠN:
+	+ Subnet nhỏ nhất có thể tạo là /28
+	+ AWS dành riêng 5 địa chỉ IP trong mỗi subnet:
+		+ 0-4
+		+ 255
+- PHÂN LOẠI:
+	+ public subnet -> routetable có kết nối với IGW -> internet
+	+ private subnet -> ko kết nối IGW 
+	+ VPC-only Subnet -> routetable điều hướng tới Virtual Private Gateway (VPG) -> dành cho kết nối VPN
+
+1.2 ROUTE TABLE
+
+- LÀ THÀNH PHẦN QUAN TRỌNG TRONG AMAZON VPC, CHỨA TẬP HỢP CÁC QUY TẮC ĐỂ ĐIỀU HƯỚNG LƯU LƯỢNG MẠNG. MỖI SUBNET PHẢI ĐƯỢC LIÊN KẾT VỚI 1 ROUTE TABLE
+
+- CẤU TRÚC:
+	+ XÁC ĐỊNH ĐƯỢC 'ĐÍCH ĐẾN' VÀ 'MỤC TIÊU'
+	+ CHO PHÉP GIAO TIẾP NỘI BỘ TRONG VPC
+	+ CÓ THỂ THÊM CÁC ROUTE TÙY CHỈNH CHO KẾT NỐI BÊN NGOÀI
+
+- GIỚI HẠN:
+	+ MỖI SUBNET CHỈ LIÊN KẾT VỚI 1 ROUTE TABLE TẠI 1 THỜI ĐIỂM
+
+1.3 INTERNET GATEWAY
+
+- ĐỊNH NGHĨA: IGW LÀ THÀNH PHẦN THIẾT YẾU TRONG VPC, CHO PHÉP TÀI NGUYÊN TRONG VPC GIAO TIẾP VỚI INTERNET
+	CÓ KHẢ NĂNG MỞ RỘNG TỰ ĐỘNG VÀ TÍNH SẴN SÀNG CAO, HOẠT ĐỘNG NHƯ 1 TARGET TRONG ROUTE TABLE CỦA VPC
+
+- CÁCH THỨC HOẠT ĐỘNG: THỰC HIỆN DỊCH ĐỊA CHỈ MẠNG (NAT) GIỮA PRIVATE VÀ PUBLIC IP, TỰ ĐỘNG MỞ RỘNG ĐỂ DÁP ỨNG LƯU LƯỢNG TRUY CẬP, DUY TRÌ ÁNH XẠ 1:1 GIỮA PRIVATE IP VÀ PUBLIC IP
+
+- LƯU Ý:
+	+ EC2 INSTANCE CHỈ NHẬN BIẾT PRIVATE IP CỦA CHÍNH NÓ
+	+ CẦN PUBLIC IP HOẶC ELASTIC IP ĐỂ KẾT NỐI INTERNET
+	+ IGW TJW ĐỘNG XỬ LÝ VIỆC CHUYỂN ĐỔI ĐC IP
+
+1.4 NAT GATEWAY
+
+- ĐỊNH NGHĨA: NAT GATEWAY LÀ DỊCH VỤ ĐƯỢC QUẢN LÝ BỞI AWS ĐỂ CHO PHÉP CÁC TÀI NGUYÊN TRONG PRIVATE SUBNET KẾT NỐI VỚI INTERNET. THAY THẾ CHO GIẢI PHÁP NAT INSTANCE TRUYỀN THỐNG VỚI KHẢ NĂNG MỞ RỘNG VÀ ĐỘ TIN CẬY CAO HƠN
+	TỰ ĐỘNG TUY TRÌ TÍNH SẴN SÀNG VÀ BĂNG THÔNG THEO NHU CẦU SỬ DỤNG
+
+- GIỚI HẠN: 
+	+ PHẢI ĐC TRIỂN KHAI TRONG PUBLIC SUBNET
+	+ YÊU CẦU MỘT ELASTIC IP ADDRESS RIÊNG BIỆT
+	+ KO HỖ TRỢ KẾT NỐI TRỰC TIẾP TỪ INTERNET VÀO PRIVATE SUBNET
+	+ ELASTIC IP KO ĐC LIÊN KẾT VỚI BẤT KÌ INSTANCE HOẶC NETWORK INTERFACE NÀO KHÁC
+
+2. TƯỜNG LỬA TRONG VPC
+- AMAZON VPC CUNG CẤP HAI LỚP BẢO MẬT CHÍNH:
+	+ SECURITY GROUP (SG) -> TƯỜNG LỬA Ở CẤP ĐỘ INSTANCE
+	+ NETWORK ACCESS CONTROL LISTS (NACLS): TƯỜNG LỬA Ở CẤP ĐỘ SUBNET
+
+=> NETWORK ACLS HOẠT ĐỘNG NHƯ TƯỜNG LỬA PERIMETER TRONG KHI ĐÓ SECURITY GROUPS CUNG CẤP BẢO MẬT CHI TIẾT CHO TỪNG TÀI NGUYÊN -> KẾT HỢP CẢ HAI TẠO NÊN MÔ HÌNH BẢO MẬT TOÀN DIỆN
+
+2.1 SECURITY GROUP
+
+- ĐỊNH NGHĨA: SG HOẠT ĐỘNG NHƯ TƯỜNG LỬA ẢO Ở CẤP ĐỘ INSTANCE, HỖ TRỢ CÁC QUY TẮC CHO PHÉP VÀ CÓ THỂ CẤU HÌNH QUY TẮC RIÊNG BIỆT CHO LƯU LƯỢNG VÀO/RA 
+	-> LÀ DỊCH VỤ CÓ TRẠNG THÁI STATEFUL - NẾU LƯU LƯỢNG VÀO ĐC CHO PHÉP THÌ LƯU LƯỢNG RA TƯƠNG ỨNG CŨNG ĐƯỢC CHO PHÉP
+
+- CẤU TRÚC QUY TẮC:
+	+ INBOUND RULES
+
+	+ OUTBOUND RULES
+
+-> SỬ DỤNG CÁC GIAO THỨC CHUẨN (SSH: 22, HTTP: 80: HTTPS: 443) 
+
+2.2 NETWORK ACLS
+
+- ĐỊNH NGHĨA: LÀ LỚP BẢO MẬT BỔ SUNG CHO VPC Ở CẤP ĐỘ SUBNET, HOẠT ĐỘNG NHƯ 1 TƯỜNG LỬA STATELESS ĐỂ KIỂM SOÁT LƯU LƯỢNG VÀO/RA SUBNET, MỖI VPC CÓ MỘT NACLS MẶC ĐỊNH CHO PHÉP MỌI LƯU LƯỢNG IPV4/IPV6
+	-> CÓ THỂ TẠO NACLS TÙY CHỈNH VỚI CÁC QUY TẮC RIÊNG
+
+- GIỚI HẠN:
+	+ MỖI SUBNET PHẢI LIÊN KẾT VỚI MỘT NETWORK ACL
+	+ MỘT NACLS CÓ THỂ ÁP DỤNG LÊN NHIỀU SUBNET
+
+3. CÁC BƯỚC CHUẨN BỊ
+- TỔNG QUAN VỀ MÔI TRƯỜNG AWS VPC
+	- MỤC TIÊU LAB:
+		+ XÂY DỰNG MÔI TRƯỜNG VPC HOÀN CHỈNH TỪ ĐẦU
+		+ TRIỂN KHAI CÁC THÀNH PHẦN MẠNG CƠ BẢN CỦA AWS
+		+ THIẾT LẬP CẤU TRÚC MẠNG AN TOÀN VÀ CÓ KHẢ NĂNG MỞ RỘNG
+
+- Các thành phần chính:
+	1. VPC 
+	2. Subnet
+	3. Internet gateway
+	4. Route table
+	5. Security group
+
+-> WS này thực hiện bao gồm các tính năng bảo mật và giám sát cấp độ production bao gồm security groups được cứng hóa, VPC Flow logs để giám sát bảo mật và cấu hình multi-AZs
+
+3.1 TẠO VPC
+- MỤC TIÊU:
+	+ Tạo môi trường mạng ảo riêng biệt trong AWS
+	+ Thiết lập không gian địa chỉ IP cho VPC
+	+ Cấu hình các tính năng DNS cơ bản
+
+3.2 TẠO SUBNET
+- MỤC TIÊU:
+	+ SUBNET LÀ PHÂN ĐOẠN MẠNG CON TRONG VPC
+	+ CHO PHÉP PHÂN PHỐI TÀI NGUYÊN THEO AZ
+	+ HỖ TRỢ PHÂN LOẠI MẠNG PUBLIC - PRIVATE
+
+3.3 TẠO INTERNET GATEWAY
+- TỔNG QUAN:
+	+ IGW LÀ THÀNH PHẦN VPC CHO PHÉP KẾT NỐI INTERNET
+	+ CUNG CẤP ĐIỂM KẾT NỐI GIỮA VPC VÀ INTERNET
+	+ HỖ TRỢ GIAO TIẾP HAI CHIỀU CHO CÁC TÀI NGUYÊN TRONG VPC
+
+3.4 TẠO ROUTE TABLE
+- TỔNG QUAN: 
+	+ ROUTE TABLE LÀ THÀNH PHẦN ĐỊNH TUYẾN LƯU LƯỢNG MẠNG TRONG VPC
+	+ XÁC ĐỊNH ĐƯỜNG ĐI CHO CÁC GÓI TIM GIỮA SUBNET VÀ INTERNET
+	+ CHO PHÉP KIỂM SOÁT LUỒNG DỮ LIỆU VÀO/RA VPC
+
+3.5 TẠO SECURITY GROUP
+- TỔNG QUAN:
+	+ SG LÀ TƯỜNG LỬA ẢO CHO CÁC TÀI NGUYÊN AWS
+	+ HOẠT ĐỌNG NHƯ DANH SÁCH KIỂM SOÁT TRUY CẬP (ACL) Ở CẤP ĐỘ INSTANCE
+	+ CHO PHÉP KIỂM SOÁT LƯU LƯỢNG VÀO/RA THEO PORT VÀ PROTOCOL
+
+3.6 KÍCH HOẠT VPC FLOW LOGS
+- VPC FLOW LOGS ghi lại thông tin về lưu lượng IP đi vào và ra khỏi các network interface trong VPC, dữ liệu này rất quan trọng cho việc giám sát bảo mật, khắc phục sự cố mạng và kiểm toán tuân thủ
+
+- HIỂU VỀ DỮ LIỆU FLOW LOG: mỗi bản ghi flow log chứa các thông tin chính sau:
+	+ srcaddr, dstaddr: địa chỉ IP nguồn và đích
+	+ srcport, dstprot: Cổng nguồn và đích
+	+ protocol: số protocol
+	+ action: accept hoặc reject
+	+ bytes, packets: các chỉ số về khối lượng lưu lượng
+
+- CÁC TRƯỜNG HỢP SỬ DỤNG GIÁM SÁT BẢO MẬT: VPC FLOW LOGS CHO PHÉP
+	+ PHÁT HIỆN CÁC MẪU LƯU LƯỢNG BẤT THƯỜNG
+	+ XÁC ĐỊNH CẤU HÌNH SAI SECURITY GROUP
+	+ GIÁM SÁT CÁC NỖ LỰC RÒ RỈ DỮ LIỆU
+	+ KHẮC PHỤC SỰ CỐ KẾT NỐI
+	+ ĐÁP ỨNG YÊU CẦU TUÂN THỦ
+
+4. TRIỂN KHAI HẠ TẦNG AMAZON EC2 INSTANCES
+- TÍNH NĂNG PRODUCTION-READY:
+	- Kiến trúc Multi-AZ: EC2 instances trên các availability zones
+	- NAT Gateways High-Availability: Truy cập internet dự phòng
+	- Phương thức Truy cập An toàn: SSH và AWS Systems Manager Session Manager
+	- Giám sát Toàn diện: CloudWatch metrics và alerting
+
+4.2 TẠO NAT GATEWAY
+- TỔNG QUAN:
+	+ NAT GATEWAY CHO PHÉP CÁC INSTANCES TRONG PRIVATE SUBNET KẾT NỐI RA INTERNET
+	+ ĐẢM BẢO KẾT NỐI MỘT CHIỀU TỪ TRONG RA NGOÀI, TĂNG TÍNH BẢO MẬT
+	+ CẦN CÓ ELASTIC IP VÀ ĐẶT NATGATEWAY TRONG PUBLIC SUBNET
+
+4.3 SỬ DỤNG REACHABILITY ANALYZER
+- TỔNG QUAN:
+	+ VPC REACHABILITY ANALYZER LÀ CÔNG CỤ PHÂN TÍCH KHẢ NĂNG KẾT NỐI MẠNG VPC
+	+ GIÚP KIỂM TRA VÀ XÁC THỰC CÁC ĐƯỜNG DẪN KẾT NỐI GIỮA CÁC TÀI NGUYÊN AWS
+	+ HỮU ÍCH ĐỂ DEBUG CÁC VẤN ĐỀ VỀ KẾT NỐI VÀ XÁC NHẬN CẤU HÌNH BẢO MẬT
+
+=> SỬ DỤNG REACHABILITY ANALYZER TRƯỚC KHI TRIỂN KHAI ỨNG DỤNG ĐẢM BẢO KẾT NỐI HOẠT ĐỘNG ĐÚNG
+=> PHÂN TÍCH CẢ FORWARD PATH VÀ REVERSE PATH ĐỂ CÓ CÁI NHÌN TOÀN DIỆN VỀ LUỒNG TRAFFIC
+
+4.4 TẠO EC2 INSTANCE CONNECT ENDPOINT
+- TỔNG QUAN:
+	+ EC2 INSTANCE CONNECT ENDPOINT LÀ GIẢI PHÁP KẾT NỐI AN TOÀN TỚI EC2 INSTANCES
+	+ CHO PHÉP TRUY CẬP EC2 INSTANCE MÀ KO CẦN PUBLIC IP HOẶC BASTION HOST
+	+ HỖ TRỢ CẢ GIAO THỨC SSH VÀ RDP
+	+ RA MẮT VÀO 6/2023 NHƯ 1 GIẢI PHÁP CHO BASTION HOSTS TRUYỀN THỐNG
+
+- LỢI ÍCH:
+	+ TIẾT KIỆM CHI PHÍ BẰNG CÁCH LOẠI BỎ BASTION HOST
+	+ GIẢM THIỂU CÔNG VIỆC QUẢN LÝ (PATCHING, AUDITING)
+	+ TĂNG CƯỜNG BẢO MẬT VỚI KẾT NỐI ĐƯỢC KIỂM SOÁT
+	+ CHỈ TÍNH PHÍ DATA TRANSFER KHÔNG CÓ CHI PHÍ ENDPOINT BỔ SUNG
+
+5. CẤU HÌNH SITE TO SITE VPN
+- TỔNG QUAN: 
+	+ AWS SITE-TO-SITE TẠO KẾT NỐI BẢO MẬT GIỮA DATA CENTER ON-PREMISE VÀ AMAZON VPC
+	+ HỖ TRỢ CẢ VPN HARDWARE VÀ SOFTWARE-BASED TÙY THEO NHU CẦU SỬ DỤNG
+	+ YÊU CẦU CẤU HÌNH VPG VÀ CUSTOMER GATEWAY
+
+- THÀNH PHẦN CHÍNH:
+	+ VIRTUAL PRIVATE GATEWAY
+		+ ĐIỂM CUỐI VPN ĐƯỢC CÀI ĐẶT PHÁI AWS
+		+ QUẢN LÝ VÀ ĐIỀU PHỐI CÁC KẾT NỐI VPN
+		+ HỖ TRỢ CẢ ĐỊNH TUYẾN ĐỘNG (BGP) VÀ TĨNH
+	+ CUSTOMER GATEWAY
+		+ ĐẠI DIỆN CHO THIẾT BỊ VPN Ở PHÍA KHÁCH HÀNG
+		+ CÓ THỂ THIẾT BỊ PHẦN CỨNG HOẶC PHẦN MỀM
+		+ YÊU CẦU ĐỊA CHỈ IP PUBLIC DUY NHẤT TRONG MỖI REGION
+
+- ĐẶC ĐIỂM QUAN TRỌNG:
+	+ MỖI KẾT NỐI VPN BAO GỒM 2 IPSEC TUNNELS ĐỂ ĐẢM BẢO TÍNH SẴN SÀNG CAO
+	+ CGW PHẢI KHỞI TẠO KẾT NỐI TUNNEL TỚI VPG
+	+ MỘT VPG CÓ THỂ KẾT NỐI NHIỀU CGW (1 - N)
+	+ AWS CUNG CẤP HƯỚNG DẪN CẤU HÌNH CHI TIẾT CHO TỪNG LẠI CGW
+
+5.1 TẠO MÔI TRƯỜNG VPN 
+5.2 CẤU HÌNH KẾT NỐI VPN
+- TỔNG QUAN:
+	+ PHẦN NÀY HƯỚNG DẪN THIẾT LẬP KẾT NỐI AWS SITE TO SITE VPN
+	+ BAO GỒM CẤU HÌNH VIRTUAL PRIVATE GATEWAY VÀ CUSTOMER GATEWAY
+	+ CHO PHÉP KẾT NỐI BẢO MẬT GIỮA HAI VPC THÔNG QUA IPSEC TUNNELS
+
+5.2.1 TẠO VIRTUAL PRIVATE GATEWAY
+- TỔNG QUAN:
+	- VGW LÀ THÀNH PHẦN QUAN TRỌNG CHO KẾT NỐI SITE-TO-SITE VPN
+	- ĐÓNG VAI TRÒNG LÀ ĐIỂM CUỐI VPN PHÍA AWS
+	- CẦN ĐƯỢC ATTACH VÀO VPC ĐÍCH ĐỂ TIẾT LẬP KẾT NỐI
+5.2.2 TẠO CUSTOMER GATEWAY
+5.2.3 TẠO KẾT NỐI VPN
+- TỔNG QUAN:
+	+ TRONG PHẦN NÀY, CHÚNG TA SẼ THIẾT LẬP KẾT NỐI VPN GIỮA VPC VÀ MÔI TRƯỜNG ON-PREMISE
+	+ SỬ DỤNG VPG LÀM ĐIỂM CUỐI VPN PHÍA AWS
+	+ CẤU HÌNH STATIC ROUTING ĐỂ ĐỊNH TUYẾN TRAFFIC QUA VPN TUNNEL
+

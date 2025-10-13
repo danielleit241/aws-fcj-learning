@@ -1,0 +1,31 @@
+Deploy Application on Docker
+
+- Trong bài lab này thì chúng ta sẽ tìm hiểu về cách triển khai ứng dụng trên Docker, bao gồm frontend - backend - database
+
+- Trong workshop này, chúng ta sẽ cùng nhau thực hành việc triển khai ứng dụng lên Docker Container, từ xây dựng đến quản lý toàn bộ quá trình vận hành, ta sẽ được khám phá cách tận dụng sức mạnh của các công cụ và dịch vụ phổ biển trong môi trường container hóa như Docker Hub, Nginx, Amazon ECR, Amazon RDS, Amazon EC2
+
+- Những dịch vụ được sử dụng bao gồm:
+	+ Docker Hub
+	+ Nginx
+	+ Amazon Elastic Container Registry (ECR) là dịch vụ lưu trữ docker image an toàn và tích hợp chặt chẽ với các dịch vụ của AWS, giúp ta quản lý và lưu trữ và triển khai docker images trực tiếp từ môi trường đám mấy
+	+ Amazon RDS
+	+ Amazon EC2
+
+- MÔ TẢ TIẾN TRÌNH
+	1. Yêu cầu từ người dùng (Client Side)
+		|
+	2. Internet gateway
+		|
+	3. Nginx
+		|
+	4. Container frontend và backend
+		|
+	5. Amazon RDS
+		|
+	6. Response to user
+		
+	7. Đẩy docker images lên docker hub và amazon ECR
+	-> Tách biệt với chu kì yêu cầu-phản hồi
+
+- TRIỂN KHAI APPLICATION:
+	+ 
