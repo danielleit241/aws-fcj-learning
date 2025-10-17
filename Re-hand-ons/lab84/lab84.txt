@@ -1,0 +1,8 @@
+SERVERLESS - CI/CD VỚI CODEPIPLINE
+
+- Continuous Integration, Continuous Deployment là các phương pháp phát triển phần mềm để sản xuất phần mềm trong các chu kì ngắn giữa hợp nhất thay đổi mã nguồn và cập nhật ứng dụng
+-> Mục tiêu cuối của các phương pháp này giảm chi phí, thời gian và rủi ro bằng cách phân phối phần mềm thành các phần nhỏ
+
+- CI Continuous Integration là một phương pháp phát triển phần mềm mà trong đó các nhà phát triển thường xuyên commit và push các thay đổi lên các shared repository. Bằng cách nạp và hợp nhất các thay đổi từ nhiều nhà phát triển khác nhau, vì vậy giảm thiểu nguy cơ xung đột. Trước mỗi lần commit, các nhà phát triển có thể chạy các unit test trên mã nguồn như một kiểm tra bổ sung trước khi tích hợp. Một continuous integration tự động build và chạy các bài kiểm tra trên các mã nguồn thay đổi để phát hiện bất kỳ lỗi nào ngay lập tức.
+
+- CD Continuous Delivery là một phương pháp phát triển phần mềm mở rộng Continuous Integration trong đó mã nguồn được tự động chuẩn bị để triển khai cho một production instance. Sau khi build, build artifact với các thay đổi mới được triển khai cho một staging instance nơi chạy các bài kiểm tra nâng cao (integration, acceptance, load, end-to-end, etc.). Nếu cần, build artifact tự động được triển khai tới production instance sau khi được duyệt thủ công

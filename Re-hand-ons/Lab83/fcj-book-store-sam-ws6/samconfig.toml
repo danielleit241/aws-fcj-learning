@@ -1,0 +1,12 @@
+version = 0.1
+[default.deploy.parameters]
+stack_name = "fcj-book-store"
+resolve_s3 = true
+s3_prefix = "fcj-book-store"
+capabilities = "CAPABILITY_IAM"
+image_repositories = []
+confirm_changeset = true
+parameter_overrides = "fcjBookShopBucketName=\"y\" booksTableName=\"y\" bookImageShopBucketName=\"n\" bookImageResizeShopBucketName=\"y\" width=\"200px\" height=\"280px\" apiType=\"REGIONAL\" binaryMediaType=\"multipart/form-data\" getOrPostPathPart=\"books\" deletePathPart=\"{id}\" stage=\"staging\" cognitoClientID=\"COGNITO_CLIENT_ID\" cognitoClientSecret=\"COGNITO_CLIENT_SECRET\" loginPathPart=\"login\" registerPathPart=\"register\" confirmPathPart=\"confirm\" route53HostedZoneName=\"daniel.site\" cachePolicyId=\"4135ea2d-6df8-44a3-9df3-4b5a84be39ad\" cloudFrontHostedZoneId=\"Z2FDTNDATAQYW2\""
+
+[default.global.parameters]
+region = "us-east-1"

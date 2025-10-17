@@ -1,0 +1,9 @@
+SERVERLESS - XỬ LÝ ĐƠN HÀNG VỚI SQS-SNS
+
+- AMAZON SIMPLE QUEUE SERVICE: cung cấp một hàng đợi an toàn, bền vững và có sẵn cho phép ta tích hợp và tách rời hệ thống và thành phần phần mềm phân tán -> mở rộng quy mô độc lập với ứng dụng của chúng ta -> cung cấp một API dịch vụ web chung mà ta có thể truy cập bằng bất kì ngôn ngữ lập trình nào mà AWS SDK hỗ trợ
+==> SQN hỗ trợ hàng đợi tiêu chuẩn và FIFO
+
+- Một hệ thống message phân tán gồm 3 phần chính: các thành phần của hệ thống phân tán, hàng đợi (phân phối trên máy chủ Amazon SQS) và các tin nhắn trong hàng đợi
+-> Ví dụ: Hệ thống của ta có một số nhà sản xuất (thành phần gửi thông điệp đến hàng đợi) -> người tiêu dùng (thành phần nhận thông báo từ hàng đợi) ==> hàng đợi chứa các thông báo và lưu trữ các thông báo trên máy chủ Amazon SQS
+
+- Amazon Simple Notification Service: là một dịch vụ được quản lý để cung cấp dịch vụ gửi tin nhắn từ publishers đến subscribers (tương tự producers và consumers). Publishers giao tiếp bất đồng bộ với subcribers bằng cách gửi tin nhắn đến một topic, đây là điểm truy cập và giao tiếp logic, đây là điểm truy cập giao tiếp logic. Khác hàng có thể đăng kí SNS topic và nhận các tin nhắn đã xuất bản bằng cách sử dụng loại điểm cuối được hỗ trợ, chẳng hạn như Amazon Kinesis Data Firehose, Amazon SQS, AWS Lambda, HTTP, email, thông báo đẩy trên thiết bị di động và tin nhắn văn bản di động (SMS).
