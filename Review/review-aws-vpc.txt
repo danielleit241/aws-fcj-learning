@@ -1,0 +1,61 @@
+GIỚI THIỆU VỀ AWS
+
+- Cloud computing đối với AWS là cung cấp tài nguyên công nghệ thông tin với mô hình trả phí -> sài bao nhiêu tính bấy nhiêu
+- Lợi ích của điện toán đám mây:
+	+ Optimize Cost (tối ưu hóa chi phí)
+	+ Elasticity & Agility
+	+ Open & Flexible 
+	+ Secure
+	+ Global Reach
+- Operational Reliability: độ ổn định khi vận hành lên hàng đầu
+- Một Region sẽ có tối thiếu 3 AZs -> Mỗi một AZ là một cụm trung tâm dữ liệu (mỗi AZ là một cụm datacenter khác nhau với điện, mạng, kết nối đều độc lập) -> Khi ta setup AZ như thế thì sẽ có độ trễ <10ms với các AZ 
+
+- Cost Management: AWS cực kì mạnh về việc quản lý chi phí
+
+- Nếu như dịch vụ nằm trong một Region lâu đời và một số đặc thì của region đó thì giá cũng sẽ rẻ (cùng một dịch vụ -> region này chênh region kia 20-30%)
+- Thường ta sẽ chọn những Region gần end-users
+
+AWS VPC - OVERVIEW
+- VPC: Virtual Private Cloud là một vùng mạng do ta thiết lập -> chỉ những tài nguyên trong vùng này mới được kết nối với nhau
+- Sẽ có một số dịch vụ đặc thù nằm ngoài scope của VPC (S3, DynamoDB)
+- Và sẽ có những dịch vụ đặc thù hơn nữa nằm ngoài Region (IAM, Route 53)
+
+- VPC ta tạo ra sẽ define 1 địa chỉ IP -> định nghĩa các lớp mạng con  subnet có những range IP nhỏ hơn
+- Một subnet chỉ nằm trong một AZ duy nhất
+- Khi ta tạo ra một VPC thì sẽ có một default ROUTE TABLE bao gồm destination | target
+
+- Trong VPC thì chỉ kết nối được với nhau vậy thì kết nối ra ngoài internet như thế nào -> ta sẽ cần một Internet Gateway -> AWS sẽ tự scale băng thông đi qua IGW -> ta sẽ cần phải định nghĩa route table để có thể kết nối với IGW
+
+- Định nghĩa về private subnet | public subnet
+	+ Bản chất chỉ là việc đặt tên cho các subnet
+	+ Các subnet nào được kết nối ra ngoài internet thì sẽ được gọi là PUBLIC SUBNET - còn ngược lại thì là PRIVATE SUBNET
+	-> để cho public subnet có thể ra ngoài internet thì cần một public ip (elastic ip address)
+
+- MỖI MỘT SUBNET ĐƯỢC TẠO RA TA SẼ MẤT 5 ĐỊA CHỈ IP
+	- TỪ 0-3 VÀ 255 
+	-> TA CHỈ CÓ THỂ ĐỊNH NGHĨA IP TỪ 5-254
+
+- NẾU NHƯ PRIVATE SUBNET CẦN ĐI RA NGOÀI INTERNET (1 CHIỀU CHỈ RA) THÌ TA SẼ CẦN MỘT NAT GATEWAY KẾT NỐI THÔNG QUA PRIVATE IP (NẰM TRONG PUBLIC SUBNET) -> THÔNG QUA INTERNET GATEWAY ĐỂ RA NGOÀI SUBNET
+
+- BEST PRACTICES -> TRIỂN KHAI ỨNG DỤNG VỚI MÔ HÌNH TRÊN NHIỀU AZS
+	+ VÍ DỤ: TRIỂN KHAI 2 AZ VỚI LOAD BALANCER ĐỂ CÂN BẰNG TẢI GIỮA 2 SERVERS
+
+- SECURITY GROUPS (TƯỜNG LỬA)
+	+ MẶC ĐỊNH SẼ CHẶN MỌI KẾT NỐI ĐI VÀO (INBOUND RULES) VÀ CHO PHÉP TẤT CẢ KẾT NỐI ĐI RA (OUTBOUND RULES) => CẤU HÌNH MẶC ĐỊNH CỦA SECURITY GROUP
+	
+- NGOÀI SECURITY GROUPS RA THÌ TA CÒN MỘT TƯỜNG LỬA NỮA LÀ NACLS (CẦN PHẢI CẤU HÌNH 2 CHIỀU VÀO RA CỤ THỂ THÌ MỚI HOẠT ĐỘNG ĐƯỢC)
+
+- ĐỂ CÁC VPC GIAO TIẾP VỚI NHAU TA CÓ THỂ DÙNG VPC PEERING CONNECTION VÀ CẤU HÌNH ROUTE TABLE CỦA CẢ 2 SUBNET CẦN KẾT NỐI 
+	+ VPC NÀY CẤU HÌNH TỚI IP CỦA VPC KIA 
+	+ VPC KIA CŨNG CẤU HÌNH NGƯỢC LẠI
+	=> TA CÓ THỂ CHỈ ĐỊNH CHỈ CẤU HÌNH KẾT NỐI THÔNG QUA BẢNG ĐỊNH TUYẾN
+	+ VPC PEERING KHÔNG HỖ TRỢ VIỆC TRANSITIVE CONNECTING (NGHĨA LÀ TỪ 1-2 1-3)
+
+- VIỆC TẠO RA MÔI TRƯỜNG HYBIRD -> DỊCH VỤ SITE-TO-SITE VPN -> CẤU HÌNH VÀ THIẾT LẬP THEO HƯỚNG DẪN CỦA AWS
+	+ TẠO RA VIRTUAL PRIVATE GATEWAY -> HỖ TRỢ KẾT NỐI MULTI SITE -> KẾT NỐI NHIỀU TRUNG TÂM DỮ LIỆU ON-PREMISE VỚI VPW
+	+ TẠO RA CUSTOMER GATEWAY 
+	-> MÔ HÌNH NÀY SẼ KẾT NỐI VÀ GIAO TIẾP QUA MẠNG INTERNET -> KHÔNG ĐƯỢC ỔN ĐỊNH -> NẾU TA MUỐN ỔN ĐỊNH THÌ CẦN SỬ DỤNG DIRECT CONNECT (VỀ VIỆT NAM THÌ CẦN PHẢI QUA PARTNER CỦA AWS: VIETTEL, FPT, ...) 
+
+- NẾU NHƯ TA CÓ NHIỀU VPC CÙNG VỚI NHIỀU DATA CENTER -> CỰC KÌ LẰNG NHẰNG -> MÔ HÌNH MESH TOPOLOGY 
+	+ TA SẼ CÓ TRANSIT GATEWAY VÀ DIRECT CONNECT (MỘT HUB TẬP TRUNG LẠI CÁC KẾT NỐI)
+	+ CÁC KẾT NỐI SẼ THÔNG QUA 2 DỊCH VỤ Ở TRÊN 

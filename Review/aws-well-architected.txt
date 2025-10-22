@@ -1,0 +1,64 @@
+TỔNG QUAN VỀ 6 TRỤ CỘT (THE SIX PILLARS) CỦA AWS ARCHITECTED FRAMEWORK
+
+1. OPERATIONAL EXCELLENCE (VẬN HÀNH XUẤT SẮC)
+- Mục tiêu giúp cải thiện quy trình vận hành và phản hồi sự cố nhanh 
+- Các dịch vụ liên quan: CloudFormation, CloudWatch, CodePipeline
+
+2. SECURITY (BẢO MẬT)
+- Bảo vệ dữ liệu, hệ thống tài sản
+- IAM, KMS, GuardDuty, WAF, Secrets Manager
+
+3. RELIABILITY (ĐỘ TIN CẬY)
+- Đảm bảo hệ thống hoạt động liên tục, phục hồi nhanh khi lỗi
+- Route 53, Auto Scaling, S3, RDS, Multi-AZ
+
+4. PERFORMANCE EFFCIENCY (HIỆU NĂNG)
+- Sử dụng tài nguyên hiệu quả và tối ưu hóa hiệu suất
+- EC2 (instance types), Lambda, ElastiCache, CloudFront
+
+5. COST OPTIMIZATION (TỐI ƯU HÓA CHI PHÍ)
+- Giảm chi phí không cần thiết và tối ưu sử dụng tài nguyên
+- Trusted Advisor, Cost Explorer, Savings Plans
+
+6. SUSTAINABILITY (TÍNH BỀN VỮNG)
+- Giảm các tác động của môi trường bằng cách tối ưu tài nguyên
+- Gravition, Managed Services, Auto Scaling
+
+2. CÁC NGUYÊN TẮC THIẾT KẾ CHÍNH (KEY DESIGN PRINCIPLES)
+
+1. Operational Excellence
+-> Thực hiện infrastructure as code (IaC) để tự động hóa -> thường xuyên thử nghiệm và cải tiến quy trình vận hành
+-> Giảm sát và ghi log toàn diện -> chuẩn bị cho lỗi xảy ra
+
+2. Security
+-> Triển khai nguyên tắc least privilege (quyền tối thiểu)
+-> Bảo vệ dữ liệu ở trạng thái nghỉ và truyền 
+-> Xác thực và phân quyền (IAM, AWS SSO)
+-> Tự động phát hiện lỗ hổng (GruardDuty, Security Hub)
+-> Theo dõi và phản ứng kịp thời (CloudTrail, Config)
+
+3. Reliability
+Test recovery procedures thường xuyên.
+Tự động thay thế khi lỗi xảy ra (auto healing).
+Thiết kế phân tán (multi-AZ, multi-region).
+Giới hạn công suất động (auto scaling).
+Quản lý thay đổi cấu hình cẩn thận.
+
+4. Performance Efficiency
+Lựa chọn tài nguyên phù hợp (EC2 types, storage tiers).
+Xem xét công nghệ mới (serverless, containers).
+Theo dõi hiệu suất (CloudWatch metrics).
+Tự động hóa scaling và caching.
+
+5. Cost Optimization
+Chỉ trả cho những gì bạn dùng (pay-as-you-go).
+Theo dõi và gán tag chi phí (Cost Allocation Tags).
+Sử dụng đúng kích cỡ tài nguyên (right-sizing).
+Dùng pricing model phù hợp (Spot, Reserved, Savings Plan).
+Tắt tài nguyên không cần thiết (idle resources).
+
+6. Sustainability
+Tối ưu hiệu suất sử dụng phần cứng.
+Chọn vùng có nguồn năng lượng tái tạo.
+Sử dụng managed services để chia sẻ hạ tầng.
+Giảm network data transfer và compute time.
