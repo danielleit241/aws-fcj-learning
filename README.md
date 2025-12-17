@@ -18,7 +18,7 @@ Repository này là nơi tôi lưu trữ tài liệu học tập, ghi chú và t
    ├── Module-05/  # Database Services
    ├── Module-06/  # Monitoring & Management
    ├── Module-07/  # Application Services & DynamoDB
-   └── Review/      # Tài liệu ôn tập và tổng hợp
+   └── Review/     # Tài liệu ôn tập và tổng hợp
 
 📁 Hands-on/
    └── Các bài lab thực hành lại
