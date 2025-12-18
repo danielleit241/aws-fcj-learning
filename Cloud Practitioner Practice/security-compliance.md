@@ -1046,98 +1046,544 @@ D. AWS Config
 
 ### Câu 1
 
-**...**
+A financial services company is **deploying a new application** on Amazon EC2. According to the **AWS Shared Responsibility Model**, which of the following is the **company's responsibility**?
 
-**Đáp án:**
+A. Managing the physical security of the data center
+
+B. Patching the host operating system of the EC2 instances
+
+C. Configuring security groups and network ACLs
+
+D. Maintaining the underlying virtualization infrastructure
+
+**Đáp án:** C. Configuring security groups and network ACLs
 
 **Giải thích:**
+
+✔ C is correct: The customer is responsible for security "in" the cloud, which includes configuring network controls like security groups and network ACLs.
+
+✖ A: Physical security of data centers is an AWS responsibility ("of" the cloud).
+
+✖ B: AWS is responsible for patching the host OS of the physical server, but the customer is responsible for patching the guest OS on their EC2 instance. This option is ambiguous, but C is clearly the customer's role.
+
+✖ D: The virtualization infrastructure is managed by AWS.
 
 ---
 
 ### Câu 2
 
-**...**
+A security administrator needs to **ensure that developers do not accidentally provision resources** in AWS Regions that the **company has not approved for use**.
 
-**Đáp án:**
+They want to enforce this **restriction across all accounts** within their AWS Organization.
+
+Which service should be used to apply these region-based restrictions?
+
+A. IAM Policies
+
+B. AWS Organizations with Service Control Policies (SCPs)
+
+C. AWS Shield
+
+D. Amazon GuardDuty
+
+**Đáp án:** B. AWS Organizations with Service Control Policies (SCPs)
 
 **Giải thích:**
+
+✔ B is correct: AWS Organizations allows the use of SCPs to enforce permissions guardrails across an entire organization or specific OUs, including restricting access to certain AWS Regions.
+
+✖ A: IAM policies manage permissions within an account but cannot prevent a user from using an allowed service in an unapproved region if not explicitly denied, and SCPs are the best way to do this at scale.
+
+✖ C: AWS Shield is for DDoS protection.
+
+✖ D: Amazon GuardDuty is for threat detection.
 
 ---
 
 ### Câu 3
 
-**...**
+Which AWS service **provides a web application firewall** to help protect your applications against common web exploits like SQL injection and cross-site scripting?
 
-**Đáp án:**
+A. Network ACL
+
+B. AWS Shield
+
+C. AWS WAF
+
+D. Security Group
+
+**Đáp án:** C. AWS WAF
 
 **Giải thích:**
+
+✔ C is correct: AWS WAF is a web application firewall that helps protect web applications or APIs against common web exploits that may affect availability, compromise security, or consume excessive resources.
+
+✖ A: Network ACLs are stateless firewalls at the subnet level.
+
+✖ B: AWS Shield is primarily for DDoS protection.
+
+✖ D: Security groups are stateful firewalls at the instance level.
 
 ---
 
 ### Câu 4
 
-**...**
+An auditor needs to **review a log of all API calls** made within an **AWS account** over the past year, including who made the call, the source IP address, and when the call was made.
 
-**Đáp án:**
+Which AWS service provides this **detailed event history** for compliance and operational auditing?
+
+A. Amazon CloudWatch
+
+B. AWS Config
+
+C. AWS CloudTrail
+
+D. VPC Flow Logs
+
+**Đáp án:** C. AWS CloudTrail
 
 **Giải thích:**
+
+✔ C is correct: AWS CloudTrail is a service that enables governance, compliance, operational auditing, and risk auditing of your AWS account. It logs a record of every API call made.
+
+✖ A: CloudWatch is a monitoring service for logs, metrics, and events, but it does not capture the detailed API audit trail that CloudTrail does.
+
+✖ B: AWS Config records resource configuration changes, not API activity.
+
+✖ D: VPC Flow Logs capture IP traffic information for a VPC, not API calls.
 
 ---
 
 ### Câu 5
 
-**...**
+A company has a **security policy** that requires **all access** to the **AWS Management Console** to be protected by a password and a second factor of authentication.
 
-**Đáp án:**
+What should be enabled on **IAM user accounts** to meet this requirement?
+
+A. Access Keys
+
+B. Key Pairs
+
+C. Multi-Factor Authentication (MFA)
+
+D. Password Policies
+
+**Đáp án:** C. Multi-Factor Authentication (MFA)
 
 **Giải thích:**
+
+✔ C is correct: Multi-Factor Authentication (MFA) adds an extra layer of protection on top of a username and password, requiring a second authentication factor to sign in.
+
+✖ A: Access keys are for programmatic access (CLI/SDK), not console access.
+
+✖ B: Key pairs are used for SSH access to EC2 instances.
+
+✖ D: Password policies enforce password complexity but do not provide a second authentication factor.
 
 ---
 
 ### Câu 6
 
-**...**
+A developer needs to **grant an Amazon EC2 instance permission** to **read files** from an Amazon **S3 bucket**. The security team has mandated that no **long-term credentials** should be stored on the EC2 instance.
 
-**Đáp án:**
+What is the most secure way to grant the EC2 instance the required permissions?
+
+A. Create an IAM user and store its access keys in a file on the instance.
+
+B. Assign an IAM role to the EC2 instance with the necessary S3 read permissions.
+
+C. Embed the AWS root account access keys directly into the application code.
+
+D. Use a different AWS service that does not require authentication.
+
+**Đáp án:** B. Assign an IAM role to the EC2 instance with the necessary S3 read permissions.
 
 **Giải thích:**
+
+✔ B is correct: An IAM role can be attached to an EC2 instance, which provides temporary security credentials to the applications running on it, eliminating the need to store long-term credentials on the instance.
+
+✖ A: Storing access keys on an instance is a security risk and against best practices.
+
+✖ C: Using root account credentials for applications is extremely dangerous and should never be done.
+
+✖ D: This is not a feasible or secure approach.
 
 ---
 
 ### Câu 7
 
-**...**
+Which AWS service helps customers **manage and control the encryption keys** used to encrypt their data at rest across a wide range of AWS services?
 
-**Đáp án:**
+A. AWS Secrets Manager
+
+B. AWS Certificate Manager (ACM)
+
+C. AWS CloudHSM
+
+D. AWS Key Management Service (KMS)
+
+**Đáp án:** D. AWS Key Management Service (KMS)
 
 **Giải thích:**
+
+✔ D is correct: AWS Key Management Service (KMS) is a managed service that makes it easy to create and control the encryption keys used to encrypt your data.
+
+✖ A: Secrets Manager is for storing and rotating secrets like passwords and API keys, not general-purpose encryption keys.
+
+✖ B: ACM is for provisioning, managing, and deploying SSL/TLS certificates.
+
+✖ C: CloudHSM provides dedicated hardware security modules, which is a more specialized and complex solution than KMS.
 
 ---
 
 ### Câu 8
 
-**...**
+A company is preparing for its **PCI DSS compliance audit**. They need to easily access AWS's compliance reports and select agreements to demonstrate the security of the AWS environment.
 
-**Đáp án:**
+Which AWS service provides **on-demand access** to AWS's security and compliance reports?
+
+A. AWS Trusted Advisor
+
+B. AWS Artifact
+
+C. Amazon Inspector
+
+D. AWS Security Hub
+
+**Đáp án:** B. AWS Artifact
 
 **Giải thích:**
+
+✔ B is correct: AWS Artifact is your go-to, central resource for compliance-related information that matters to you. It provides on-demand access to AWS’s security and compliance reports and select online agreements.
+
+✖ A: Trusted Advisor provides recommendations, not compliance reports.
+
+✖ C: Inspector is a vulnerability scanning service.
+
+✖ D: Security Hub gives you a comprehensive view of your high-priority security alerts and compliance status, but Artifact is the source for AWS's own compliance reports.
 
 ---
 
 ### Câu 9
 
-**...**
+What is the AWS service that provides **managed Distributed Denial of Service (DDoS)** protection for applications running on AWS?
 
-**Đáp án:**
+A. AWS WAF
+
+B. AWS Firewall Manager
+
+C. AWS Shield
+
+D. Amazon GuardDuty
+
+**Đáp án:** C. AWS Shield
 
 **Giải thích:**
+
+✔ C is correct: AWS Shield is a managed DDoS protection service that safeguards applications running on AWS. All AWS customers benefit from the automatic protections of AWS Shield Standard at no additional charge.
+
+✖ A: WAF protects against application-layer attacks, but Shield is the primary DDoS protection service.
+
+✖ B: Firewall Manager helps manage firewall rules across accounts.
+
+✖ D: GuardDuty is a threat detection service.
 
 ---
 
 ### Câu 10
 
-**...**
+A security team wants to **continuously monitor** their AWS environment for **malicious activity and unauthorized behavior**, such as unusual API calls or potential reconnaissance by an attacker.
 
-**Đáp án:**
+Which AWS service uses **machine learning and threat intelligence** to provide this service?
+
+A. AWS Config
+
+B. Amazon Macie
+
+C. AWS Security Hub
+
+D. Amazon GuardDuty
+
+**Đáp án:** D. Amazon GuardDuty
 
 **Giải thích:**
+
+✔ D is correct: Amazon GuardDuty is a threat detection service that continuously monitors for malicious activity and unauthorized behavior to protect your AWS accounts, workloads, and data stored in Amazon S3.
+
+✖ A: AWS Config is for assessing and auditing resource configurations.
+
+✖ B: Amazon Macie is for discovering and protecting sensitive data.
+
+✖ C: AWS Security Hub aggregates security findings but does not generate them in the same way GuardDuty does.
+
+---
+
+### Câu 11
+
+What security principle involves **granting users and applications only the permissions** they absolutely need to perform their tasks and nothing more?
+
+A. Defense in depth
+
+B. Principle of least privilege
+
+C. Security through obscurity
+
+D. Shared responsibility model
+
+**Đáp án:** B. Principle of least privilege
+
+**Giải thích:**
+
+✔ B is correct: The principle of least privilege is a fundamental security concept that dictates that a user, program, or process should have only the bare minimum privileges necessary to perform its function.
+
+✖ A: Defense in depth is about having multiple layers of security controls.
+
+✖ C: Security through obscurity is the unreliable practice of trying to achieve security by hiding details.
+
+✖ D: The shared responsibility model defines who is responsible for what between AWS and the customer.
+
+---
+
+### Câu 12
+
+A company needs to **store and automatically rotate** database **credentials** for their application running on AWS. Storing these **credentials in plaintext** in the application's configuration file is not an option.
+
+Which AWS service is specifically designed for this purpose?
+
+A. AWS Key Management Service (KMS)
+
+B. IAM Roles
+
+C. AWS Systems Manager Parameter Store
+
+D. AWS Secrets Manager
+
+**Đáp án:** AWS Secrets Manager
+
+**Giải thích:**
+
+✔ D is correct: AWS Secrets Manager helps you protect secrets needed to access your applications, services, and IT resources. The service enables you to easily rotate, manage, and retrieve database credentials, API keys, and other secrets throughout their lifecycle.
+
+✖ A: KMS manages encryption keys, not secrets like passwords.
+
+✖ B: IAM roles grant permissions but don't store external secrets like database credentials.
+
+✖ C: Parameter Store can store secrets, but Secrets Manager is the preferred service as it offers native rotation capabilities.
+
+--
+
+### Câu 13
+
+A company has defined a set of **security rules and best practices** for their AWS resources. They need a service that can **continuously monitor and record resource configurations** and **provide alerts** when a resource is non-compliant.
+
+Which AWS service should they use?
+
+A. AWS CloudTrail
+
+B. Amazon Inspector
+
+C. AWS Config
+
+D. AWS Service Catalog
+
+**Đáp án:** C. AWS Config
+
+**Giải thích:**
+
+✔ C is correct: AWS Config enables you to assess, audit, and evaluate the configurations of your AWS resources. It continuously monitors and records your resource configurations and allows you to automate the evaluation of recorded configurations against desired rules.
+
+✖ A: CloudTrail records API activity, not the state of resource configurations.
+
+✖ B: Inspector assesses vulnerabilities within EC2 instances.
+
+✖ D: Service Catalog allows organizations to create and manage catalogs of approved IT services.
+
+---
+
+### Câu 14
+
+For a **managed service** like Amazon RDS, which of the following is an **AWS responsibility** under the **shared responsibility model**?
+
+A. Managing database user accounts and permissions.
+
+B. Performing database backups according to a customer-defined schedule.
+
+C. Patching the operating system of the underlying host.
+
+D. Encrypting the data stored within the database.
+
+**Đáp án:** C. Patching the operating system of the underlying host.
+
+**Giải thích:**
+
+✔ C is correct: For managed services like RDS, AWS is responsible for the "security of the cloud," which includes managing the underlying infrastructure, such as patching the OS of the physical host.
+
+✖ A: The customer is responsible for managing database users and their permissions.
+
+✖ B: The customer is responsible for configuring and managing their database backup plan.
+
+✖ D: The customer is responsible for choosing to enable encryption for their database data.
+
+---
+
+### Câu 15
+
+What is the **primary function** of a **security group** in Amazon **VPC**?
+
+A. A stateless firewall at the subnet level that controls inbound and outbound traffic.
+
+B. A stateful firewall at the instance level that controls inbound and outbound traffic.
+
+C. A service that provides detailed logs of all traffic to and from an instance.
+
+D. A tool for detecting malicious traffic targeting a web application.
+
+**Đáp án:** B. A stateful firewall at the instance level that controls inbound and outbound traffic.
+
+**Giải thích:**
+
+✔ B is correct: A security group acts as a virtual firewall for your instance to control inbound and outbound traffic. Security groups are stateful, meaning if you send a request from your instance, the response traffic is automatically allowed to return, regardless of inbound rules.
+
+✖ A: This describes a Network ACL (NACL), which is stateless and operates at the subnet level.
+
+✖ C: This describes VPC Flow Logs.
+
+✖ D: This describes AWS WAF or Amazon GuardDuty.
+
+---
+
+### Câu 16
+
+An IT manager with **full administrative privileges** in their **IAM user account** is trying to change the **AWS Support plan** for the company's account, but finds the option is unavailable.
+
+What is the most likely reason for this?
+
+A. The task requires credentials for the AWS account root user.
+
+B. An SCP is blocking the action.
+
+C. The account's billing information is out of date.
+
+D. The IAM user is not part of the "billing" IAM group.
+
+**Đáp án:** A. The task requires credentials for the AWS account root user.
+
+**Giải thích:**
+
+✔ A is correct: Certain account-level tasks, such as changing the AWS Support plan or closing an AWS account, can only be performed by the root user.
+
+✖ B: While an SCP could potentially block this, it's a task specifically reserved for the root user by default.
+
+✖ C: While billing issues can restrict an account, it would not specifically block the ability to change the support plan for an authorized user.
+
+✖ D: IAM group membership itself doesn't grant permissions; the policies attached to the group or user do. Even with full admin rights, an IAM user cannot perform root-only tasks.
+
+---
+
+### Câu 17
+
+A company wants to **implement a solution** that allows employees to use their existing corporate **directory credentials** to sign in to the **AWS Management Console**, **without needing to create** separate IAM users for everyone.
+
+Which AWS feature or service enables this capability?
+
+A. IAM Groups
+
+B. Identity Federation using AWS IAM Identity Center (AWS Single Sign-On)
+
+C. AWS Organizations
+
+D. Consolidated Billing
+
+**Đáp án:** B. Identity Federation using AWS IAM Identity Center (AWS Single Sign-On)
+
+**Giải thích:**
+
+✔ B is correct: Identity federation allows you to manage user identities in an external system (like a corporate directory) and grant them secure access to your AWS accounts without creating individual IAM users. AWS IAM Identity Center is the primary service for this.
+
+✖ A: IAM groups are for organizing IAM users, not for connecting to external directories.
+
+✖ C: AWS Organizations is for centrally managing multiple AWS accounts.
+
+✖ D: Consolidated billing is a feature of AWS Organizations related to billing, not authentication.
+
+---
+
+### Câu 18
+
+A security team needs to **perform automated security assessments** on their fleet of Amazon EC2 instances to check for **software vulnerabilities and deviations** from **security best practices.**
+
+Which AWS service is designed to perform these **automated vulnerability scans**?
+
+A. AWS Trusted Advisor
+
+B. Amazon GuardDuty
+
+C. Amazon Inspector
+
+D. AWS Config
+
+**Đáp án:** C. Amazon Inspector
+
+**Giải thích:**
+
+✔ C is correct: Amazon Inspector is an automated vulnerability management service that continuously scans your AWS workloads for software vulnerabilities and unintended network exposure.
+
+✖ A: Trusted Advisor provides high-level best practice recommendations across cost, performance, and security, but does not perform detailed vulnerability scans on EC2 instances.
+
+✖ B: GuardDuty is a threat detection service that monitors for malicious activity, not a vulnerability scanner.
+
+✖ D: AWS Config assesses resource configurations against rules, but not for software vulnerabilities within the OS.
+
+---
+
+### Câu 19
+
+A network administrator needs to **block a specific malicious IP address** from accessing any resources within an **entire VPC subnet**.
+
+Which AWS **security control** should they use to enforce this rule at the subnet boundary?
+
+A. Security Group
+
+B. AWS WAF
+
+C. Network ACL (NACL)
+
+D. AWS Shield
+
+**Đáp án:** C. Network ACL (NACL)
+
+**Giải thích:**
+
+✔ C is correct: Network ACLs act as a firewall for controlling traffic in and out of one or more subnets. They are stateless and can be used to create explicit deny rules for specific IP addresses.
+
+✖ A: Security groups are stateful and operate at the instance level, not the subnet level. You cannot create a deny rule in a security group.
+
+✖ B: AWS WAF operates at the application layer to protect web applications, not at the subnet IP layer.
+
+✖ D: AWS Shield is for DDoS protection.
+
+---
+
+### Câu 20
+
+When discussing data protection in AWS, **what is the term** for **encrypting data** as it is being **transmitted over a network**, such as between a client and a server?
+
+A. Encryption at rest
+
+B. Client-side encryption
+
+C. Encryption in transit
+
+D. Server-side encryption
+
+**Đáp án:** C. Encryption in transit
+
+**Giải thích:**
+
+✔ C is correct: Encryption in transit protects your data from being observed by a third party while it travels between endpoints. SSL/TLS is a common protocol for this.
+
+✖ A: Encryption at rest refers to encrypting data when it is stored on a disk.
+
+✖ B: Client-side encryption is a type of encryption at rest where the client encrypts data before sending it to AWS.
+
+✖ D: Server-side encryption is a type of encryption at rest where AWS encrypts the data on the server side upon receipt.
