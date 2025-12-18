@@ -434,151 +434,363 @@ D. Pay-as-you-go pricing
 
 ### Câu 1
 
-**...**
+A startup wants to **launch its social media** analytics platform **globally** with **minimal upfront** investment. Which benefit of the AWS Cloud does this scenario represent?
 
-**Đáp án:**
+A. Increased compliance
+
+B. High latency
+
+C. Capital expense reduction
+
+D. Manual capacity planning
+
+**Đáp án:** C. Capital expense reduction
 
 **Giải thích:**
+
+✔ C is correct: AWS helps reduce capital expense by offering pay-as-you-go infrastructure.
+
+✖ A: Compliance is a separate benefit, not tied to cost.
+
+✖ B: AWS actually offers low latency globally.
+
+✖ D: AWS removes the need for manual capacity planning.
 
 ---
 
 ### Câu 2
 
-**...**
+What is a key advantage of the **elasticity** provided by AWS?
 
-**Đáp án:**
+A. Allows long-term contracts
+
+B. Automatically scales resources based on demand
+
+C. Requires forecasting future growth manually
+
+D. Prevents any scaling
+
+**Đáp án:** B. Automatically scales resources based on demand
 
 **Giải thích:**
+
+✔ B is correct: AWS elasticity means auto-scaling up/down based on traffic.
+
+✖ A: Elasticity avoids long-term contracts.
+
+✖ C: Elasticity removes the need for manual forecasting.
+
+✖ D: AWS supports dynamic scaling, not prevents it.
 
 ---
 
 ### Câu 3
 
-**...**
+Which AWS benefit allows a business to **deploy its services** in **multiple regions** around the world **within minutes**?
 
-**Đáp án:**
+A. High availability
+
+B. Global infrastructure
+
+C. Security compliance
+
+D. Operational overhead
+
+**Đáp án:** B. Global infrastructure
 
 **Giải thích:**
+
+✔ B is correct: AWS Global Infrastructure supports quick global deployments.
+
+✖ A: High availability refers to uptime, not global reach.
+
+✖ C: Compliance ensures security standards, not global presence.
+
+✖ D: AWS reduces, not adds, operational overhead.
 
 ---
 
 ### Câu 4
 
-**...**
+Which characteristic of cloud computing **enables** users to **access computing resources without human** interaction from the provider?
 
-**Đáp án:**
+A. Broad network access
+
+B. On-demand self-service
+
+C. Resource pooling
+
+D. Measured service
+
+**Đáp án:** B. On-demand self-service
 
 **Giải thích:**
+
+✔ B is correct: On-demand self-service allows users to provision resources themselves.
+
+✖ A: This relates to accessibility over the internet.
+
+✖ C: Resource pooling deals with multi-tenancy.
+
+✖ D: Measured service is about tracking usage.
 
 ---
 
 ### Câu 5
 
-**...**
+Which **AWS feature** helps organizations achieve **agility** in their cloud journey?
 
-**Đáp án:**
+A. AWS Trusted Advisor
+
+B. Ability to experiment and fail fast
+
+C. Longer release cycles
+
+D. Manual provisioning
+
+**Đáp án:** B. Ability to experiment and fail fast
 
 **Giải thích:**
+
+✔ B is correct: Cloud enables agile experimentation and faster iteration.
+
+✖ A: Trusted Advisor helps optimize, not directly agility.✖ C: Cloud promotes shorter, faster releases.
+
+✖ D: AWS automates provisioning.
 
 ---
 
 ### Câu 6
 
-**...**
+Which of the following is **an example** of a **shared responsibility** **in the AWS Cloud**?
 
-**Đáp án:**
+A. Managing the physical data center
+
+B. Encrypting sensitive data stored in Amazon S3
+
+C. Maintaining power and cooling
+
+D. Securing the underlying hypervisor
+
+**Đáp án:** B. Encrypting sensitive data stored in Amazon S3
 
 **Giải thích:**
+
+✔ B is correct: Encryption of data is the customer’s responsibility.
+
+✖ A/C/D: These are AWS’s responsibilities.
 
 ---
 
 ### Câu 7
 
-**...**
+A media company needs to **deliver high-definition video content across the globe**. Which AWS benefit is most relevant?
 
-**Đáp án:**
+A. Global reach
+
+B. Predictable latency
+
+C. Enhanced labor cost
+
+D. Manual content routing
+
+**Đáp án:** A. Global reach
 
 **Giải thích:**
+
+✔ A is correct: AWS edge locations ensure global low-latency delivery.
+
+✖ B: Latency is variable, not always predictable.
+
+✖ C: Labor cost is not directly addressed.
+
+✖ D: AWS automates routing via services like CloudFront.
 
 ---
 
 ### Câu 8
 
-**...**
+Which AWS feature **enables teams** to **build and deploy** applications **faster**?
 
-**Đáp án:**
+A. Long-term hardware provisioning
+
+B. Self-managed data centers
+
+C. Automation and DevOps tools
+
+D. Static resource allocation
+
+**Đáp án:** C. Automation and DevOps tools
 
 **Giải thích:**
+
+✔ C is correct: AWS provides CI/CD and DevOps tools for automation.
+
+✖ A/B/D: These approaches slow down deployment.
 
 ---
 
 ### Câu 9
 
-**...**
+Which term **best describes** the AWS Cloud model of **paying only** for the resources that you use?
 
-**Đáp án:**
+A. Economies of scale
+
+B. Pay-as-you-go
+
+C. CapEx commitment
+
+D. Licensing upfront
+
+**Đáp án:** B. Pay-as-you-go
 
 **Giải thích:**
+
+✔ B is correct: You only pay for what you use in AWS.
+
+✖ A: Related to cost benefits, not payment model.
+
+✖ C/D: These relate to traditional IT, not AWS.
 
 ---
 
 ### Câu 10
 
-**...**
+A retail company wants to **analyze customer trends** during holiday seasons. What cloud benefit supports this **short-term resource need**?
 
-**Đáp án:**
+A. High latency
+
+B. Scalability
+
+C. Multi-tenancy
+
+D. Capital investment
+
+**Đáp án:** B. Scalability
 
 **Giải thích:**
+
+✔ B is correct: AWS allows dynamic resource scaling during peak seasons.
+
+✖ A: AWS provides low latency.
+
+✖ C: Multi-tenancy refers to shared resources, not scaling.
+
+✖ D: AWS reduces capital investment.
 
 ---
 
 ### Câu 11
 
-**...**
+What AWS concept **enables customers** to **rapidly deploy** resources **without long procurement cycles**?
 
-**Đáp án:**
+A. Elastic load balancing
+
+B. Availability Zones
+
+C. On-demand provisioning
+
+D. Security groups
+
+**Đáp án:** C. On-demand provisioning
 
 **Giải thích:**
+
+✔ C is correct: AWS allows provisioning without procurement delays.
+
+✖ A/B/D: These are service features, not related to provisioning speed.
 
 ---
 
 ### Câu 12
 
-**...**
+A company **wants to avoid vendor lock-in** while building on AWS. What approach supports this?
 
-**Đáp án:**
+A. Using AWS-native services exclusively
+
+B. Writing application logic in a proprietary language
+
+C. Designing loosely coupled architecture
+
+D. Hosting everything in a single region
+
+**Đáp án:** C. Designing loosely coupled architecture
 
 **Giải thích:**
+
+✔ C is correct: Loose coupling allows switching components easily.
+
+✖ A/B/D: These increase lock-in risks.
 
 ---
 
 ### Câu 13
 
-**...**
+How does AWS **support business agility**?
 
-**Đáp án:**
+A. By requiring long-term planning
+
+B. By automating global resource distribution
+
+C. By restricting innovation speed
+
+D. By enforcing fixed infrastructure models
+
+**Đáp án:** B. By automating global resource distribution
 
 **Giải thích:**
+
+✔ B is correct: AWS enables global deployments quickly.
+
+✖ A/C/D: Opposite of agility.
 
 ---
 
 ### Câu 14
 
-**...**
+Which deployment model describes **using AWS** for a portion of your IT **resources and maintaining** the rest **on-premises**?
 
-**Đáp án:**
+A. Hybrid cloud
+
+B. Multi-cloud
+
+C. Public cloud
+
+D. Private cloud
+
+**Đáp án:** A. Hybrid cloud
 
 **Giải thích:**
+
+✔ A is correct: Hybrid cloud mixes on-prem and cloud.
+
+✖ B: Multi-cloud uses multiple providers.
+
+✖ C: Fully on public cloud.
+
+✖ D: Fully on-prem infrastructure.
 
 ---
 
 ### Câu 15
 
-**...**
+Which AWS concept **best supports** experimentation with **minimal financial risk**?
 
-**Đáp án:**
+A. Pay-as-you-go pricing
+
+B. Complex change approval process
+
+C. Dedicated hardware acquisition
+
+D. Manual deployment process
+
+**Đáp án:** A. Pay-as-you-go pricing
 
 **Giải thích:**
+
+✔ A is correct: Pay-as-you-go allows trying services without large costs.
+
+✖ B/C/D: These add cost, time, and risk.
 
 ---
 

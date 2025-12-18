@@ -534,101 +534,511 @@ D. AWS Config
 
 ### Câu 1
 
-**...**
+Which AWS service is used to **centrally manage user access** and **permissions** across **multiple AWS accounts**?
 
-**Đáp án:**
+A. Amazon GuardDuty
+
+B. AWS IAM
+
+C. AWS Organizations
+
+D. AWS Shield
+
+**Đáp án:** C. AWS Organizations
 
 **Giải thích:**
+
+✔ C is correct: AWS Organizations allows centralized management of accounts and permissions.
+
+✖ A: GuardDuty is for threat detection.✖ B: IAM controls permissions but not across accounts.
+
+✖ D: AWS Shield is for DDoS protection.
 
 ---
 
 ### Câu 2
 
-**...**
+What AWS service **helps protect web applications** from common web exploits like SQL injection?
 
-**Đáp án:**
+A. AWS WAF
+
+B. AWS IAM
+
+C. Amazon Inspector
+
+D. AWS Trusted Advisor
+
+**Đáp án:** A. AWS WAF
 
 **Giải thích:**
+
+✔ A is correct: AWS WAF filters malicious traffic such as SQL injection.
+
+✖ B: IAM handles access control.
+
+✖ C: Inspector scans for vulnerabilities, not exploits in web traffic.
+
+✖ D: Trusted Advisor gives best practice suggestions, not filtering.
 
 ---
 
 ### Câu 3
 
-**...**
+Which AWS feature **allows assigning** fine-grained **permissions to users and resources**?
 
-**Đáp án:**
+A. Amazon Macie
+
+B. IAM policies
+
+C. AWS KMS
+
+D. AWS CloudTrail
+
+**Đáp án:** B. IAM policies
 
 **Giải thích:**
+
+✔ B is correct: IAM policies allow detailed control over AWS actions.
+
+✖ A: Macie detects sensitive data.
+
+✖ C: KMS is for encryption key management.
+
+✖ D: CloudTrail logs API activity.
 
 ---
 
 ### Câu 4
 
-**...**
+Which of the following is a **shared responsibility** between the **customer and AWS**?
 
-**Đáp án:**
+A. Hardware maintenance
+
+B. Managing IAM roles
+
+C. Physical security of data centers
+
+D. Disk destruction after decommission
+
+**Đáp án:** B. Managing IAM roles
 
 **Giải thích:**
+
+✔ B is correct: IAM configuration is the customer's responsibility under the shared model.
+
+✖ A/C/D: AWS handles physical aspects.
 
 ---
 
 ### Câu 5
 
-**...**
+A financial company **needs to encrypt** all data **stored in S3**. Which AWS service can help **manage encryption keys**?
 
-**Đáp án:**
+A. AWS IAM
+
+B. Amazon Macie
+
+C. AWS Key Management Service (KMS)
+
+D. AWS CloudTrail
+
+**Đáp án:** C. AWS Key Management Service (KMS)
 
 **Giải thích:**
+
+✔ C is correct: AWS KMS manages keys used to encrypt/decrypt data.
+
+✖ A: IAM handles access, not encryption.
+
+✖ B: Macie finds sensitive data.
+
+✖ D: CloudTrail tracks access but doesn't manage keys.
 
 ---
 
 ### Câu 6
 
-**...**
+Which of the following **services records API activity** and **user actions** in an AWS account?
 
-**Đáp án:**
+A. AWS CloudTrail
+
+B. AWS CloudWatch
+
+C. Amazon Macie
+
+D. AWS Secrets Manager
+
+**Đáp án:** A. AWS CloudTrail
 
 **Giải thích:**
+
+✔ A is correct: CloudTrail records API activity.
+
+✖ B: CloudWatch is for monitoring and logging performance.
+
+✖ C: Macie is for PII data discovery.
+
+✖ D: Secrets Manager manages secrets, not logs.
 
 ---
 
 ### Câu 7
 
-**...**
+An e-commerce startup wants to **restrict access** to its AWS account using **temporary credentials**. What service should it use?
 
-**Đáp án:**
+A. AWS CloudTrail
+
+B. Amazon Macie
+
+C. AWS IAM Roles
+
+D. Amazon Inspector
+
+**Đáp án:** C. AWS IAM Roles
 
 **Giải thích:**
+
+✔ C is correct: IAM Roles provide temporary credentials with defined permissions.
+
+✖ A: Logs activities, not used for access.
+
+✖ B: For sensitive data detection.
+
+✖ D: Used for vulnerability scans.
 
 ---
 
 ### Câu 8
 
-**...**
+What AWS service **enables secure** storage and **rotation** of **API keys and credentials**?
 
-**Đáp án:**
+A. AWS Systems Manager
+
+B. AWS Secrets Manager
+
+C. Amazon S3
+
+D. Amazon Macie
+
+**Đáp án:** B. AWS Secrets Manager
 
 **Giải thích:**
+
+✔ B is correct: Secrets Manager securely stores and rotates credentials.
+
+✖ A: Systems Manager has Parameter Store, but less secure than Secrets Manager.
+
+✖ C: S3 isn’t designed for secrets.
+
+✖ D: Macie scans for sensitive data, not secure storage.
 
 ---
 
 ### Câu 9
 
-**...**
+Which AWS service can be used to **detect malicious** or **unauthorized behavior** in your AWS environment?
 
-**Đáp án:**
+A. AWS WAF
+
+B. AWS GuardDuty
+
+C. Amazon CloudWatch
+
+D. AWS Config
+
+**Đáp án:** B. AWS GuardDuty
 
 **Giải thích:**
+
+✔ B is correct: GuardDuty provides intelligent threat detection.
+
+✖ A: WAF protects web apps, not overall environment.
+
+✖ C: CloudWatch monitors logs, not threats directly.
+
+✖ D: Config tracks resource compliance.
 
 ---
 
 ### Câu 10
 
-**...**
+What is the purpose of AWS Shield?
 
-**Đáp án:**
+A. Detect insider threats
+
+B. Protect web applications from XSS
+
+C. Protect against DDoS attacks
+
+D. Encrypt sensitive data
+
+**Đáp án:** C. Protect against DDoS attacks
 
 **Giải thích:**
+
+✔ C is correct: AWS Shield protects from Distributed Denial of Service (DDoS) attacks.
+
+✖ A/B/D: Not the primary function of Shield.
+
+---
+
+### Câu 11
+
+A healthcare organization must **comply with HIPAA** and wants to **monitor who accesses** sensitive patient data in **Amazon S3**. Which service should they use?
+
+A. AWS Macie
+
+B. AWS IAM
+
+C. AWS CloudTrail
+
+D. AWS Config
+
+**Đáp án:** C. AWS CloudTrail
+
+**Giải thích:**
+
+✔ C is correct: CloudTrail logs all access to S3 buckets and objects.
+
+✖ A: Macie discovers PII, but doesn’t track access logs.
+
+✖ B: IAM defines permissions, doesn’t record access.
+
+✖ D: Config tracks configuration, not access history.
+
+---
+
+### Câu 12
+
+Which of the following AWS services helps **ensure compliance** by **assessing and auditing** your AWS resources?
+
+A. AWS Trusted Advisor
+
+B. AWS Config
+
+C. AWS GuardDuty
+
+D. Amazon Inspector
+
+**Đáp án:** B. AWS Config
+
+**Giải thích:**
+
+✔ B is correct: AWS Config tracks changes and evaluates configuration compliance.
+
+✖ A: Trusted Advisor offers general best practices, not detailed compliance tracking.
+
+✖ C: GuardDuty detects threats, not compliance.
+
+✖ D: Inspector is used for vulnerability assessment.
+
+---
+
+### Câu 13
+
+What AWS service helps customers **detect the storage of sensitive personal data** such as **names or credit card numbers**?
+
+A. Amazon Detective
+
+B. AWS WAF
+
+C. AWS Macie
+
+D. AWS Config
+
+**Đáp án:** C. AWS Macie
+
+**Giải thích:**
+
+✔ C is correct: Macie uses machine learning to detect sensitive data like PII.
+
+✖ A: Detective helps with security investigations.
+
+✖ B: WAF protects web apps from exploits.
+
+✖ D: Config is for resource configurations.
+
+---
+
+### Câu 14
+
+Which AWS service **lets organizations set permissions boundaries** using **Service Control Policies (SCPs)**?
+
+A. AWS IAM
+
+B. AWS Organizations
+
+C. AWS Shield
+
+D. Amazon Inspector
+
+**Đáp án:** B. AWS Organizations
+
+**Giải thích:**
+
+✔ B is correct: AWS Organizations lets you define SCPs for accounts and OUs.
+
+✖ A: IAM manages individual roles/users but doesn’t use SCPs.
+
+✖ C: Shield provides DDoS protection.
+
+✖ D: Inspector assesses vulnerabilities, not permissions.
+
+---
+
+### Câu 15
+
+A company wants to **monitor and automatically** remediate **non-compliant resources** in AWS. Which service is best suited for this?
+
+A. AWS IAM
+
+B. AWS CloudTrail
+
+C. AWS Config
+
+D. Amazon Macie
+
+**Đáp án:** C. AWS Config
+
+**Giải thích:**
+
+✔ C is correct: AWS Config can monitor and trigger remediation for compliance issues.
+
+✖ A: IAM controls access, not compliance monitoring.
+
+✖ B: CloudTrail logs actions but doesn’t remediate.
+
+✖ D: Macie identifies sensitive data but doesn’t enforce remediation.
+
+---
+
+### Câu 16
+
+A company wants to **protect its web applications** from **common web exploits and malicious bots**. Which AWS service should it use?
+
+A. AWS Shield
+
+B. AWS WAF
+
+C. Amazon GuardDuty
+
+D. AWS Firewall Manager
+
+**Đáp án:** B. AWS WAF
+
+**Giải thích:**
+
+✔ B is correct: AWS WAF is a web application firewall that protects web apps from exploits and bots.
+
+✖ A: Shield focuses on DDoS protection, not web application attacks.
+
+✖ C: GuardDuty is for threat detection, not active blocking.
+
+✖ D: Firewall Manager manages multiple firewalls but does not itself block attacks.
+
+---
+
+### Câu 17
+
+What is the best AWS service to **provide multi-factor authentication (MFA)** for users accessing the **AWS Management Console**?
+
+A. AWS IAM
+
+B. AWS Directory Service
+
+C. AWS Organizations
+
+D. Amazon Cognito
+
+**Đáp án:** A. AWS IAM
+
+**Giải thích:**
+
+✔ A is correct: IAM supports MFA for user accounts to enhance security.
+
+✖ B: Directory Service provides managed Microsoft AD, but MFA setup is in IAM.
+
+✖ C: Organizations manages accounts but does not handle MFA.
+
+✖ D: Cognito is for app user authentication, not AWS console users.
+
+---
+
+### Câu 18
+
+Which AWS **service provides threat detection** for **malicious or unauthorized activity** in your **AWS environment**?
+
+A. AWS Config
+
+B. Amazon GuardDuty
+
+C. AWS CloudTrail
+
+D. AWS Macie
+
+**Đáp án:** B. Amazon GuardDuty
+
+**Giải thích:**
+
+✔ B is correct: GuardDuty provides continuous threat detection using machine learning.
+
+✖ A: Config tracks compliance, not threats.
+
+✖ C: CloudTrail logs activity but does not analyze for threats.
+
+✖ D: Macie detects sensitive data exposure, not threats.
+
+---
+
+### Câu 19
+
+A company wants to **centrally manage encryption keys** used to **protect data in AWS services**. Which AWS service should be used?
+
+A. AWS Secrets Manager
+
+B. AWS Key Management Service (KMS)
+
+C. AWS Certificate Manager
+
+D. AWS CloudHSM
+
+**Đáp án:** B. AWS Key Management Service (KMS)
+
+**Giải thích:**
+
+✔ B is correct: AWS KMS manages encryption keys centrally.
+
+✖ A: Secrets Manager stores credentials, not encryption keys.
+
+✖ C: Certificate Manager manages SSL/TLS certificates.
+
+✖ D: CloudHSM provides hardware security modules, but KMS is easier and more integrated.
+
+---
+
+### Câu 20
+
+Which AWS service can help **audit and review** user **activity and API calls** across your **AWS infrastructure**?
+
+A. AWS CloudTrail
+
+B. Amazon Inspector
+
+C. AWS Trusted Advisor
+
+D. AWS Config
+
+**Đáp án:** A. AWS CloudTrail
+
+**Giải thích:**
+
+✔ A is correct: CloudTrail logs all API calls for auditing.
+
+✖ B: Inspector assesses vulnerabilities but doesn’t log activity.
+
+✖ C: Trusted Advisor offers recommendations, not logs.
+
+✖ D: Config tracks resource configurations, not user/API activity.
 
 ---
 
