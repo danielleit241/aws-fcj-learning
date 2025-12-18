@@ -400,98 +400,192 @@ D. Enterprise
 
 ### Câu 1
 
-**...**
+A startup is running a **critical production application** and **needs 24/7 access** to technical **support via phone and email.**
 
-**Đáp án:**
+They require a **response time of less than 1 hour for production system-down issues** but do not have the budget for a **dedicated Technical Account Manager (TAM).**
+
+Which AWS Support plan is the most appropriate and cost-effective choice?
+
+A. Basic
+
+B. Developer
+
+C. Business
+
+D. Enterprise
+
+**Đáp án:** C. Business
 
 **Giải thích:**
+
+✔ C is correct: The AWS Business Support plan provides 24/7 access to Cloud Support Engineers via phone, email, and chat, with a < 1-hour response time for production system down issues. It is the most suitable plan without the added cost of a TAM that comes with the Enterprise plan.
+
+✖ A: Basic Support does not offer technical support or guaranteed response times.
+
+✖ B: Developer Support only provides business-hour email support with slower response times.
+
+✖ D: Enterprise Support includes a TAM and is the most expensive plan, exceeding the company's budgetary constraints mentioned.
 
 ---
 
 ### Câu 2
 
-**...**
+A company needs to run a **short-term data analysis** job that can be **interrupted without causing issues.**
 
-**Đáp án:**
+They want to use **Amazon EC2 instances** at the **lowest possible cost**. Which EC2 purchasing option should they choose?
+
+A. On-Demand Instances
+
+B. Reserved Instances
+
+C. Spot Instances
+
+D. Dedicated Hosts
+
+**Đáp án:** C. Spot Instances
 
 **Giải thích:**
+
+✔ C is correct: Spot Instances offer the largest discounts on EC2 compute capacity (up to 90% off On-Demand prices). They are ideal for fault-tolerant, flexible workloads that can withstand interruptions, as AWS can reclaim the capacity with a short notice.
+
+✖ A: On-Demand Instances are more expensive and are for workloads that cannot be interrupted.
+
+✖ B: Reserved Instances require a 1 or 3-year commitment and are for steady-state workloads.
+
+✖ D: Dedicated Hosts are physical servers dedicated for your use and are the most expensive option, typically used for compliance or licensing reasons.
 
 ---
 
 ### Câu 3
 
-**...**
+A finance department wants to **visualize the company's AWS spending over the last 6 months**, filter costs by specific AWS services and linked accounts, and get a **forecast of spending for the next 3 months.**
 
-**Đáp án:**
+Which AWS tool should they use?
+
+A. AWS Budgets
+
+B. AWS Cost Explorer
+
+C. AWS Pricing Calculator
+
+D. AWS Trusted Advisor
+
+**Đáp án:** B. AWS Cost Explorer
 
 **Giải thích:**
+
+✔ B is correct: AWS Cost Explorer has an easy-to-use interface that lets you visualize, understand, and manage your AWS costs and usage over time. It includes default reports and forecasting capabilities.
+
+✖ A: AWS Budgets is used to set spending limits and receive alerts, not for detailed visualization and forecasting.
+
+✖ C: AWS Pricing Calculator is for estimating the cost of a _future_ workload, not for analyzing past spending.
+
+✖ D: AWS Trusted Advisor provides optimization recommendations but is not a cost analysis tool.
 
 ---
 
 ### Câu 4
 
-**...**
+What is the **primary function of Cost Allocation Tags** in AWS?
 
-**Đáp án:**
+A. To automatically optimize resource spending.
+
+B. To categorize and track AWS costs by project, department, or other criteria.
+
+C. To provide real-time security alerts for resources.
+
+D. To set hard limits on spending for specific resources.
+
+**Đáp án:** B. To categorize and track AWS costs by project, department, or other criteria.
 
 **Giải thích:**
+
+✔ B is correct: Cost Allocation Tags are key-value pairs that you can attach to AWS resources to organize them. When you activate these tags, AWS uses them to organize your resource costs on your cost allocation report, making it easier to categorize and track your AWS costs.
+
+✖ A: Tags do not automatically optimize spending; they only help in tracking and reporting.
+
+✖ C: This is the function of services like Amazon GuardDuty or AWS Security Hub.
+
+✖ D: Tags cannot set spending limits; that is the function of AWS Budgets.
 
 ---
 
 ### Câu 5
 
-**...**
+A **non-profit organization** wants to **estimate the monthly cost** of a new application they plan to host on AWS, which will use Amazon EC2, Amazon S3, and Amazon RDS.
 
-**Đáp án:**
+Which tool can they use to get a **detailed estimate before migrating?**
+
+A. AWS Cost & Usage Report
+
+B. AWS Budgets
+
+C. AWS Cost Explorer
+
+D. AWS Pricing Calculator
+
+**Đáp án:** D. AWS Pricing Calculator
 
 **Giải thích:**
+
+✔ D is correct: The AWS Pricing Calculator is a web-based service that you can use to create cost estimates for your AWS use cases. It allows you to model your solutions before building them, explore the price points, and review the calculations behind your estimates.
+
+✖ A: The Cost & Usage Report is a detailed billing file containing data about your _actual_ usage, not for estimating future costs.
+
+✖ B: AWS Budgets is for setting alerts on your spending, not for creating an initial estimate.
+
+✖ C: AWS Cost Explorer is for analyzing your _current_ and past costs, not for estimating a new workload.
 
 ---
 
 ### Câu 6
 
-**...**
+What benefit does the **consolidated billing feature** of **AWS Organizations** provide?
 
-**Đáp án:**
+A. It provides a separate invoice for each AWS account in the organization.
+
+B. It combines the usage from all accounts to a single bill, potentially qualifying for volume pricing discounts.
+
+C. It applies a security policy to all accounts automatically.
+
+D. It gives every account a dedicated Technical Account Manager (TAM).
+
+**Đáp án:** B. It combines the usage from all accounts to a single bill, potentially qualifying for volume pricing discounts.
 
 **Giải thích:**
+
+✔ B is correct: Consolidated billing allows you to get a single bill for multiple AWS accounts. A key benefit is that you can combine the usage across all accounts to share volume pricing discounts, Reserved Instance discounts, and Savings Plans.
+
+✖ A: It does the opposite; it creates a single, consolidated bill.
+
+✖ C: This is the function of Service Control Policies (SCPs), not consolidated billing itself.
+
+✖ D: A TAM is a feature of the Enterprise Support plan, not a feature of consolidated billing.
 
 ---
 
 ### Câu 7
 
-**...**
+A company **has several idle Amazon RDS** instances and **underutilized Amazon EBS volumes** that are incurring unnecessary costs.
 
-**Đáp án:**
+Which AWS service can **automatically scan** their environment and provide **specific recommendations to reduce this waste?**
 
-**Giải thích:**
+A. Amazon CloudWatch
 
----
+B. AWS Config
 
-### Câu 8
+C. AWS Trusted Advisor
 
-**...**
+D. AWS Cost Explorer
 
-**Đáp án:**
-
-**Giải thích:**
-
----
-
-### Câu 9
-
-**...**
-
-**Đáp án:**
+**Đáp án:** C. AWS Trusted Advisor
 
 **Giải thích:**
 
----
+✔ C is correct: AWS Trusted Advisor acts like your cloud expert and helps you provision your resources by following AWS best practices. The cost optimization pillar specifically checks for things like idle load balancers, underutilized EBS volumes, and idle RDS instances.
 
-### Câu 10
+✖ A: CloudWatch monitors resource metrics but does not provide cost-saving recommendations on its own.
 
-**...**
+✖ B: AWS Config checks for compliance with configuration rules, not for cost optimization opportunities.
 
-**Đáp án:**
-
-**Giải thích:**
+✖ D: Cost Explorer helps you visualize costs but does not perform automated checks to identify specific underutilized resources.
