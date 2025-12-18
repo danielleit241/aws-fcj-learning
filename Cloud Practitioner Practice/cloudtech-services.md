@@ -696,49 +696,123 @@ D. Amazon S3
 
 ### Câu 1
 
-**...**
+A company needs a **fully managed** service to run **relational databases** without managing the underlying hardware.
 
-**Đáp án:**
+Which AWS service should the company choose?
+
+A. Amazon RDS
+
+B. Amazon Redshift
+
+C. Amazon DynamoDB
+
+D. Amazon Aurora Serverless
+
+**Đáp án:** A. Amazon RDS
 
 **Giải thích:**
+
+✔ A is correct: RDS is a managed service for relational databases.
+
+✖ B: Redshift is for data warehousing, not general relational databases.
+
+✖ C: DynamoDB is NoSQL, not relational.
+
+✖ D: Aurora Serverless is relational but limited to Aurora engines.
 
 ---
 
 ### Câu 2
 
-**...**
+A retail company wants to **deploy Docker containers** **without managing** servers. Which AWS service should they use?
 
-**Đáp án:**
+A. AWS Fargate
+
+B. Amazon EC2
+
+C. AWS Lambda
+
+D. Amazon ECS (with EC2 launch type)
+
+**Đáp án:** A. AWS Fargate
 
 **Giải thích:**
+
+✔ A is correct: Fargate runs containers without managing servers.
+
+✖ B: EC2 requires server provisioning and maintenance.
+
+✖ C: Lambda runs code, not full container workloads.
+
+✖ D: ECS with EC2 requires managing EC2 instances.
 
 ---
 
 ### Câu 3
 
-**...**
+A software company **needs a scalable messaging service** to **decouple microservices**. Which service should it use?
 
-**Đáp án:**
+A. Amazon SQS
+
+B. Amazon SNS
+
+C. Amazon MQ
+
+D. AWS Step Functions
+
+**Đáp án:** A. Amazon SQS
 
 **Giải thích:**
+
+✔ A is correct: SQS provides reliable, scalable message queuing.
+
+✖ B: SNS is for pub/sub, not message queuing.
+
+✖ C: MQ supports open protocols but is more complex.
+
+✖ D: Step Functions orchestrate workflows, not queues.
 
 ---
 
 ### Câu 4
 
-**...**
+A startup wants to **store and retrieve** any amount of **unstructured data** globally with **high durability**. Which service is best suited?
 
-**Đáp án:**
+A. Amazon S3
+
+B. Amazon EFS
+
+C. Amazon RDS
+
+D. AWS Backup
+
+**Đáp án:** A. Amazon S3
 
 **Giải thích:**
+
+✔ A is correct: S3 offers scalable, durable object storage.
+
+✖ B: EFS is for file system storage, not object storage.
+
+✖ C: RDS stores structured relational data.
+
+✖ D: AWS Backup automates backups, not storage itself.
 
 ---
 
 ### Câu 5
 
-**...**
+A company runs **a stateless web application** and wants to **automatically distribute incoming traffic** across **multiple EC2** instances. Which AWS service should be used?
 
-**Đáp án:**
+A. Elastic Load Balancing (ELB)
+
+B. Amazon Route 53
+
+C. AWS Auto Scaling
+
+D. AWS CloudFront
+
+**Đáp án:** A. Elastic Load Balancing (ELB)
 
 **Giải thích:**
 
@@ -746,51 +820,483 @@ D. Amazon S3
 
 ### Câu 6
 
-**...**
+A data analytics company wants to **process large-scale** data sets using a **distributed computing framework**. Which AWS service is most suitable?
 
-**Đáp án:**
+A. Amazon Athena
+
+B. AWS Glue
+
+C. Amazon EMR
+
+D. Amazon Redshift
+
+**Đáp án:** C. Amazon EMR
 
 **Giải thích:**
+
+✔ C is correct: Amazon EMR is designed for big data processing using frameworks like Apache Spark and Hadoop.
+
+✖ A: Athena is for querying data in S3, not processing large data sets.
+
+✖ B: Glue is for ETL, not full big data computation frameworks.
+
+✖ D: Redshift is for data warehousing, not distributed compute.
 
 ---
 
 ### Câu 7
 
-**...**
+Which AWS service allows users to **run serverless code** in response to events, such as **changes** in an S3 bucket or messages in an SQS queue?
 
-**Đáp án:**
+A. Amazon EC2
+
+B. AWS Lambda
+
+C. AWS Batch
+
+D. Amazon Elastic Beanstalk
+
+**Đáp án:** B. AWS Lambda
 
 **Giải thích:**
+
+✔ B is correct: Lambda runs code in response to events without server management.
+
+✖ A: EC2 requires managing servers and infrastructure.
+
+✖ C: AWS Batch is for batch computing jobs, not event-based.
+
+✖ D: Elastic Beanstalk deploys applications but isn't event-triggered by default.
 
 ---
 
 ### Câu 8
 
-**...**
+A media company wants to **deliver videos** with **low latency** to users **around the world**. Which AWS service should they use?
 
-**Đáp án:**
+A. Amazon CloudFront
+
+B. Amazon S3
+
+C. Amazon Route 53
+
+D. AWS Global Accelerator
+
+**Đáp án:** A. Amazon CloudFront
 
 **Giải thích:**
+
+✔ A is correct: CloudFront is AWS’s CDN that delivers content globally with low latency.
+
+✖ B: S3 stores the videos but doesn’t optimize delivery.
+
+✖ C: Route 53 handles DNS, not content delivery.
+
+✖ D: Global Accelerator improves application performance, not content delivery.
 
 ---
 
 ### Câu 9
 
-**...**
+A business needs to **run a MySQL database** with **high availability and automated backups**. Which AWS service should they choose?
 
-**Đáp án:**
+A. Amazon DynamoDB
+
+B. Amazon EC2 with MySQL
+
+C. Amazon RDS
+
+D. Amazon Neptune
+
+**Đáp án:** C. Amazon RDS
 
 **Giải thích:**
+
+✔ C is correct: RDS supports MySQL with high availability, replication, and backups.
+
+✖ A: DynamoDB is NoSQL, not MySQL-compatible.
+
+✖ B: EC2 requires manual management of high availability and backups.
+
+✖ D: Neptune is a graph database, not relational.
 
 ---
 
 ### Câu 10
 
-**...**
+A gaming company wants to **store player session data** in a fast, **in-memory database** with **sub-millisecond latency**. Which AWS service should be used?
 
-**Đáp án:**
+A. Amazon Aurora
+
+B. Amazon DynamoDB
+
+C. Amazon ElastiCache
+
+D. Amazon Redshift
+
+**Đáp án:** C. Amazon ElastiCache
 
 **Giải thích:**
+
+✔ C is correct: ElastiCache is an in-memory data store with very low latency.
+
+✖ A: Aurora is a high-performance relational DB but not in-memory.
+
+✖ B: DynamoDB is fast but not purely in-memory like ElastiCache.
+
+✖ D: Redshift is used for analytics, not low-latency session storage.
+
+---
+
+### Câu 11
+
+A developer wants to **build and deploy** web applications **quickly without managing** the underlying infrastructure. Which AWS service should they use?
+
+A. AWS Elastic Beanstalk
+
+B. Amazon EC2
+
+C. Amazon ECS
+
+D. AWS CloudFormation
+
+**Đáp án:** A. AWS Elastic Beanstalk
+
+**Giải thích:**
+
+✔ A is correct: Elastic Beanstalk allows quick app deployment with automatic provisioning and management.
+
+✖ B: EC2 requires manual setup and server management.
+
+✖ C: ECS is used for container orchestration, not ideal for quick web app setup.
+
+✖ D: CloudFormation is used for infrastructure as code, not app deployment.
+
+---
+
+### Câu 12
+
+A startup needs a **scalable, managed NoSQL database** to handle millions of user profiles with variable access patterns. Which AWS service is the best choice?
+
+A. Amazon Aurora
+
+B. Amazon ElastiCache
+
+C. Amazon RDS
+
+D. Amazon DynamoDB
+
+**Đáp án:** D. Amazon DynamoDB
+
+**Giải thích:**
+
+✔ D is correct: DynamoDB is a fully managed NoSQL database suitable for high-scale applications.
+
+✖ A: Aurora is relational, not NoSQL.
+
+✖ B: ElastiCache is in-memory and best for caching, not persistent NoSQL storage.
+
+✖ C: RDS supports SQL, not NoSQL.
+
+---
+
+### Câu 13
+
+A financial services firm needs to ensure that **compute capacity** can **scale automatically based on demand**. Which AWS feature should they use?
+
+A. Auto Scaling
+
+B. Amazon VPC
+
+C. Amazon Route 53
+
+D. AWS IAM
+
+**Đáp án:** A. Auto Scaling
+
+**Giải thích:**
+
+✔ A is correct: Auto Scaling automatically adjusts compute resources based on demand.
+
+✖ B: VPC controls networking, not scaling.
+
+✖ C: Route 53 manages DNS, not compute scaling.
+
+✖ D: IAM handles access control, not resource scaling.
+
+---
+
+### Câu 14
+
+A customer wants to **decouple components** of a **microservices application** using a **message-based communication** system. Which service should they choose?
+
+A. Amazon MQ
+
+B. Amazon SQS
+
+C. Amazon SNS
+
+D. AWS Step Functions
+
+**Đáp án:** B. Amazon SQS
+
+**Giải thích:**
+
+✔ B is correct: SQS is ideal for decoupling components using message queues.
+
+✖ A: Amazon MQ is for legacy applications needing traditional brokers.
+
+✖ C: SNS is for pub/sub, not direct message queuing.
+
+✖ D: Step Functions coordinate workflows, not messaging between microservices.
+
+---
+
+### Câu 15
+
+A business needs to run **containerized applications** using **Kubernetes without managing** the control plane. Which AWS service should they use?
+
+A. Amazon ECS
+
+B. AWS Lambda
+
+C. Amazon EKS
+
+D. AWS Fargate
+
+**Đáp án:** C. Amazon EKS
+
+**Giải thích:**
+
+✔ C is correct: EKS provides managed Kubernetes service with control plane management.
+
+✖ A: ECS is AWS-native, not Kubernetes-compatible.
+
+✖ B: Lambda runs serverless functions, not containers via Kubernetes.
+
+✖ D: Fargate runs containers but doesn’t manage Kubernetes specifically.
+
+---
+
+### Câu 16
+
+A media company is **building a photo processing pipeline** that must **automatically process images** as they are **uploaded into Amazon S3**.
+
+The company wants **minimal management** overhead and **needs scalable compute resources**.
+
+Which solution meets these requirements most efficiently?
+
+A. Amazon EC2 instances with a scheduled cron job
+
+B. AWS Lambda with Amazon S3 event triggers
+
+C. Amazon ECS with a Fargate launch type
+
+D. AWS Batch scheduled jobs
+
+**Đáp án:** B. AWS Lambda with Amazon S3 event triggers
+
+**Giải thích:**
+
+✔ B is correct: Lambda can be triggered by S3 events and scales automatically.
+
+✖ A: EC2 requires manual scaling and more management.
+
+✖ C: ECS Fargate is scalable but needs more setup than Lambda.
+
+✖ D: Batch is ideal for large-scale batch jobs, not real-time triggers.
+
+---
+
+### Câu 17
+
+A startup wants to **develop an AI chatbot without managing** underlying servers.
+
+It also wants to **scale automatically based on user interactions**. Which AWS service should it use as the backend compute layer?
+
+A. Amazon EC2 Auto Scaling
+
+B. Amazon SageMaker
+
+C. AWS Lambda
+
+D. Amazon Elastic Container Service (ECS)
+
+**Đáp án:** C. AWS Lambda
+
+**Giải thích:**
+
+✔ C is correct: Lambda supports serverless, event-driven architecture with auto-scaling.
+
+✖ A: EC2 needs manual scaling and instance management.
+
+✖ B: SageMaker is for ML model training/deployment, not chatbot logic.
+
+✖ D: ECS requires container orchestration and setup.
+
+---
+
+### Câu 18
+
+A retail company needs to run **containerized microservices** that must **start quickly and scale automatically**.
+
+They prefer a **serverless container** platform **without managing** servers or clusters.
+
+Which AWS service should the company use?
+
+A. Amazon EC2
+
+B. Amazon ECS with EC2 launch type
+
+C. Amazon ECS with Fargate
+
+D. Amazon Elastic Kubernetes Service (EKS)
+
+**Đáp án:** C. Amazon ECS with Fargate
+
+**Giải thích:**
+
+✔ C is correct: ECS with Fargate allows running containers serverlessly.
+
+✖ A: EC2 requires infrastructure management.
+
+✖ B: ECS with EC2 still requires cluster management.
+
+✖ D: EKS involves managing Kubernetes resources.
+
+---
+
+### Câu 19
+
+A global education company **stores large datasets** in **Amazon S3** and runs analytics using **Amazon Athena**.
+
+How does this architecture **help reduce infrastructure costs** and **improve performance**?
+
+A. Athena provisions a persistent cluster that can be reused
+
+B. Athena integrates with EC2 to accelerate queries
+
+C. Athena runs serverless SQL queries directly on S3 data
+
+D. Athena caches data permanently to reduce cost
+
+**Đáp án:** C. Athena runs serverless SQL queries directly on S3 data
+
+**Giải thích:**
+
+✔ C is correct: Athena enables serverless querying on S3 without provisioning infrastructure.
+
+✖ A: Athena doesn’t use persistent clusters.
+
+✖ B: EC2 is not required or used directly with Athena.
+
+✖ D: Athena doesn’t cache data long-term.
+
+---
+
+### Câu 20
+
+A healthcare company uses \*_Amazon RDS for storing sensitive patient data_.
+
+What AWS feature can help them meet **compliance and security** requirements with **minimal operational effort**?
+
+A. Enable S3 versioning
+
+B. Use RDS snapshots
+
+C. Enable RDS automated backups and encryption
+
+D. Migrate to Amazon EC2 with a MySQL installation
+
+**Đáp án:** C. Enable RDS automated backups and encryption
+
+**Giải thích:**
+
+✔ C is correct: Automated backups and encryption help with compliance and operational ease.
+
+✖ A: S3 versioning is unrelated to RDS.
+
+✖ B: Snapshots are manual and not enough alone.
+
+✖ D: EC2 requires full database management.
+
+### Câu 21
+
+A company wants to **improve application fault tolerance**. They deploy **Amazon EC2** instances across **multiple Availability Zones** (AZs). Which **AWS design** principle does this demonstrate?
+
+A. Automate everything
+
+B. Use managed services
+
+C. Design for failure
+
+D. Implement defense in depth
+
+**Đáp án:** C. Design for failure
+
+**Giải thích:**
+
+✔ C is correct: Spreading instances across AZs helps tolerate failures.
+
+✖ A: Not directly related to availability.
+
+✖ B: EC2 is not a managed service.
+
+✖ D: Refers to layered security, not fault tolerance.
+
+---
+
+### Câu 22
+
+A finance firm **wants to offload log** analytics from their application server and use a **fully managed service** that can **8analyze massive logs** in near **real-time**.
+
+Which AWS service should they use?
+
+A. Amazon QuickSight
+
+B. Amazon Kinesis Data Analytics
+
+C. AWS Glue
+
+D. Amazon EMR
+
+**Đáp án:** B. Amazon Kinesis Data Analytics
+
+**Giải thích:**
+
+✔ B is correct: Kinesis Data Analytics is designed for real-time data stream analysis.
+
+✖ A: QuickSight is for BI dashboards, not stream processing.
+
+✖ C: Glue is used for ETL, not real-time analytics.
+
+✖ D: EMR is powerful but not serverless or real-time by default.
+
+---
+
+### Câu 23
+
+A gaming company **stores session data in memory** and needs **ultra-fast access with sub-millisecond latency**. Which service should they use?
+
+A. Amazon Aurora
+
+B. Amazon DynamoDB
+
+C. Amazon ElastiCache
+
+D. Amazon S3
+
+**Đáp án:** C. Amazon ElastiCache
+
+**Giải thích:**
+
+✔ C is correct: ElastiCache delivers in-memory speed with sub-millisecond latency.
+
+✖ A: Aurora is fast but not in-memory.
+
+✖ B: DynamoDB is fast but not suitable for in-memory workloads.
+
+✖ D: S3 is for object storage, not real-time access.
 
 ---
 

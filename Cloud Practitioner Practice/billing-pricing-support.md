@@ -216,101 +216,183 @@ D. Enterprise
 
 ### Câu 1
 
-**...**
+A company wants to **track AWS usage costs** by department. Which feature should they implement to **break down billing per department**?
 
-**Đáp án:**
+A. AWS Trusted Advisor
+
+B. Consolidated Billing
+
+C. Cost Allocation Tags
+
+D. Amazon CloudWatch Logs
+
+**Đáp án:** C. Cost Allocation Tags
 
 **Giải thích:**
+
+✔ C is correct: Tags let you allocate usage and costs by department.
+
+✖ A: Trusted Advisor gives best practices, not billing breakdowns.
+
+✖ B: Consolidated Billing combines bills but doesn’t divide them.
+
+✖ D: CloudWatch Logs monitor performance, not costs.
 
 ---
 
 ### Câu 2
 
-**...**
+Which AWS tool **provides a visualization of historical usage and cost data**, and supports **forecasting**?
 
-**Đáp án:**
+A. AWS Budgets
+
+B. AWS Cost Explorer
+
+C. AWS Marketplace
+
+D. AWS Config
+
+**Đáp án:** B. AWS Cost Explorer
 
 **Giải thích:**
+
+✔ B is correct: Cost Explorer helps visualize past usage and forecast future costs.
+
+✖ A: Budgets are for setting cost thresholds, not exploration.
+
+✖ C: Marketplace is for buying software, not usage visualization.
+
+✖ D: Config tracks resource configurations, not costs.
 
 ---
 
 ### Câu 3
 
-**...**
+A company is comparing **Reserved Instances and Savings Plans** for its consistent **Amazon EC2 usage**. What is a **key benefit** of using **Savings Plans over Reserved Instances**?
 
-**Đáp án:**
+A. They apply only to compute usage in one Region
+
+B. They require a long-term upfront payment
+
+C. They offer more flexibility across instance types and regions
+
+D. They apply only to specific EC2 instance families
+
+**Đáp án:** C. They offer more flexibility across instance types and regions
 
 **Giải thích:**
+
+✔ C is correct: Savings Plans offer flexibility across instance families, sizes, and regions.
+
+✖ A: Reserved Instances are more restrictive than Savings Plans.
+
+✖ B: Upfront is optional for Savings Plans.
+
+✖ D: RIs have family restrictions; Savings Plans don’t.
 
 ---
 
 ### Câu 4
 
-**...**
+A startup wants to **avoid unexpected AWS charges**. Which AWS service allows them to **set alerts** when their usage or **costs exceed** a threshold?
 
-**Đáp án:**
+A. AWS Billing Dashboard
+
+B. AWS Budgets
+
+C. AWS Cost Explorer
+
+D. AWS Organizations
+
+**Đáp án:** B. AWS Budgets
 
 **Giải thích:**
+
+✔ B is correct: AWS Budgets lets users set cost thresholds and sends alerts.
+
+✖ A: Billing Dashboard shows costs but doesn’t alert.
+
+✖ C: Cost Explorer is for visualizing, not alerting.
+
+✖ D: Organizations helps with multi-account management, not budget alerts.
 
 ---
 
 ### Câu 5
 
-**...**
+A company plans to run an **EC2-based workload for 3 years with consistent usage**. Which purchasing option is the **most cost-effective**?
 
-**Đáp án:**
+A. On-Demand Instances
+
+B. Spot Instances
+
+C. Reserved Instances
+
+D. Savings Plans
+
+**Đáp án:** D. Savings Plans
 
 **Giải thích:**
+
+✔ D is correct: Savings Plans offer high savings and flexibility for long-term workloads.
+
+✖ A: On-Demand is most expensive for sustained use.
+
+✖ B: Spot is not suitable for guaranteed availability.
+
+✖ C: RIs are cost-effective but less flexible than Savings Plans.
 
 ---
 
 ### Câu 6
 
-**...**
+Which of the following is **included in the AWS Free Tier**?
 
-**Đáp án:**
+A. 750 hours/month of Amazon EC2 t2.micro for 12 months
+
+B. 10 TB of S3 Standard storage per month
+
+C. 1 year of AWS Support at the Business level
+
+D. Unlimited AWS Lambda function executions
+
+**Đáp án:** A. 750 hours/month of Amazon EC2 t2.micro for 12 months
 
 **Giải thích:**
+
+✔ A is correct: The Free Tier offers 750 hours of EC2 t2.micro for the first 12 months.
+
+✖ B: Only 5 GB of S3 is free.
+
+✖ C: Support plans are paid.
+
+✖ D: Lambda has free usage limits, not unlimited.
 
 ---
 
 ### Câu 7
 
-**...**
+A company needs support for **AWS infrastructure with 24/7 access to Cloud Support Engineers** and a **designated Technical Account Manager.** Which AWS Support Plan is required?
 
-**Đáp án:**
+A. Developer
 
-**Giải thích:**
+B. Basic
 
----
+C. Business
 
-### Câu 8
+D. Enterprise
 
-**...**
-
-**Đáp án:**
+**Đáp án:** D. Enterprise
 
 **Giải thích:**
 
----
+✔ D is correct: Enterprise support includes TAM and 24/7 access.
 
-### Câu 9
+✖ A: Developer doesn’t include TAM or 24/7 support.
 
-**...**
+✖ B: Basic plan offers only billing support.
 
-**Đáp án:**
-
-**Giải thích:**
-
----
-
-### Câu 10
-
-**...**
-
-**Đáp án:**
-
-**Giải thích:**
+✖ C: Business includes 24/7 but not a TAM.
 
 ---
 
