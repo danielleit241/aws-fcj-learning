@@ -1304,98 +1304,624 @@ D. Amazon S3
 
 ### Câu 1
 
-**...**
+A development team wants to **deploy** a standard web application **built with PHP**.
 
-**Đáp án:**
+They want to **focus on writing code** and have **AWS handle the provisioning** of servers, load balancing, and auto-scaling automatically. Which AWS service is the most appropriate choice?
+
+A. Amazon EC2
+
+B. AWS Lambda
+
+C. AWS Elastic Beanstalk
+
+D. AWS CloudFormation
+
+**Đáp án:** C. AWS Elastic Beanstalk
 
 **Giải thích:**
+
+✔ C is correct: AWS Elastic Beanstalk is a Platform as a Service (PaaS) that abstracts away the underlying infrastructure, allowing developers to simply upload their code and have Elastic Beanstalk handle the deployment, from capacity provisioning and load balancing to auto-scaling.
+
+✖ A: Amazon EC2 is Infrastructure as a Service (IaaS) and would require the team to manually configure servers, load balancers, and scaling.
+
+✖ B: AWS Lambda is for running serverless functions, not for deploying entire web applications.
+
+✖ D: AWS CloudFormation is an Infrastructure as Code (IaC) service for defining resources, but it does not manage the application deployment itself like Elastic Beanstalk does.
 
 ---
 
 ### Câu 2
 
-**...**
+A company needs to **store customer invoices** that will be **accessed frequently for the first 30 days**, then accessed **infrequently for up to a year.**
 
-**Đáp án:**
+After one year, the invoices must be **archived for 7 years** for compliance but do not **need instant retrieval.**
+
+Which service and feature should they use to automate this process cost-effectively?
+
+A. Amazon EFS with a custom script to move data
+
+B. Amazon S3 with lifecycle policies
+
+C. Amazon EBS with scheduled snapshots
+
+D. AWS Backup to move data between vaults
+
+**Đáp án:** B. Amazon S3 with lifecycle policies
 
 **Giải thích:**
+
+✔ B is correct: Amazon S3 lifecycle policies can be configured to automatically transition objects between storage classes (e.g., from S3 Standard to S3 Infrequent Access, and then to S3 Glacier Deep Archive) based on their age, which perfectly matches this use case and optimizes costs.
+
+✖ A: Amazon EFS is a file storage service and would be more expensive and complex for this object storage use case.
+
+✖ C: EBS is block storage for EC2 instances and is not suitable for storing invoices directly in this manner.
+
+✖ D: AWS Backup is for backing up resources, not for managing the lifecycle of application data like invoices.
 
 ---
 
 ### Câu 3
 
-**...**
+Which AWS service is **fundamentally a managed Domain Name System (DNS)** web service?
 
-**Đáp án:**
+A. Amazon VPC
+
+B. AWS Direct Connect
+
+C. Amazon CloudFront
+
+D. Amazon Route 53
+
+**Đáp án:** D. Amazon Route 53
 
 **Giải thích:**
+
+✔ D is correct: Amazon Route 53 is a highly available and scalable cloud Domain Name System (DNS) web service, designed to give developers and businesses a reliable way to route end users to internet applications.
+
+✖ A: Amazon VPC is for creating isolated network environments in AWS.
+
+✖ B: AWS Direct Connect is for establishing a dedicated private network connection to AWS.
+
+✖ C: Amazon CloudFront is a Content Delivery Network (CDN).
 
 ---
 
 ### Câu 4
 
-**...**
+A **large enterprise** needs a dedicated, private, **high-bandwidth network connection** between its **on-premises data center** and **its AWS environment** to **handle consistent and large data transfers**. Which AWS service should they use?
 
-**Đáp án:**
+A. AWS VPN
+
+B. AWS Direct Connect
+
+C. AWS Global Accelerator
+
+D. Public Internet
+
+**Đáp án:** B. AWS Direct Connect
 
 **Giải thích:**
+
+✔ B is correct: AWS Direct Connect is a cloud service solution that makes it easy to establish a dedicated network connection from your premises to AWS. It provides a more consistent network experience than internet-based connections.
+
+✖ A: AWS VPN establishes a connection over the public internet and is better suited for less consistent or lower-bandwidth needs.
+
+✖ C: AWS Global Accelerator improves the performance of applications over the public internet but is not a private connection.
+
+✖ D: The public internet does not offer the dedicated, private, and consistent bandwidth of Direct Connect.
 
 ---
 
 ### Câu 5
 
-**...**
+A data analytics team needs to **run complex business intelligence queries** on a **petabyte-scale** structured dataset.
 
-**Đáp án:**
+They need a **fully managed** **data warehouse** solution optimized for this purpose. Which AWS service is the best fit?
+
+A. Amazon RDS
+
+B. Amazon DynamoDB
+
+C. Amazon Redshift
+
+D. Amazon EMR
+
+**Đáp án:** C. Amazon Redshift
 
 **Giải thích:**
+
+✔ C is correct: Amazon Redshift is a fast, fully managed, petabyte-scale data warehouse service that makes it simple and cost-effective to analyze all your data using standard SQL and your existing Business Intelligence (BI) tools.
+
+✖ A: Amazon RDS is a relational database service (OLTP) and is not optimized for data warehousing (OLAP) queries at this scale.
+
+✖ B: DynamoDB is a NoSQL database, not a data warehouse.
+
+✖ D: Amazon EMR is for big data processing using frameworks like Spark and Hadoop, not a data warehouse.
 
 ---
 
 ### Câu 6
 
-**...**
+What AWS **compute service** allows you to **run code for functions** or backend services **without provisioning or managing** any servers?
 
-**Đáp án:**
+A. Amazon EC2
+
+B. AWS Fargate
+
+C. AWS Lambda
+
+D. Amazon Lightsail
+
+**Đáp án:** C. AWS Lambda
 
 **Giải thích:**
+
+✔ C is correct: AWS Lambda is a serverless compute service that lets you run code without provisioning or managing servers. You pay only for the compute time you consume.
+
+✖ A: EC2 requires you to provision and manage virtual servers.
+
+✖ B: Fargate is a serverless compute engine for _containers_, while Lambda is for running event-driven _functions_. Lambda is the more direct answer for "running code."
+
+✖ D: Lightsail provides a simplified way to launch servers, but you are still managing a server.
 
 ---
 
 ### Câu 7
 
-**...**
+A media company wants to **deliver** its video content and **web assets to users across the globe** with the **lowest possible latency.**
 
-**Đáp án:**
+Which service should they use to **cache content** in locations close to end-users?
+
+A. Amazon S3 Transfer Acceleration
+
+B. AWS Global Accelerator
+
+C. Amazon CloudFront
+
+D. Elastic Load Balancing
+
+**Đáp án:** C. Amazon CloudFront
 
 **Giải thích:**
+
+✔ C is correct: Amazon CloudFront is a fast content delivery network (CDN) service that securely delivers data, videos, applications, and APIs to customers globally with low latency and high transfer speeds by caching content at edge locations.
+
+✖ A: S3 Transfer Acceleration speeds up uploads to S3 but is not a CDN for content delivery.
+
+✖ B: AWS Global Accelerator improves application performance for TCP/UDP traffic but is not a content cache.
+
+✖ C: ELB distributes traffic to backend servers in a region, it does not cache content globally.
 
 ---
 
 ### Câu 8
 
-**...**
+A startup is building an application on a **fleet of Amazon EC2 instances**. They need to **ensure that if one of their instances fails**, **traffic is automatically redirected** to healthy instances.
 
-**Đáp án:**
+How should they distribute the incoming traffic?
+
+A. By using an AWS Auto Scaling group
+
+B. By using an Elastic Load Balancer (ELB)
+
+C. By configuring multiple Elastic IP addresses
+
+D. By using Amazon Route 53 health checks
+
+**Đáp án:** B. By using an Elastic Load Balancer (ELB)
 
 **Giải thích:**
+
+✔ B is correct: An Elastic Load Balancer automatically distributes incoming application traffic across multiple targets, such as Amazon EC2 instances, and only sends traffic to healthy instances.
+
+✖ A: An Auto Scaling group manages the number of instances, but ELB is what distributes traffic among them.
+
+✖ C: Manually managing Elastic IPs would not be an automatic or scalable solution for failover.
+
+✖ D: Route 53 health checks can route traffic away from a failing _endpoint_ at the DNS level, but ELB is the standard for distributing traffic across a fleet of _instances_.
 
 ---
 
 ### Câu 9
 
-**...**
+What is the **primary use case** for **Amazon S3?**
 
-**Đáp án:**
+A. A relational database service for structured data.
+
+B. A managed NoSQL database.
+
+C. A highly scalable and durable object storage for unstructured data.
+
+D. A block storage service for EC2 instances.
+
+**Đáp án:** C. A highly scalable and durable object storage for unstructured data.
 
 **Giải thích:**
+
+✔ C is correct: Amazon S3 (Simple Storage Service) is an object storage service offering industry-leading scalability, data availability, security, and performance for unstructured data like images, videos, backups, and log files.
+
+✖ A: This describes Amazon RDS.
+
+✖ B: This describes Amazon DynamoDB.
+
+✖ D: This describes Amazon EBS.
 
 ---
 
 ### Câu 10
 
-**...**
+A company needs to **provide a shared, scalable file storage solution** for a large number of **Linux-based Amazon EC2** instances to access **simultaneously**. Which AWS storage service is designed for this use case?
 
-**Đáp án:**
+A. Amazon S3
+
+B. Amazon EBS
+
+C. Amazon EFS
+
+D. AWS Storage Gateway
+
+**Đáp án:** C. Amazon EFS
 
 **Giải thích:**
+
+✔ C is correct: Amazon EFS (Elastic File System) provides a simple, scalable, fully managed elastic NFS file system for use with AWS Cloud services and on-premises resources. It is designed for shared access from multiple EC2 instances.
+
+✖ A: S3 is object storage and cannot be mounted as a shared file system in the same way as EFS.
+
+✖ B: EBS volumes are block storage that can typically only be attached to a single EC2 instance at a time.
+
+✖ D: Storage Gateway is for hybrid cloud storage, connecting on-premises environments to AWS storage.
+
+---
+
+### Câu 11
+
+An application's architecture is **being designed to be highly available**. What is the **best practice** regarding **Availability Zones (AZs)**?
+
+A. Deploy all resources into a single AZ to reduce latency.
+
+B. Deploy resources across multiple AWS Regions.
+
+C. Deploy resources across multiple Availability Zones within a single Region.
+
+D. Use only one AZ and rely on snapshots for recovery.
+
+**Đáp án:** C. Deploy resources across multiple Availability Zones within a single Region.
+
+**Giải thích:**
+
+✔ C is correct: Deploying an application across multiple AZs within a Region is a common strategy for high availability. It protects the application from failure of a single data center.
+
+✖ A: Using a single AZ creates a single point of failure.
+
+✖ B: Deploying across Regions is a strategy for disaster recovery or global reach, not the primary method for standard high availability within a single geographical area.
+
+✖ C: Relying on snapshots is a backup strategy, not a high availability strategy.
+
+---
+
+### Câu 12
+
+A team is **deploying a containerized** application using **Docker**. They want to use a **container orchestration service** but want to completely **avoid managing** the underlying servers where the containers run.
+
+Which AWS service or feature allows this?
+
+A. Amazon ECS with EC2 launch type
+
+B. Amazon EKS with managed node groups
+
+C. AWS Fargate
+
+D. Amazon EC2 with Docker installed
+
+**Đáp án:** C. AWS Fargate
+
+**Giải thích:**
+
+✔ C is correct: AWS Fargate is a serverless compute engine for containers that works with both Amazon ECS and EKS. It allows you to run containers without having to manage the underlying servers or clusters.
+
+✖ A: The EC2 launch type for ECS requires you to manage the EC2 instances in your cluster.
+
+✖ B: EKS with managed node groups still involves EC2 instances that are part of your account, even if managed.
+
+✖ D: This approach involves maximum server management effort.
+
+---
+
+### Câu 13
+
+Which **AWS database service** is a fast and **flexible NoSQL database** service for applications that need consistent, single-digit millisecond latency at any scale?
+
+A. Amazon RDS
+
+B. Amazon DynamoDB
+
+C. Amazon Redshift
+
+D. Amazon Aurora
+
+**Đáp án:** B. Amazon DynamoDB
+
+**Giải thích:**
+
+✔ B is correct: Amazon DynamoDB is a key-value and document NoSQL database that delivers single-digit millisecond performance at any scale.
+
+✖ A: RDS is a service for relational (SQL) databases.
+
+✖ C: Redshift is a data warehouse, not an operational NoSQL database.
+
+✖ D: Aurora is a high-performance relational (SQL) database.
+
+---
+
+### Câu 14
+
+A financial services application needs to **send automated notifications** to customers via **SMS and email** when certain **transactions occur.**
+
+Which AWS service is best suited for **sending these multi-channel notifications** to end-users?
+
+A. Amazon SQS
+
+B. Amazon SES
+
+C. Amazon SNS
+
+D. AWS Step Functions
+
+**Đáp án:** C. Amazon SNS
+
+**Giải thích:**
+
+✔ C is correct: Amazon SNS (Simple Notification Service) is a fully managed messaging service for both application-to-application (A2A) and application-to-person (A2P) communication. It supports sending messages to a large number of subscribers via multiple protocols, including SMS and email.
+
+✖ A: SQS is a message queue for decoupling applications, not for sending notifications directly to users.
+
+✖ B: SES (Simple Email Service) is specifically for email, while SNS is a broader pub/sub and notification service that includes email, SMS, and more.
+
+✖ D: Step Functions orchestrate workflows, they don't send notifications.
+
+---
+
+### Câu 15
+
+A developer wants to **define their entire** AWS infrastructure including VPCs, subnets, EC2 instances, and databases in a **JSON or YAML** template file.
+
+What AWS service enables this **Infrastructure as Code (IaC)** approach?
+
+A. AWS Elastic Beanstalk
+
+B. AWS Config
+
+C. AWS CloudFormation
+
+D. AWS Service Catalog
+
+**Đáp án:** C. AWS CloudFormation
+
+**Giải thích:**
+
+✔ C is correct: AWS CloudFormation provides a common language for you to model and provision all the infrastructure resources in your cloud environment. You create a template that describes all the AWS resources that you want, and CloudFormation takes care of provisioning and configuring those resources for you.
+
+✖ A: Elastic Beanstalk is a PaaS for deploying applications, not a general IaC service.
+
+✖ B: AWS Config is for auditing and compliance, not provisioning.
+
+✖ D: Service Catalog is for creating a curated list of deployable services.
+
+---
+
+### Câu 16
+
+A company's website **experiences predictable traffic** spikes **every weekday morning.**
+
+They want to **automatically increase** the **number of EC2 instances** during these hours and decrease them during off-peak hours to save costs. Which AWS service or feature should they configure?
+
+A. Elastic Load Balancing
+
+B. Scheduled scaling with AWS Auto Scaling
+
+C. Amazon CloudWatch alarms
+
+D. On-Demand capacity reservations
+
+**Đáp án:** B. Scheduled scaling with AWS Auto Scaling
+
+**Giải thích:**
+
+✔ B is correct: AWS Auto Scaling allows for scheduled scaling actions, which let you set your own scaling schedule for predictable load changes. This is the perfect solution for scaling up and down at specific times of the day.
+
+✖ A: ELB distributes traffic but does not add or remove instances.
+
+✖ C: CloudWatch alarms are used for dynamic scaling based on metrics (like CPU utilization), not for predictable time-based scaling.
+
+✖ D: Capacity reservations ensure capacity is available, but they don't automatically scale instances up and down.
+
+---
+
+### Câu 17
+
+Which of the following is a **block-level storage volume** that can be **attached to a running Amazon EC2 instance?**
+
+A. Amazon S3 bucket
+
+B. Amazon Glacier vault
+
+C. Amazon EFS file system
+
+D. Amazon EBS volume
+
+**Đáp án:** D. Amazon EBS volume
+
+**Giải thích:**
+
+✔ D is correct: Amazon EBS (Elastic Block Store) provides high-performance block storage volumes for use with Amazon EC2. They behave like raw, unformatted block devices that you can mount as a disk.
+
+✖ A: S3 is object storage.
+
+✖ B: Glacier is archival storage.
+
+✖ C: EFS is file-level storage.
+
+---
+
+### Câu 18
+
+A mobile app developer is building a new application and **wants to enable user sign-up, sign-in, and access control.**
+
+They need a **managed service** that can handle **user management and authentication**. Which AWS service is designed for this?
+
+A. AWS IAM
+
+B. Amazon Cognito
+
+C. AWS Directory Service
+
+D. AWS SSO
+
+**Đáp án:** B. Amazon Cognito
+
+**Giải thích:**
+
+✔ B is correct: Amazon Cognito lets you add user sign-up, sign-in, and access control to your web and mobile apps quickly and easily. It scales to millions of users and supports sign-in with social identity providers and enterprise identity providers.
+
+✖ A: IAM is for managing access to AWS services and resources, not for authenticating users of your own application.
+
+✖ C: Directory Service is for connecting to Microsoft Active Directory.
+
+✖ D: AWS SSO (now IAM Identity Center) is for providing single sign-on to AWS accounts and business applications, not for a custom mobile app's user base.
+
+---
+
+### Câu 19
+
+What component of an Amazon VPC **controls inbound and outbound traffic at the subnet level?**
+
+A. Security Group
+
+B. Route Table
+
+C. Internet Gateway
+
+D. Network ACL (NACL)
+
+**Đáp án:** D. Network ACL (NACL)
+
+**Giải thích:**
+
+✔ D is correct: A Network Access Control List (NACL) is an optional layer of security for your VPC that acts as a firewall for controlling traffic in and out of one or more subnets.
+
+✖ A: A Security Group acts as a firewall at the instance level, not the subnet level.
+
+✖ B: A Route Table determines where network traffic is directed.
+
+✖ C: An Internet Gateway enables communication between your VPC and the internet.
+
+---
+
+### Câu 20
+
+A company needs to run a **database that uses the PostgreSQL engine**.
+
+They want **AWS to handle the database management** tasks such as provisioning, patching, backup, recovery, and monitoring. Which service should they use?
+
+A. Amazon DynamoDB
+
+B. Amazon EC2 with a manual PostgreSQL installation
+
+C. Amazon Redshift
+
+D. Amazon RDS
+
+**Đáp án:** D. Amazon RDS
+
+**Giải thích:**
+
+✔ D is correct: Amazon RDS (Relational Database Service) is a managed service that supports multiple database engines, including PostgreSQL. It automates time-consuming administration tasks such as hardware provisioning, database setup, patching, and backups.
+
+✖ A: DynamoDB is a NoSQL database.
+
+✖ B: This would require the company to perform all management tasks manually.
+
+✖ C: Redshift is a data warehouse, not an OLTP database service like RDS.
+
+---
+
+### Câu 21
+
+An analytics company needs to **process a massive, continuous stream** of incoming data in **real time.**
+
+Which AWS service is designed to ingest and **process large streams of data records?**
+
+A. Amazon SQS
+
+B. Amazon Kinesis
+
+C. AWS Glue
+
+D. AWS Data Pipeline
+
+**Đáp án:** B. Amazon Kinesis
+
+**Giải thích:**
+
+✔ B is correct: Amazon Kinesis makes it easy to collect, process, and analyze real-time, streaming data so you can get timely insights and react quickly to new information.
+
+✖ A: SQS is a message queue, typically used for decoupling components, not for real-time stream processing and analytics.
+
+✖ C: AWS Glue is an ETL service primarily for batch data preparation.
+
+✖ D: AWS Data Pipeline is for orchestrating data-driven workflows, usually on a schedule.
+
+---
+
+### Câu 22
+
+A company is **deploying a critical application** and must ensure it can **withstand the failure** of an entire **Availability Zone.**
+
+What is the minimum configuration to achieve this?
+
+A. Deploy EC2 instances in a single AZ with an ELB.
+
+B. Deploy EC2 instances across multiple AZs in one Region.
+
+C. Deploy EC2 instances across multiple Regions.
+
+D. Deploy EC2 instances in a single AZ and enable AWS Backup.
+
+**Đáp án:** B. Deploy EC2 instances across multiple AZs in one Region.
+
+**Giải thích:**
+
+✔ B is correct: To be resilient to the failure of a single Availability Zone, the application must be deployed with resources (like EC2 instances in an Auto Scaling group behind an ELB) running in at least two Availability Zones within the same AWS Region.
+
+✖ A: This configuration has a single point of failure at the AZ level.
+
+✖ C: This is a disaster recovery strategy, which is more complex than what is needed for simple AZ failure resilience.
+
+✖ D: Backups are for data recovery, not for maintaining high availability during an outage.
+
+---
+
+### Câu 23
+
+A team needs a central place to **store and version-control** their application's source code. They are looking for a **fully-managed service** that hosts **secure Git-based repositories**. Which AWS service should they use?
+
+A. Amazon S3
+
+B. AWS CodeCommit
+
+C. AWS CodeDeploy
+
+D. AWS CodeArtifacts
+
+**Đáp án:** B. AWS CodeCommit
+
+**Giải thích:**
+
+✔ B is correct: AWS CodeCommit is a secure, highly scalable, managed source control service that hosts private Git repositories.
+
+✖ A: S3 can store files and supports versioning, but it is not a Git repository.
+
+✖ C: CodeDeploy is a service for automating code deployments to servers.
+
+✖ D: CodeArtifact is a secure artifact repository for storing software packages.
