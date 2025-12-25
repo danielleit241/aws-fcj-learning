@@ -1,7 +1,7 @@
 import re
 
 # Read the file
-with open(r"Cloud Practitioner Practice\AWS CLF-C02 - Practice Exam 04.md", "r", encoding="utf-8") as f:
+with open(r"Cloud Practitioner Practice\AWS CLF-C02 - Practice Exam 05.md", "r", encoding="utf-8") as f:
     content = f.read()
 
 # Split by questions
@@ -45,7 +45,7 @@ for i in range(1, len(questions), 2):
 result = '\n'.join(formatted_questions)
 
 # Write back to file
-with open(r"Cloud Practitioner Practice\AWS CLF-C02 - Practice Exam 04.md", "w", encoding="utf-8") as f:
+with open(r"Cloud Practitioner Practice\AWS CLF-C02 - Practice Exam 05.md", "w", encoding="utf-8") as f:
     f.write(result)
 
 print("File formatted successfully!")
